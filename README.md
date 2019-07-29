@@ -22,7 +22,7 @@ pod 'SCHTTPServer'
 
 ## Author
 
-summerhanada@163.com, qianlongxu@sohu-inc.com
+summerhanada@163.com
 
 ## License
 

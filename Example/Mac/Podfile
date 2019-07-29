@@ -1,0 +1,8 @@
+use_frameworks!
+
+platform :osx, '10.10'
+
+target 'SCHTTPServerDemo' do
+  pod 'SCHTTPServer', :path => '../../'
+  pod 'CocoaAsyncSocket'
+end

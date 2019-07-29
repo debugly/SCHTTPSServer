@@ -1,0 +1,16 @@
+PODS:
+  - SCHTTPServer (0.1.0)
+
+DEPENDENCIES:
+  - SCHTTPServer (from `../../`)
+
+EXTERNAL SOURCES:
+  SCHTTPServer:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  SCHTTPServer: fd6d978af2286e5943dc0a5313467c7e2b24ab6b
+
+PODFILE CHECKSUM: ee62e4b32d75e9ecb0bdc276e287a6de7dbfeda1
+
+COCOAPODS: 1.7.4

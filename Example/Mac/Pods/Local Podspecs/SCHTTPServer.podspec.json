@@ -1,0 +1,29 @@
+{
+  "name": "SCHTTPServer",
+  "version": "0.1.0",
+  "summary": "A short description of SCHTTPServer.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/summerhanada@163.com/SCHTTPServer",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "summerhanada@163.com": "qianlongxu@sohu-inc.com"
+  },
+  "source": {
+    "git": "https://github.com/summerhanada@163.com/SCHTTPServer.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0",
+    "osx": "10.10"
+  },
+  "source_files": "SCHTTPServer/Classes/**/*",
+  "public_header_files": "Pod/Classes/**/*.h",
+  "dependencies": {
+    "CocoaAsyncSocket": [
+
+    ]
+  }
+}

@@ -1,0 +1,769 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3225EB10B1D5F3174CDF970A615B2825 /* Pods-SCHTTPServer_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2360C303CFDC15EFA45578D7C6B4ACEB /* Pods-SCHTTPServer_Tests-dummy.m */; };
+		3C0F01F2A97B84579F968DF8BD00FEDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		447EC24D4404B17C84BBEB50BD8C1FBF /* SCHTTPServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2E8E85EB6C75CB0A6CE90BE554ACDB /* SCHTTPServer-dummy.m */; };
+		76FEA7E9023618348085BE7299F5E9E9 /* Pods-SCHTTPServer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 92ED0433D467A7A2AB0D2E8F50171F8F /* Pods-SCHTTPServer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		89071BD41B3A14E26439273E42A29304 /* Pods-SCHTTPServer_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF6C164B98F26332770985BE39C4427 /* Pods-SCHTTPServer_Example-dummy.m */; };
+		908FDAE5068EA599AB1FEEA204F1B899 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		AA5590E8ECAB19E90B029453181B9337 /* Pods-SCHTTPServer_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 929FBE35693F4CDC40736EFAA00B714F /* Pods-SCHTTPServer_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA8E94EBBA7EBAA30614B5EF2B6061BC /* ReplaceMe.m in Sources */ = {isa = PBXBuildFile; fileRef = 312D9AD1982F256594C499D399D9C84E /* ReplaceMe.m */; };
+		CC4559DC524A5D73FFA9E71B7932FE31 /* SCHTTPServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2F9A975A9A9932BB2B7270C82A0B24 /* SCHTTPServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD78F9B0D2EE9749D1A53C0E912D75D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8F2F64DB995B3C9F47A15AD175CB5B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0774A393CED162E25E754DF510EFB536;
+			remoteInfo = SCHTTPServer;
+		};
+		FA24AF097FB3BCB9585CFD5803560479 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 419B06C9971F72141CC8E15E8B7A8B58;
+			remoteInfo = "Pods-SCHTTPServer_Example";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08E00CB83719B15BA51ED00C8841A925 /* Pods_SCHTTPServer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SCHTTPServer_Example.framework; path = "Pods-SCHTTPServer_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DC61E98FC576B3BCDC9C1845AE1ADDD /* Pods-SCHTTPServer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		11BC95B59DFB95E88EE73D7F90DFF7F1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		15761656A405CAAD86153E76EA618E8D /* SCHTTPServer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SCHTTPServer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		179E5C8D6B2E71457E849F3201EB68DA /* Pods-SCHTTPServer_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServer_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		2360C303CFDC15EFA45578D7C6B4ACEB /* Pods-SCHTTPServer_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SCHTTPServer_Tests-dummy.m"; sourceTree = "<group>"; };
+		312D9AD1982F256594C499D399D9C84E /* ReplaceMe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReplaceMe.m; path = SCHTTPServer/Classes/ReplaceMe.m; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		37E15D4E0630948A0692A96F4D6DD402 /* Pods-SCHTTPServer_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SCHTTPServer_Example.modulemap"; sourceTree = "<group>"; };
+		3CB520ED7A6D489B86A1D46662564A4F /* SCHTTPServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SCHTTPServer.framework; path = SCHTTPServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E433A04418E0D248D69A5BF0997B2C7 /* Pods-SCHTTPServer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServer_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		4C7358BD5FC80846CF160C062B516F66 /* SCHTTPServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SCHTTPServer-Info.plist"; sourceTree = "<group>"; };
+		5D61AD9B36CA5A6F9A9AFF647CB331B7 /* Pods-SCHTTPServer_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SCHTTPServer_Tests.modulemap"; sourceTree = "<group>"; };
+		61DDC90AC50FDC172FC8D68EFDCE4E89 /* SCHTTPServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SCHTTPServer.modulemap; sourceTree = "<group>"; };
+		67DE2999055384BA56AA3DD3CD86973C /* Pods_SCHTTPServer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SCHTTPServer_Tests.framework; path = "Pods-SCHTTPServer_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75EF444F856D3249D12B33308CB92A70 /* Pods-SCHTTPServer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServer_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		929FBE35693F4CDC40736EFAA00B714F /* Pods-SCHTTPServer_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SCHTTPServer_Tests-umbrella.h"; sourceTree = "<group>"; };
+		92ED0433D467A7A2AB0D2E8F50171F8F /* Pods-SCHTTPServer_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SCHTTPServer_Example-umbrella.h"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A34C0C1A93E804628EAE7E77DCE21DD4 /* Pods-SCHTTPServer_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SCHTTPServer_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B1CE851E36AA2B7AB0012974F4871989 /* Pods-SCHTTPServer_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SCHTTPServer_Example-frameworks.sh"; sourceTree = "<group>"; };
+		B87C52566D1840AAB3AE1FBE5E957541 /* Pods-SCHTTPServer_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SCHTTPServer_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BD2E8E85EB6C75CB0A6CE90BE554ACDB /* SCHTTPServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SCHTTPServer-dummy.m"; sourceTree = "<group>"; };
+		BD2FA6D4B0821123184B33A06FB51946 /* Pods-SCHTTPServer_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServer_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C3C95ECF9172D54161227FCCC11FE728 /* Pods-SCHTTPServer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServer_Example.release.xcconfig"; sourceTree = "<group>"; };
+		CE76BD383BB5FE03FC2A5B9CE093DEF9 /* Pods-SCHTTPServer_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServer_Tests-Info.plist"; sourceTree = "<group>"; };
+		CEF6C164B98F26332770985BE39C4427 /* Pods-SCHTTPServer_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SCHTTPServer_Example-dummy.m"; sourceTree = "<group>"; };
+		D70C1895E4B37CAC8425D7E23E2424EA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D86D5E82D6AC3FBA2065A7E884EC9CA1 /* SCHTTPServer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-prefix.pch"; sourceTree = "<group>"; };
+		DD46BCDF9D9AA14EBFA19E5176D9C5A5 /* Pods-SCHTTPServer_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServer_Example-Info.plist"; sourceTree = "<group>"; };
+		DE2F9A975A9A9932BB2B7270C82A0B24 /* SCHTTPServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-umbrella.h"; sourceTree = "<group>"; };
+		F7CE47970701918AF46BB2BE97D905BC /* SCHTTPServer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SCHTTPServer.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		35125C84137BD711BF16DE8B4E8B20D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				908FDAE5068EA599AB1FEEA204F1B899 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D61885CDD49AC4E8DD6099C84EC17AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C0F01F2A97B84579F968DF8BD00FEDB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C2F1F74933C2FBC890BAFC7053064C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD78F9B0D2EE9749D1A53C0E912D75D8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0159ADEF907ED8E5E07AAF3C20DDEBB0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				61DDC90AC50FDC172FC8D68EFDCE4E89 /* SCHTTPServer.modulemap */,
+				F7CE47970701918AF46BB2BE97D905BC /* SCHTTPServer.xcconfig */,
+				BD2E8E85EB6C75CB0A6CE90BE554ACDB /* SCHTTPServer-dummy.m */,
+				4C7358BD5FC80846CF160C062B516F66 /* SCHTTPServer-Info.plist */,
+				D86D5E82D6AC3FBA2065A7E884EC9CA1 /* SCHTTPServer-prefix.pch */,
+				DE2F9A975A9A9932BB2B7270C82A0B24 /* SCHTTPServer-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/iOS/Pods/Target Support Files/SCHTTPServer";
+			sourceTree = "<group>";
+		};
+		20A097A7E5AA5F4D593D746F0A750198 /* Pods-SCHTTPServer_Example */ = {
+			isa = PBXGroup;
+			children = (
+				37E15D4E0630948A0692A96F4D6DD402 /* Pods-SCHTTPServer_Example.modulemap */,
+				B87C52566D1840AAB3AE1FBE5E957541 /* Pods-SCHTTPServer_Example-acknowledgements.markdown */,
+				179E5C8D6B2E71457E849F3201EB68DA /* Pods-SCHTTPServer_Example-acknowledgements.plist */,
+				CEF6C164B98F26332770985BE39C4427 /* Pods-SCHTTPServer_Example-dummy.m */,
+				B1CE851E36AA2B7AB0012974F4871989 /* Pods-SCHTTPServer_Example-frameworks.sh */,
+				DD46BCDF9D9AA14EBFA19E5176D9C5A5 /* Pods-SCHTTPServer_Example-Info.plist */,
+				92ED0433D467A7A2AB0D2E8F50171F8F /* Pods-SCHTTPServer_Example-umbrella.h */,
+				75EF444F856D3249D12B33308CB92A70 /* Pods-SCHTTPServer_Example.debug.xcconfig */,
+				C3C95ECF9172D54161227FCCC11FE728 /* Pods-SCHTTPServer_Example.release.xcconfig */,
+			);
+			name = "Pods-SCHTTPServer_Example";
+			path = "Target Support Files/Pods-SCHTTPServer_Example";
+			sourceTree = "<group>";
+		};
+		2726FE6044F1F7714ACC4CF88F903769 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4730BFF5470E35121B91913C05C59DD9 /* SCHTTPServer */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		462ED2CF3EDA53F308B94BEA29344BAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08E00CB83719B15BA51ED00C8841A925 /* Pods_SCHTTPServer_Example.framework */,
+				67DE2999055384BA56AA3DD3CD86973C /* Pods_SCHTTPServer_Tests.framework */,
+				3CB520ED7A6D489B86A1D46662564A4F /* SCHTTPServer.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4730BFF5470E35121B91913C05C59DD9 /* SCHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				312D9AD1982F256594C499D399D9C84E /* ReplaceMe.m */,
+				490977C7EFAE86A0C976323D04CC772D /* Pod */,
+				0159ADEF907ED8E5E07AAF3C20DDEBB0 /* Support Files */,
+			);
+			name = SCHTTPServer;
+			path = ../../..;
+			sourceTree = "<group>";
+		};
+		490977C7EFAE86A0C976323D04CC772D /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				11BC95B59DFB95E88EE73D7F90DFF7F1 /* LICENSE */,
+				D70C1895E4B37CAC8425D7E23E2424EA /* README.md */,
+				15761656A405CAAD86153E76EA618E8D /* SCHTTPServer.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		50C507A19E0757E9757479234A4A8F33 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				20A097A7E5AA5F4D593D746F0A750198 /* Pods-SCHTTPServer_Example */,
+				7DE5D542F47F94ADEB135F66F1D42B2C /* Pods-SCHTTPServer_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DE5D542F47F94ADEB135F66F1D42B2C /* Pods-SCHTTPServer_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5D61AD9B36CA5A6F9A9AFF647CB331B7 /* Pods-SCHTTPServer_Tests.modulemap */,
+				A34C0C1A93E804628EAE7E77DCE21DD4 /* Pods-SCHTTPServer_Tests-acknowledgements.markdown */,
+				BD2FA6D4B0821123184B33A06FB51946 /* Pods-SCHTTPServer_Tests-acknowledgements.plist */,
+				2360C303CFDC15EFA45578D7C6B4ACEB /* Pods-SCHTTPServer_Tests-dummy.m */,
+				CE76BD383BB5FE03FC2A5B9CE093DEF9 /* Pods-SCHTTPServer_Tests-Info.plist */,
+				929FBE35693F4CDC40736EFAA00B714F /* Pods-SCHTTPServer_Tests-umbrella.h */,
+				0DC61E98FC576B3BCDC9C1845AE1ADDD /* Pods-SCHTTPServer_Tests.debug.xcconfig */,
+				3E433A04418E0D248D69A5BF0997B2C7 /* Pods-SCHTTPServer_Tests.release.xcconfig */,
+			);
+			name = "Pods-SCHTTPServer_Tests";
+			path = "Target Support Files/Pods-SCHTTPServer_Tests";
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				2726FE6044F1F7714ACC4CF88F903769 /* Development Pods */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				462ED2CF3EDA53F308B94BEA29344BAC /* Products */,
+				50C507A19E0757E9757479234A4A8F33 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		62CFB95767C3E1D57DBDB96A6490F84B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4559DC524A5D73FFA9E71B7932FE31 /* SCHTTPServer-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		709430B58ADF42A699484ACA9AEC8127 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76FEA7E9023618348085BE7299F5E9E9 /* Pods-SCHTTPServer_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C20D73BF525C0A21EF6EEBD8FB72909F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA5590E8ECAB19E90B029453181B9337 /* Pods-SCHTTPServer_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0774A393CED162E25E754DF510EFB536 /* SCHTTPServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB9872FC88296BD01ED9ED07801A9DF5 /* Build configuration list for PBXNativeTarget "SCHTTPServer" */;
+			buildPhases = (
+				62CFB95767C3E1D57DBDB96A6490F84B /* Headers */,
+				FDCA7C1079D59D93875B221DE8AA7D42 /* Sources */,
+				E0C2F1F74933C2FBC890BAFC7053064C /* Frameworks */,
+				708FA098A9571C0DD87AA4F553027F70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SCHTTPServer;
+			productName = SCHTTPServer;
+			productReference = 3CB520ED7A6D489B86A1D46662564A4F /* SCHTTPServer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2FA9BEFDC645B91FEA8A8D0CD9DBE725 /* Pods-SCHTTPServer_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CFC72C35D6CBB5088F99A0C1874B18C /* Build configuration list for PBXNativeTarget "Pods-SCHTTPServer_Tests" */;
+			buildPhases = (
+				C20D73BF525C0A21EF6EEBD8FB72909F /* Headers */,
+				B8E17F475F6ED1E82D4844167493A126 /* Sources */,
+				5D61885CDD49AC4E8DD6099C84EC17AE /* Frameworks */,
+				9DD9618D8163FBC43ECFCB73017787ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D327D3563502AE98A91F0C5D7231E13B /* PBXTargetDependency */,
+			);
+			name = "Pods-SCHTTPServer_Tests";
+			productName = "Pods-SCHTTPServer_Tests";
+			productReference = 67DE2999055384BA56AA3DD3CD86973C /* Pods_SCHTTPServer_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		419B06C9971F72141CC8E15E8B7A8B58 /* Pods-SCHTTPServer_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B9CDEB962044C45CB4B2F3E1303A572 /* Build configuration list for PBXNativeTarget "Pods-SCHTTPServer_Example" */;
+			buildPhases = (
+				709430B58ADF42A699484ACA9AEC8127 /* Headers */,
+				1BB4D55EDB45A4E9379A91FA9AFDB710 /* Sources */,
+				35125C84137BD711BF16DE8B4E8B20D0 /* Frameworks */,
+				7FACA8468AD16DE063259BEFCBA4ADF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12F254B87B56C20F6709F313387D1824 /* PBXTargetDependency */,
+			);
+			name = "Pods-SCHTTPServer_Example";
+			productName = "Pods-SCHTTPServer_Example";
+			productReference = 08E00CB83719B15BA51ED00C8841A925 /* Pods_SCHTTPServer_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 462ED2CF3EDA53F308B94BEA29344BAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				419B06C9971F72141CC8E15E8B7A8B58 /* Pods-SCHTTPServer_Example */,
+				2FA9BEFDC645B91FEA8A8D0CD9DBE725 /* Pods-SCHTTPServer_Tests */,
+				0774A393CED162E25E754DF510EFB536 /* SCHTTPServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		708FA098A9571C0DD87AA4F553027F70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FACA8468AD16DE063259BEFCBA4ADF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DD9618D8163FBC43ECFCB73017787ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1BB4D55EDB45A4E9379A91FA9AFDB710 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89071BD41B3A14E26439273E42A29304 /* Pods-SCHTTPServer_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E17F475F6ED1E82D4844167493A126 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3225EB10B1D5F3174CDF970A615B2825 /* Pods-SCHTTPServer_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDCA7C1079D59D93875B221DE8AA7D42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8E94EBBA7EBAA30614B5EF2B6061BC /* ReplaceMe.m in Sources */,
+				447EC24D4404B17C84BBEB50BD8C1FBF /* SCHTTPServer-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		12F254B87B56C20F6709F313387D1824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SCHTTPServer;
+			target = 0774A393CED162E25E754DF510EFB536 /* SCHTTPServer */;
+			targetProxy = E8F2F64DB995B3C9F47A15AD175CB5B1 /* PBXContainerItemProxy */;
+		};
+		D327D3563502AE98A91F0C5D7231E13B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-SCHTTPServer_Example";
+			target = 419B06C9971F72141CC8E15E8B7A8B58 /* Pods-SCHTTPServer_Example */;
+			targetProxy = FA24AF097FB3BCB9585CFD5803560479 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		56D8952267BBF3293B9ABE8A3AE34916 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7CE47970701918AF46BB2BE97D905BC /* SCHTTPServer.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SCHTTPServer/SCHTTPServer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer.modulemap";
+				PRODUCT_MODULE_NAME = SCHTTPServer;
+				PRODUCT_NAME = SCHTTPServer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		770F9B32011D73FA94F3FA63E8A4AA23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C95ECF9172D54161227FCCC11FE728 /* Pods-SCHTTPServer_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SCHTTPServer_Example/Pods-SCHTTPServer_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SCHTTPServer_Example/Pods-SCHTTPServer_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7D636881A9822FA43438FD02A263EF72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7CE47970701918AF46BB2BE97D905BC /* SCHTTPServer.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SCHTTPServer/SCHTTPServer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer.modulemap";
+				PRODUCT_MODULE_NAME = SCHTTPServer;
+				PRODUCT_NAME = SCHTTPServer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9322AC71258B6C20E93721E240A6809F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75EF444F856D3249D12B33308CB92A70 /* Pods-SCHTTPServer_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SCHTTPServer_Example/Pods-SCHTTPServer_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SCHTTPServer_Example/Pods-SCHTTPServer_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B42309F99F5B5B8E8E6CEFD9F49DD603 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DC61E98FC576B3BCDC9C1845AE1ADDD /* Pods-SCHTTPServer_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SCHTTPServer_Tests/Pods-SCHTTPServer_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SCHTTPServer_Tests/Pods-SCHTTPServer_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DD78CE5C0130AD32F49EE3E8E98FBE72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E433A04418E0D248D69A5BF0997B2C7 /* Pods-SCHTTPServer_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SCHTTPServer_Tests/Pods-SCHTTPServer_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SCHTTPServer_Tests/Pods-SCHTTPServer_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0CFC72C35D6CBB5088F99A0C1874B18C /* Build configuration list for PBXNativeTarget "Pods-SCHTTPServer_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B42309F99F5B5B8E8E6CEFD9F49DD603 /* Debug */,
+				DD78CE5C0130AD32F49EE3E8E98FBE72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B9CDEB962044C45CB4B2F3E1303A572 /* Build configuration list for PBXNativeTarget "Pods-SCHTTPServer_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9322AC71258B6C20E93721E240A6809F /* Debug */,
+				770F9B32011D73FA94F3FA63E8A4AA23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
+				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB9872FC88296BD01ED9ED07801A9DF5 /* Build configuration list for PBXNativeTarget "SCHTTPServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D636881A9822FA43438FD02A263EF72 /* Debug */,
+				56D8952267BBF3293B9ABE8A3AE34916 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
