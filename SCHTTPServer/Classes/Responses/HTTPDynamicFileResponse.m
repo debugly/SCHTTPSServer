@@ -6,10 +6,6 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-// Log levels : off, error, warn, info, verbose
-// Other flags: trace
-static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
-
 #define NULL_FD  -1
 
 
@@ -59,7 +55,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 {
 	BOOL result = (readOffset == fileLength) && (readBufferOffset == 0);
 	
-	HTTPLogTrace2(@"%@[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
+    HTTPLogTrace2(@"%s[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
 	
 	return result;
 }
@@ -109,7 +105,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 				s1 = offset;
 				offset += sepLen;
 				
-				HTTPLogVerbose(@"%@[%p]: Found s1 at %lu", __FILE__, self, (unsigned long)s1);
+                HTTPLogVerbose(@"%s[%p]: Found s1 at %lu", __FILE__, self, (unsigned long)s1);
 			}
 			else
 			{
@@ -119,7 +115,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 				s2 = offset;
 				offset += sepLen;
 				
-				HTTPLogVerbose(@"%@[%p]: Found s2 at %lu", __FILE__, self, (unsigned long)s2);
+                HTTPLogVerbose(@"%s[%p]: Found s2 at %lu", __FILE__, self, (unsigned long)s2);
 			}
 			
 			if (found1 && found2)
@@ -148,7 +144,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 						// Found the replacement value.
 						// Now perform the replacement in the buffer.
 						
-						HTTPLogVerbose(@"%@[%p]: key(%@) -> value(%@)", __FILE__, self, key, value);
+                        HTTPLogVerbose(@"%s[%p]: key(%@) -> value(%@)", __FILE__, self, key, value);
 						
 						NSData *v = [[value description] dataUsingEncoding:NSUTF8StringEncoding];
 						NSUInteger vLength = [v length];

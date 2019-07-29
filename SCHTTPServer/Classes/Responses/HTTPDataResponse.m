@@ -5,10 +5,6 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-// Log levels : off, error, warn, info, verbose
-// Other flags: trace
-static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
-
 
 @implementation HTTPDataResponse
 
@@ -34,7 +30,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 {
 	UInt64 result = (UInt64)[data length];
 	
-	HTTPLogTrace2(@"%@[%p]: contentLength - %llu", __FILE__, self, result);
+    HTTPLogTrace2(@"%s[%p]: contentLength - %llu", __FILE__, self, result);
 	
 	return result;
 }
@@ -48,14 +44,14 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 
 - (void)setOffset:(UInt64)offsetParam
 {
-	HTTPLogTrace2(@"%@[%p]: setOffset:%lu", __FILE__, self, (unsigned long)offset);
+    HTTPLogTrace2(@"%s[%p]: setOffset:%lu", __FILE__, self, (unsigned long)offset);
 	
 	offset = (NSUInteger)offsetParam;
 }
 
 - (NSData *)readDataOfLength:(NSUInteger)lengthParameter
 {
-	HTTPLogTrace2(@"%@[%p]: readDataOfLength:%lu", __FILE__, self, (unsigned long)lengthParameter);
+    HTTPLogTrace2(@"%s[%p]: readDataOfLength:%lu", __FILE__, self, (unsigned long)lengthParameter);
 	
 	NSUInteger remaining = [data length] - offset;
 	NSUInteger length = lengthParameter < remaining ? lengthParameter : remaining;
@@ -71,7 +67,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 {
 	BOOL result = (offset == [data length]);
 	
-	HTTPLogTrace2(@"%@[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
+    HTTPLogTrace2(@"%s[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
 	
 	return result;
 }

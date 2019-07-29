@@ -7,10 +7,6 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-// Log levels: off, error, warn, info, verbose
-// Other flags: trace
-static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
-
 @interface HTTPServer (PrivateAPI)
 
 - (void)unpublishBonjour;
@@ -140,8 +136,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	
 	if (value && ![value isKindOfClass:[NSString class]])
 	{
-		HTTPLogWarn(@"%@: %@ - Expecting NSString parameter, received %@ parameter",
-					__FILE__, _cmd, NSStringFromClass([value class]));
+        HTTPLogWarn(@"%s: %@ - Expecting NSString parameter, received %@ parameter",
+					__FILE__, NSStringFromSelector(_cmd), NSStringFromClass([value class]));
 		return;
 	}
 	
@@ -409,7 +405,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 		}
 		else
 		{
-			HTTPLogError(@"%@: Failed to start HTTP Server: %@", __FILE__, err);
+            HTTPLogError(@"%s: Failed to start HTTP Server: %@", __FILE__, err);
 		}
 	}});
 	
@@ -657,7 +653,7 @@ static NSThread *bonjourThread;
 	static dispatch_once_t predicate;
 	dispatch_once(&predicate, ^{
 		
-		HTTPLogVerbose(@"%@: Starting bonjour thread...", __FILE__);
+        HTTPLogVerbose(@"%s: Starting bonjour thread...", __FILE__);
 		
 		bonjourThread = [[NSThread alloc] initWithTarget:self
 		                                        selector:@selector(bonjourThread)
@@ -670,7 +666,7 @@ static NSThread *bonjourThread;
 {
 	@autoreleasepool {
 	
-		HTTPLogVerbose(@"%@: BonjourThread: Started", __FILE__);
+        HTTPLogVerbose(@"%s: BonjourThread: Started", __FILE__);
 		
 		// We can't run the run loop unless it has an associated input source or a timer.
 		// So we'll just create a timer that will never fire - unless the server runs for 10,000 years.
@@ -685,7 +681,7 @@ static NSThread *bonjourThread;
 
 		[[NSRunLoop currentRunLoop] run];
 		
-		HTTPLogVerbose(@"%@: BonjourThread: Aborted", __FILE__);
+        HTTPLogVerbose(@"%s: BonjourThread: Aborted", __FILE__);
 	
 	}
 }

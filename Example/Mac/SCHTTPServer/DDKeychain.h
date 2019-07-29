@@ -2,14 +2,12 @@
 #import <Security/Security.h>
 
 @interface DDKeychain : NSObject
-{
-	
-}
 
 + (NSString *)passwordForHTTPServer;
 + (BOOL)setPasswordForHTTPServer:(NSString *)password;
 
 + (void)createNewIdentity;
++ (NSArray *)SelfCertificateExist;
 + (NSArray *)SSLIdentityAndCertificates;
 
 + (NSString *)applicationTemporaryDirectory;

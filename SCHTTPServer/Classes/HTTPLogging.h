@@ -128,7 +128,7 @@
                                                   HTTP_LOG_CONTEXT, frmt, ##__VA_ARGS__)
 
 #define HTTPLogCTrace()               LOG_C_MAYBE(HTTP_LOG_ASYNC_TRACE,   httpLogLevel, HTTP_LOG_FLAG_TRACE, \
-                                                  HTTP_LOG_CONTEXT, @"%@[%p]: %@", __FILE__, self, __FUNCTION__)
+                                                  HTTP_LOG_CONTEXT, @"%s[%p]: %@", __FILE__, self, __FUNCTION__)
 
 #define HTTPLogCTrace2(frmt, ...)     LOG_C_MAYBE(HTTP_LOG_ASYNC_TRACE,   httpLogLevel, HTTP_LOG_FLAG_TRACE, \
                                                   HTTP_LOG_CONTEXT, frmt, ##__VA_ARGS__)
