@@ -1,5 +1,5 @@
 #import "MyHTTPConnection.h"
-#import "HTTPLogging.h"
+#import <SCHTTPServer/HTTPLogging.h>
 #import "DDKeychain.h"
 
 @implementation MyHTTPConnection

@@ -15,6 +15,18 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    
+//    NSString *derPath = [[NSBundle mainBundle] pathForResource:@"localhost.gengtaotjut.com" ofType:@"der"];
+//    NSData *data = [NSData dataWithContentsOfFile:derPath];
+//    SecCertificateRef der = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)data);
+//    if (der != NULL) {
+//        NSLog(@"读取Der成功");
+//        SecIdentityRef serverIdentityRef;
+//        SecIdentityCreateWithCertificate(NULL, der, &serverIdentityRef);
+//        if (serverIdentityRef != NULL) {
+//            NSLog(@"创建SecIdentity成功");
+//        }
+//    }
 }
 
 

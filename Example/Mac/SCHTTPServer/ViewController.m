@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import <SCHTTPServer/HTTPServer.h>
 #import "MyHTTPConnection.h"
+#import "PemHTTPConnection.h"
 
 @implementation ViewController
 {
@@ -20,7 +21,7 @@
     // Do any additional setup after loading the view.
     // Initalize our http server
     httpServer = [[HTTPServer alloc] init];
-    [httpServer setConnectionClass:[MyHTTPConnection class]];
+    [httpServer setConnectionClass:[PemHTTPConnection class]];
     // Serve files from the standard Sites folder
     NSString *docRoot = [@"~/Sites" stringByExpandingTildeInPath];
     NSLog(@"Setting document root: %@", docRoot);
