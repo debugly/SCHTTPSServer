@@ -7,8 +7,7 @@
 
 #import "ViewController.h"
 #import <SCHTTPServer/HTTPServer.h>
-#import "MyHTTPConnection.h"
-#import "PemHTTPConnection.h"
+#import <SCHTTPServer/P12HTTPConnection.h>
 
 @implementation ViewController
 {
@@ -21,7 +20,13 @@
     // Do any additional setup after loading the view.
     // Initalize our http server
     httpServer = [[HTTPServer alloc] init];
-    [httpServer setConnectionClass:[PemHTTPConnection class]];
+#warning your PKCS#12 certificate
+    NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"localhost.gengtaotjut.com" ofType:@"p12"];
+    [P12HTTPConnection pkcsPath:p12Path];
+#warning PKCS#12 password
+    [P12HTTPConnection pkcsPassword:@"123456"];
+    
+    [httpServer setConnectionClass:[P12HTTPConnection class]];
     // Serve files from the standard Sites folder
     NSString *docRoot = [@"~/Sites" stringByExpandingTildeInPath];
     NSLog(@"Setting document root: %@", docRoot);

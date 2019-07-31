@@ -1,14 +1,47 @@
 //
-//  PemHTTPConnection.m
+//  P12HTTPConnection.m
 //  SCHTTPServerDemo
 //
 //  Created by Matt Reach on 2019/7/30.
 //
 
-#import "PemHTTPConnection.h"
+#import "P12HTTPConnection.h"
 #import <SCHTTPServer/HTTPLogging.h>
 
-@implementation PemHTTPConnection
+@implementation P12HTTPConnection
+
+static const char *p12_pwd  = NULL;
+static const char *p12_path = NULL;
+
+static void NSString2CharPoint(NSString *src,const char ** dest)
+{
+    if (NULL != dest && NULL != *dest) {
+        free((void *)*dest);
+        *dest = NULL;
+    }
+    if (!src) {
+        *dest = NULL;
+        return;
+    }
+    const char *c_src = [src UTF8String];
+    size_t size  = strlen(c_src) + 1;
+    char *buffer = malloc(size);
+    memset(buffer, 0, size);
+    memcpy(buffer, c_src, size - 1);
+    *dest = buffer;
+}
+
++ (void)pkcsPassword:(NSString *)pwd
+{
+    NSAssert([pwd length] > 0, @"P12 密码长度必须大于0！");
+    NSString2CharPoint(pwd, &p12_pwd);
+}
+
++ (void)pkcsPath:(NSString *)path
+{
+    NSAssert([[NSFileManager defaultManager]fileExistsAtPath:path], @"P12 证书不存在！");
+    NSString2CharPoint(path, &p12_path);
+}
 
 /**
  * Overrides HTTPConnection's method
@@ -16,7 +49,7 @@
 - (BOOL)isSecureServer
 {
     HTTPLogTrace();
-    
+
     // Create an HTTPS server (all connections will be secured via SSL/TLS)
     return YES;
 }
@@ -73,16 +106,18 @@ static OSStatus CopyIdentityFromPKCS12File(const char *cPath,
  ought to work in all cats starting with Leopard. */
 CF_INLINE CFStringRef CopyCertSubject(SecCertificateRef cert)
 {
-    CFStringRef server_cert_summary = CFSTR("(null)");
-    
+    CFStringRef server_cert_summary = NULL;
     /* Lion & later: Get the long description if we can. */
-    if(SecCertificateCopyLongDescription != NULL)
-        server_cert_summary =
-        SecCertificateCopyLongDescription(NULL, cert, NULL);
-    else if(SecCertificateCopySubjectSummary != NULL)/* Snow Leopard: Get the certificate summary. */
+    server_cert_summary = SecCertificateCopyLongDescription(NULL, cert, NULL);
+    /* Snow Leopard: Get the certificate summary. */
+    if(NULL == server_cert_summary)
         server_cert_summary = SecCertificateCopySubjectSummary(cert);
-    else /* Leopard is as far back as we go... */
-        (void)SecCertificateCopyCommonName(cert, &server_cert_summary);
+    /* Leopard is as far back as we go... */
+    if(NULL == server_cert_summary)
+        SecCertificateCopyCommonName(cert, &server_cert_summary);
+    /* default is null ... */
+    if(NULL == server_cert_summary)
+        server_cert_summary = CFSTR("(null)");
     return server_cert_summary;
 }
 
@@ -96,12 +131,8 @@ CF_INLINE CFStringRef CopyCertSubject(SecCertificateRef cert)
 {
     HTTPLogTrace();
     SecIdentityRef cert_and_key = NULL;
-#warning your PKCS#12 certificate
-    NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"localhost.gengtaotjut.com" ofType:@"p12"];
-    const char *cPath = [p12Path UTF8String];
-#warning PKCS#12 password
-    const char *cPassword = "123456";
-    CopyIdentityFromPKCS12File(cPath, cPassword, &cert_and_key);
+
+    CopyIdentityFromPKCS12File(p12_path, p12_pwd, &cert_and_key);
     
     SecCertificateRef cert = NULL;
     

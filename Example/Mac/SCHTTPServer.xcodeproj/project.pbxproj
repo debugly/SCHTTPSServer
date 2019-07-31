@@ -15,7 +15,6 @@
 		DD41D06B22EB161D0062ED53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD68E4D022EAFE7C00F684AC /* Main.storyboard */; };
 		DD41D07722EB180C0062ED53 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DD41D07522EB180B0062ED53 /* MyHTTPConnection.m */; };
 		DD5C794F22EEF2DD00C89AB9 /* DDKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */; };
-		DD5C7A1A22EFEA2800C89AB9 /* PemHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5C7A1922EFEA2800C89AB9 /* PemHTTPConnection.m */; };
 		DD5C7A1E22F0278500C89AB9 /* localhost.gengtaotjut.com.der in Resources */ = {isa = PBXBuildFile; fileRef = DD5C7A1D22F0278500C89AB9 /* localhost.gengtaotjut.com.der */; };
 		DD5C7A2622F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD5C7A2522F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 */; };
 		DD707B2622EEC1BE0075A0DE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DD707B2522EEC1BE0075A0DE /* index.html */; };
@@ -31,8 +30,6 @@
 		DD41D07622EB180B0062ED53 /* MyHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHTTPConnection.h; sourceTree = "<group>"; };
 		DD41D07822EB18B40062ED53 /* SCHTTPServerDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCHTTPServerDemo.entitlements; sourceTree = "<group>"; };
 		DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDKeychain.m; sourceTree = "<group>"; };
-		DD5C7A1822EFEA2800C89AB9 /* PemHTTPConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PemHTTPConnection.h; sourceTree = "<group>"; };
-		DD5C7A1922EFEA2800C89AB9 /* PemHTTPConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PemHTTPConnection.m; sourceTree = "<group>"; };
 		DD5C7A1D22F0278500C89AB9 /* localhost.gengtaotjut.com.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.gengtaotjut.com.der; sourceTree = "<group>"; };
 		DD5C7A2522F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.gengtaotjut.com.p12; sourceTree = "<group>"; };
 		DD68E4C822EAFE7B00F684AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,8 +92,6 @@
 				DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */,
 				DD41D07622EB180B0062ED53 /* MyHTTPConnection.h */,
 				DD41D07522EB180B0062ED53 /* MyHTTPConnection.m */,
-				DD5C7A1822EFEA2800C89AB9 /* PemHTTPConnection.h */,
-				DD5C7A1922EFEA2800C89AB9 /* PemHTTPConnection.m */,
 				DD68E4C822EAFE7B00F684AC /* AppDelegate.h */,
 				DD68E4C922EAFE7B00F684AC /* AppDelegate.m */,
 				DD68E4CB22EAFE7B00F684AC /* ViewController.h */,
@@ -255,7 +250,6 @@
 				DD41D07722EB180C0062ED53 /* MyHTTPConnection.m in Sources */,
 				DD41D06522EB161D0062ED53 /* main.m in Sources */,
 				DD41D06622EB161D0062ED53 /* AppDelegate.m in Sources */,
-				DD5C7A1A22EFEA2800C89AB9 /* PemHTTPConnection.m in Sources */,
 				DD5C794F22EEF2DD00C89AB9 /* DDKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

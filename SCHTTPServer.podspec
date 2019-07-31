@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/summerhanada@163.com/SCHTTPServer'
+  s.homepage         = 'https://github.com/debugly/SCHTTPServer'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'summerhanada@163.com' => 'qianlongxu@sohu-inc.com' }
-  s.source           = { :git => 'https://github.com/summerhanada@163.com/SCHTTPServer.git', :tag => s.version.to_s }
+  s.author           = { 'Matt Reach' => 'qianlongxu@sohu-inc.com' }
+  s.source           = { :git => 'https://github.com/debugly/SCHTTPServer.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -36,8 +36,9 @@ TODO: Add long description of the pod here.
   # s.resource_bundles = {
   #   'SCHTTPServer' => ['SCHTTPServer/Assets/*.png']
   # }
-
-  s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.requires_arc = true
+  s.public_header_files = 'SCHTTPServer/Classes/Connection/HTTPConnection.h' , 'SCHTTPServer/Classes/HTTP/HTTPServer.h', 'SCHTTPServer/Classes/Connection/P12HTTPConnection.h',  'SCHTTPServer/Classes/HTTP/HTTPLogging.h'
+  s.frameworks = 'Security', 'Foundation'
   s.dependency 'CocoaAsyncSocket'
+  
 end
