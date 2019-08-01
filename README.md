@@ -20,9 +20,10 @@ it, simply add the following line to your Podfile:
 pod 'SCHTTPServer'
 ```
 
-## Author
+## Version
 
-summerhanada@163.com
+- 0.1.0 HTTPS use P12 certification.
+- 0.1.1 Support GET and POST API Service.
 
 ## License
 
