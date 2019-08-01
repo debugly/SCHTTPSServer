@@ -6,7 +6,7 @@
 //
 
 #import "P12HTTPConnection.h"
-#import <SCHTTPServer/HTTPLogging.h>
+#import <SCHTTPServer/HTTPLogger.h>
 
 static NSString *p12Pwd  = nil;
 static NSString *p12Path = nil;
@@ -62,7 +62,7 @@ static bool defaultAccess(SecAccessRef * __nonnull CF_RETURNS_RETAINED accessRef
     
     rc = SecTrustedApplicationCreateFromPath(NULL, &myself);
     if ( rc != errSecSuccess ) {
-        HTTPLogError(@"SecTrustedApplication Failed!")
+        HTTPLogError(@"SecTrustedApplication Failed!");
     } else {
         CFArrayAppendValue(trustedApplications, myself);
     }
@@ -148,7 +148,7 @@ static void removeKeychainIfAccessBad(NSString *keychainPath)
     //so delete it!
     if ([[NSFileManager defaultManager] fileExistsAtPath:keychainPath]) {
         deleteKeychain(keychainPath);
-        HTTPLogInfo(@"removed old keychain file");
+        HTTPLogInfo(@"Removed old keychain file");
     }
 }
 

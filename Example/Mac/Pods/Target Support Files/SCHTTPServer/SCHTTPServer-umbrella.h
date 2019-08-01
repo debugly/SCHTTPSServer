@@ -13,7 +13,7 @@
 #import "HTTPConnection.h"
 #import "HTTPServer.h"
 #import "P12HTTPConnection.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 FOUNDATION_EXPORT double SCHTTPServerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SCHTTPServerVersionString[];

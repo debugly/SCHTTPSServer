@@ -1,5 +1,5 @@
 #import "HTTPDataResponse.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
@@ -29,8 +29,8 @@
 - (UInt64)contentLength
 {
 	UInt64 result = (UInt64)[data length];
-	
-    HTTPLogTrace2(@"%s[%p]: contentLength - %llu", __FILE__, self, result);
+
+    HTTPLogTrace2(@"[%p]: contentLength - %llu", self, result);
 	
 	return result;
 }
@@ -44,14 +44,14 @@
 
 - (void)setOffset:(UInt64)offsetParam
 {
-    HTTPLogTrace2(@"%s[%p]: setOffset:%lu", __FILE__, self, (unsigned long)offset);
+    HTTPLogTrace2(@"[%p]: setOffset:%lu", self, (unsigned long)offset);
 	
 	offset = (NSUInteger)offsetParam;
 }
 
 - (NSData *)readDataOfLength:(NSUInteger)lengthParameter
 {
-    HTTPLogTrace2(@"%s[%p]: readDataOfLength:%lu", __FILE__, self, (unsigned long)lengthParameter);
+    HTTPLogTrace2(@"[%p]: readDataOfLength:%lu", self, (unsigned long)lengthParameter);
 	
 	NSUInteger remaining = [data length] - offset;
 	NSUInteger length = lengthParameter < remaining ? lengthParameter : remaining;
@@ -67,7 +67,7 @@
 {
 	BOOL result = (offset == [data length]);
 	
-    HTTPLogTrace2(@"%s[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
+    HTTPLogTrace2(@"[%p]: isDone - %@", self, (result ? @"YES" : @"NO"));
 	
 	return result;
 }

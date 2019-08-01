@@ -1,6 +1,6 @@
 #import "HTTPFileResponse.h"
 #import "HTTPConnection.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 #import <unistd.h>
 #import <fcntl.h>
@@ -26,7 +26,7 @@
 		filePath = [[fpath copy] stringByResolvingSymlinksInPath];
 		if (filePath == nil)
 		{
-            HTTPLogWarn(@"%s: Init failed - Nil filePath", __FILE__);
+            HTTPLogWarn(@"Init failed - Nil filePath");
 			
 			return nil;
 		}
@@ -34,7 +34,7 @@
 		NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
 		if (fileAttributes == nil)
 		{
-            HTTPLogWarn(@"%s: Init failed - Unable to get file attributes. filePath: %@", __FILE__, filePath);
+            HTTPLogWarn(@"Init failed - Unable to get file attributes. filePath: %@", filePath);
 			
 			return nil;
 		}
@@ -65,13 +65,13 @@
 	fileFD = open([filePath UTF8String], O_RDONLY);
 	if (fileFD == NULL_FD)
 	{
-        HTTPLogError(@"%s[%p]: Unable to open file. filePath: %@", __FILE__, self, filePath);
+        HTTPLogError(@"[%p]: Unable to open file. filePath: %@", self, filePath);
 		
 		[self abort];
 		return NO;
 	}
 	
-    HTTPLogVerbose(@"%s[%p]: Open fd[%i] -> %@", __FILE__, self, fileFD, filePath);
+    HTTPLogVerbose(@"[%p]: Open fd[%i] -> %@", self, fileFD, filePath);
 	
 	return YES;
 }
@@ -111,7 +111,7 @@
 
 - (void)setOffset:(UInt64)offset
 {
-    HTTPLogTrace2(@"%s[%p]: setOffset:%llu", __FILE__, self, offset);
+    HTTPLogTrace2(@"[%p]: setOffset:%llu", self, offset);
 	
 	if (![self openFileIfNeeded])
 	{
@@ -125,7 +125,7 @@
 	off_t result = lseek(fileFD, (off_t)offset, SEEK_SET);
 	if (result == -1)
 	{
-        HTTPLogError(@"%s[%p]: lseek failed - errno(%i) filePath(%@)", __FILE__, self, errno, filePath);
+        HTTPLogError(@"[%p]: lseek failed - errno(%i) filePath(%@)", self, errno, filePath);
 		
 		[self abort];
 	}
@@ -133,7 +133,7 @@
 
 - (NSData *)readDataOfLength:(NSUInteger)length
 {
-	HTTPLogTrace2(@"%s[%p]: readDataOfLength:%lu", __FILE__, self, (unsigned long)length);
+	HTTPLogTrace2(@"[%p]: readDataOfLength:%lu", self, (unsigned long)length);
 	
 	if (![self openFileIfNeeded])
 	{
@@ -161,7 +161,7 @@
 		
 		if (buffer == NULL)
 		{
-            HTTPLogError(@"%s[%p]: Unable to allocate buffer", __FILE__, self);
+            HTTPLogError(@"[%p]: Unable to allocate buffer", self);
 			
 			[self abort];
 			return nil;
@@ -170,7 +170,7 @@
 	
 	// Perform the read
 	
-	HTTPLogVerbose(@"%s[%p]: Attempting to read %lu bytes from file", __FILE__, self, (unsigned long)bytesToRead);
+	HTTPLogVerbose(@"[%p]: Attempting to read %lu bytes from file", self, (unsigned long)bytesToRead);
 	
 	ssize_t result = read(fileFD, buffer, bytesToRead);
 	
@@ -178,21 +178,21 @@
 	
 	if (result < 0)
 	{
-		HTTPLogError(@"%s: Error(%i) reading file(%@)", __FILE__, errno, filePath);
+		HTTPLogError(@"Error(%i) reading file(%@)", errno, filePath);
 		
 		[self abort];
 		return nil;
 	}
 	else if (result == 0)
 	{
-		HTTPLogError(@"%s: Read EOF on file(%@)", __FILE__, filePath);
+		HTTPLogError(@"Read EOF on file(%@)", filePath);
 		
 		[self abort];
 		return nil;
 	}
 	else // (result > 0)
 	{
-		HTTPLogVerbose(@"%s[%p]: Read %ld bytes from file", __FILE__, self, (long)result);
+		HTTPLogVerbose(@"[%p]: Read %ld bytes from file", self, (long)result);
 		
 		fileOffset += result;
 		
@@ -204,7 +204,7 @@
 {
 	BOOL result = (fileOffset == fileLength);
 	
-    HTTPLogTrace2(@"%s[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
+    HTTPLogTrace2(@"[%p]: isDone - %@", self, (result ? @"YES" : @"NO"));
 	
 	return result;
 }
@@ -220,7 +220,7 @@
 	
 	if (fileFD != NULL_FD)
 	{
-        HTTPLogVerbose(@"%s[%p]: Close fd[%i]", __FILE__, self, fileFD);
+        HTTPLogVerbose(@"[%p]: Close fd[%i]", self, fileFD);
 		
 		close(fileFD);
 	}

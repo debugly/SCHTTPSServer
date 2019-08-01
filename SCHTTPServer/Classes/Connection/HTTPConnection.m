@@ -8,16 +8,12 @@
 #import "DDData.h"
 #import "HTTPFileResponse.h"
 #import "HTTPAsyncFileResponse.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
-
-// Log levels: off, error, warn, info, verbose
-// Other flags: trace
-static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
 // Define chunk size used to read in data for responses
 // This is how much data will be read from disk into RAM at a time
@@ -192,7 +188,7 @@ static NSMutableArray *recentNonces;
 		
 		// Take over ownership of the socket
 		asyncSocket = newSocket;
-		[asyncSocket setDelegate:self delegateQueue:connectionQueue];
+		[asyncSocket setDelegate:(id)self delegateQueue:connectionQueue];
 		
 		// Store configuration
 		config = aConfig;
@@ -892,13 +888,9 @@ static NSMutableArray *recentNonces;
 {
 	HTTPLogTrace();
 	
-	if (HTTP_LOG_VERBOSE)
-	{
-		NSData *tempData = [request messageData];
-		
-		NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
-        HTTPLogVerbose(@"%s[%p]: Received HTTP request:\n%@", __FILE__, self, tempStr);
-	}
+    NSData *tempData = [request messageData];
+    NSString *tempStr = [[NSString alloc] initWithData:tempData encoding:NSUTF8StringEncoding];
+    HTTPLogVerbose(@"Received request:%@", tempStr);
 	
 	// Check the HTTP version
 	// We only support version 1.0 and 1.1
@@ -1509,7 +1501,7 @@ static NSMutableArray *recentNonces;
 	
 	if (documentRoot == nil)
 	{
-        HTTPLogWarn(@"%s[%p]: No configured document root", __FILE__, self);
+        HTTPLogWarn(@"[%p]: No configured document root", self);
 		return nil;
 	}
 	
@@ -1520,7 +1512,7 @@ static NSMutableArray *recentNonces;
 	NSURL *docRoot = [NSURL fileURLWithPath:documentRoot isDirectory:YES];
 	if (docRoot == nil)
 	{
-        HTTPLogWarn(@"%s[%p]: Document root is invalid file path", __FILE__, self);
+        HTTPLogWarn(@"[%p]: Document root is invalid file path", self);
 		return nil;
 	}
 	
@@ -1562,7 +1554,7 @@ static NSMutableArray *recentNonces;
 	
 	if (![fullPath hasPrefix:documentRoot])
 	{
-        HTTPLogWarn(@"%s[%p]: Request for file outside document root", __FILE__, self);
+        HTTPLogWarn(@"[%p]: Request for file outside document root", self);
 		return nil;
 	}
 	
@@ -1935,7 +1927,7 @@ static NSMutableArray *recentNonces;
 		BOOL result = [request appendData:data];
 		if (!result)
 		{
-            HTTPLogWarn(@"%s[%p]: Malformed request", __FILE__, self);
+            HTTPLogWarn(@"[%p]: Malformed request", self);
 			
 			[self handleInvalidRequest:data];
 		}
@@ -1990,8 +1982,7 @@ static NSMutableArray *recentNonces;
 				{
 					if (contentLength == nil)
 					{
-                        HTTPLogWarn(@"%s[%p]: Method expects request body, but had no specified Content-Length",
-									__FILE__, self);
+                        HTTPLogWarn(@"[%p]: Method expects request body, but had no specified Content-Length", self);
 						
 						[self handleInvalidRequest:nil];
 						return;
@@ -1999,8 +1990,7 @@ static NSMutableArray *recentNonces;
 					
 					if (![NSNumber parseString:(NSString *)contentLength intoUInt64:&requestContentLength])
 					{
-                        HTTPLogWarn(@"%s[%p]: Unable to parse Content-Length header into a valid number",
-									__FILE__, self);
+                        HTTPLogWarn(@"[%p]: Unable to parse Content-Length header into a valid number", self);
 						
 						[self handleInvalidRequest:nil];
 						return;
@@ -2016,8 +2006,7 @@ static NSMutableArray *recentNonces;
 					
 					if (![NSNumber parseString:(NSString *)contentLength intoUInt64:&requestContentLength])
 					{
-                        HTTPLogWarn(@"%s[%p]: Unable to parse Content-Length header into a valid number",
-									__FILE__, self);
+                        HTTPLogWarn(@"[%p]: Unable to parse Content-Length header into a valid number", self);
 						
 						[self handleInvalidRequest:nil];
 						return;
@@ -2025,8 +2014,7 @@ static NSMutableArray *recentNonces;
 					
 					if (requestContentLength > 0)
 					{
-                        HTTPLogWarn(@"%s[%p]: Method not expecting request body had non-zero Content-Length",
-									__FILE__, self);
+                        HTTPLogWarn(@"[%p]: Method not expecting request body had non-zero Content-Length", self);
 						
 						[self handleInvalidRequest:nil];
 						return;
@@ -2129,7 +2117,7 @@ static NSMutableArray *recentNonces;
 			
 			if (errno != 0)
 			{
-                HTTPLogWarn(@"%s[%p]: Method expects chunk size, but received something else", __FILE__, self);
+                HTTPLogWarn(@"[%p]: Method expects chunk size, but received something else", self);
 				
 				[self handleInvalidRequest:nil];
 				return;
@@ -2194,7 +2182,7 @@ static NSMutableArray *recentNonces;
 			
 			if (![data isEqualToData:[GCDAsyncSocket CRLFData]])
 			{
-                HTTPLogWarn(@"%s[%p]: Method expects chunk trailer, but is missing", __FILE__, self);
+                HTTPLogWarn(@"[%p]: Method expects chunk trailer, but is missing", self);
 				
 				[self handleInvalidRequest:nil];
 				return;
@@ -2424,7 +2412,7 @@ static NSMutableArray *recentNonces;
 		
 		if (sender != httpResponse)
 		{
-            HTTPLogWarn(@"%s[%p]: %@ - Sender is not current httpResponse", __FILE__, self, NSStringFromSelector(_cmd));
+            HTTPLogWarn(@"[%p]: %@ - Sender is not current httpResponse", self, NSStringFromSelector(_cmd));
 			return;
 		}
 		
@@ -2467,7 +2455,7 @@ static NSMutableArray *recentNonces;
 		
 		if (sender != httpResponse)
 		{
-            HTTPLogWarn(@"%s[%p]: %@ - Sender is not current httpResponse", __FILE__, self, NSStringFromSelector(_cmd));
+            HTTPLogWarn(@"[%p]: %@ - Sender is not current httpResponse", self, NSStringFromSelector(_cmd));
 			return;
 		}
 		

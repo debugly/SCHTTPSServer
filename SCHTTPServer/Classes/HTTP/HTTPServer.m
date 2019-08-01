@@ -1,7 +1,7 @@
 #import "HTTPServer.h"
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 #import "HTTPConnection.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
@@ -45,7 +45,7 @@
 		dispatch_queue_set_specific(connectionQueue, IsOnConnectionQueueKey, nonNullUnusedPointer, NULL);
 		
 		// Initialize underlying GCD based tcp socket
-		asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:serverQueue];
+		asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:(id)self delegateQueue:serverQueue];
 		
 		// Use default connection class of HTTPConnection
 		connectionClass = [HTTPConnection self];
@@ -136,8 +136,7 @@
 	
 	if (value && ![value isKindOfClass:[NSString class]])
 	{
-        HTTPLogWarn(@"%s: %@ - Expecting NSString parameter, received %@ parameter",
-					__FILE__, NSStringFromSelector(_cmd), NSStringFromClass([value class]));
+        HTTPLogWarn(@"Expecting NSString parameter, received %@ parameter",value);
 		return;
 	}
 	
@@ -398,14 +397,14 @@
 		success = [asyncSocket acceptOnInterface:interface port:port error:&err];
 		if (success)
 		{
-			HTTPLogInfo(@"%@: Started HTTP server on port %hu", [[NSString stringWithUTF8String:__FILE__]lastPathComponent], [asyncSocket localPort]);
+			HTTPLogInfo(@"Started HTTP server on port %hu", [asyncSocket localPort]);
 			
 			isRunning = YES;
 			[self publishBonjour];
 		}
 		else
 		{
-            HTTPLogError(@"%s: Failed to start HTTP Server: %@", __FILE__, err);
+            HTTPLogError(@"Failed to start HTTP Server: %@", err);
 		}
 	}});
 	
@@ -653,7 +652,7 @@ static NSThread *bonjourThread;
 	static dispatch_once_t predicate;
 	dispatch_once(&predicate, ^{
 		
-        HTTPLogVerbose(@"%s: Starting bonjour thread...", __FILE__);
+        HTTPLogVerbose(@"Starting bonjour thread...");
 		
 		bonjourThread = [[NSThread alloc] initWithTarget:self
 		                                        selector:@selector(bonjourThread)
@@ -666,7 +665,7 @@ static NSThread *bonjourThread;
 {
 	@autoreleasepool {
 	
-        HTTPLogVerbose(@"%s: BonjourThread: Started", __FILE__);
+        HTTPLogVerbose(@"BonjourThread: Started");
 		
 		// We can't run the run loop unless it has an associated input source or a timer.
 		// So we'll just create a timer that will never fire - unless the server runs for 10,000 years.
@@ -681,7 +680,7 @@ static NSThread *bonjourThread;
 
 		[[NSRunLoop currentRunLoop] run];
 		
-        HTTPLogVerbose(@"%s: BonjourThread: Aborted", __FILE__);
+        HTTPLogVerbose(@"BonjourThread: Aborted");
 	
 	}
 }

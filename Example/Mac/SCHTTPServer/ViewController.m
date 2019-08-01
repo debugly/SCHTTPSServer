@@ -8,6 +8,8 @@
 #import "ViewController.h"
 #import <SCHTTPServer/HTTPServer.h>
 #import <SCHTTPServer/P12HTTPConnection.h>
+#import <SCHTTPServer/HTTPLogger.h>
+
 #import <WebKit/WebKit.h>
 #import "TestHTTPConnection.h"
 
@@ -25,6 +27,13 @@
 
     // Do any additional setup after loading the view.
     // Initalize our http server
+    
+    [[HTTPLogger sharedLogger] receiveLog:^(HTTP_LOG_Level level, NSString *log) {
+       NSLog(@"%d %@",level,log);
+    }];
+    [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_VERBOSE];
+    [[HTTPLogger sharedLogger] setTraceOn:YES];
+    
     self.httpServer = [[HTTPServer alloc] init];
 #warning your PKCS#12 certificate
     NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"localhost.gengtaotjut.com" ofType:@"p12"];

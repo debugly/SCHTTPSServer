@@ -1,7 +1,7 @@
 
 #import "MultipartFormDataParser.h"
 #import "DDData.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 #ifdef __x86_64__
 #define FMTNSINT "li"

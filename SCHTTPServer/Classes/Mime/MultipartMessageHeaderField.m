@@ -1,6 +1,6 @@
 
 #import "MultipartMessageHeaderField.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 // helpers
 int findChar(const char* str,NSUInteger length, char c);

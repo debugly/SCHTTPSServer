@@ -1,5 +1,5 @@
 #import "TestHTTPConnection.h"
-#import <SCHTTPServer/HTTPLogging.h>
+#import <SCHTTPServer/HTTPLogger.h>
 #import "MRKeychain.h"
 
 @implementation TestHTTPConnection

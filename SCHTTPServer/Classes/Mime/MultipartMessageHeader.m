@@ -8,7 +8,7 @@
 #import "MultipartMessageHeader.h"
 #import "MultipartMessageHeaderField.h"
 
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 //-----------------------------------------------------------------
 // implementation MultipartMessageHeader

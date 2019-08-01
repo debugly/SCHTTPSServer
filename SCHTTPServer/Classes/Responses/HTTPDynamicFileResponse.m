@@ -1,6 +1,6 @@
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPConnection.h"
-#import "HTTPLogging.h"
+#import "HTTPLogger.h"
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
@@ -55,7 +55,7 @@
 {
 	BOOL result = (readOffset == fileLength) && (readBufferOffset == 0);
 	
-    HTTPLogTrace2(@"%s[%p]: isDone - %@", __FILE__, self, (result ? @"YES" : @"NO"));
+    HTTPLogTrace2(@"[%p]: isDone - %@", self, (result ? @"YES" : @"NO"));
 	
 	return result;
 }
@@ -105,7 +105,7 @@
 				s1 = offset;
 				offset += sepLen;
 				
-                HTTPLogVerbose(@"%s[%p]: Found s1 at %lu", __FILE__, self, (unsigned long)s1);
+                HTTPLogVerbose(@"[%p]: Found s1 at %lu", self, (unsigned long)s1);
 			}
 			else
 			{
@@ -115,7 +115,7 @@
 				s2 = offset;
 				offset += sepLen;
 				
-                HTTPLogVerbose(@"%s[%p]: Found s2 at %lu", __FILE__, self, (unsigned long)s2);
+                HTTPLogVerbose(@"[%p]: Found s2 at %lu", self, (unsigned long)s2);
 			}
 			
 			if (found1 && found2)
@@ -144,7 +144,7 @@
 						// Found the replacement value.
 						// Now perform the replacement in the buffer.
 						
-                        HTTPLogVerbose(@"%s[%p]: key(%@) -> value(%@)", __FILE__, self, key, value);
+                        HTTPLogVerbose(@"[%p]: key(%@) -> value(%@)", self, key, value);
 						
 						NSData *v = [[value description] dataUsingEncoding:NSUTF8StringEncoding];
 						NSUInteger vLength = [v length];
