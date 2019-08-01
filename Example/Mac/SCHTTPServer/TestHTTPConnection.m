@@ -1,8 +1,8 @@
-#import "MyHTTPConnection.h"
+#import "TestHTTPConnection.h"
 #import <SCHTTPServer/HTTPLogging.h>
-#import "DDKeychain.h"
+#import "MRKeychain.h"
 
-@implementation MyHTTPConnection
+@implementation TestHTTPConnection
 
 /**
  * Overrides HTTPConnection's method
@@ -25,11 +25,11 @@
 {
 	HTTPLogTrace();
 	
-	NSArray *result = [DDKeychain SelfCertificateExist];
+	NSArray *result = [MRKeychain SelfCertificateExist];
 	if([result count] == 0)
 	{
-		[DDKeychain createNewIdentity];
-		return [DDKeychain SSLIdentityAndCertificates];
+		[MRKeychain createNewIdentity];
+		return [MRKeychain SelfCertificateExist];
 	}
 	return result;
 }

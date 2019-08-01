@@ -13,11 +13,12 @@
 		DD41D06622EB161D0062ED53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD68E4C922EAFE7B00F684AC /* AppDelegate.m */; };
 		DD41D06A22EB161D0062ED53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD68E4CE22EAFE7C00F684AC /* Assets.xcassets */; };
 		DD41D06B22EB161D0062ED53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD68E4D022EAFE7C00F684AC /* Main.storyboard */; };
-		DD41D07722EB180C0062ED53 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DD41D07522EB180B0062ED53 /* MyHTTPConnection.m */; };
-		DD5C794F22EEF2DD00C89AB9 /* DDKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */; };
+		DD41D07722EB180C0062ED53 /* TestHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DD41D07522EB180B0062ED53 /* TestHTTPConnection.m */; };
 		DD5C7A1E22F0278500C89AB9 /* localhost.gengtaotjut.com.der in Resources */ = {isa = PBXBuildFile; fileRef = DD5C7A1D22F0278500C89AB9 /* localhost.gengtaotjut.com.der */; };
 		DD5C7A2622F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 in Resources */ = {isa = PBXBuildFile; fileRef = DD5C7A2522F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 */; };
+		DD5E03D122F2979200EDFD6F /* pwd.txt in Resources */ = {isa = PBXBuildFile; fileRef = DD5E03D022F2979200EDFD6F /* pwd.txt */; };
 		DD707B2622EEC1BE0075A0DE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DD707B2522EEC1BE0075A0DE /* index.html */; };
+		DDC95BCC22F179F3008081C9 /* MRKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC95BCB22F179F3008081C9 /* MRKeychain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,13 +26,12 @@
 		BD2BC47FBC9260B8963FD759 /* Pods-SCHTTPServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCHTTPServer.debug.xcconfig"; path = "Target Support Files/Pods-SCHTTPServer/Pods-SCHTTPServer.debug.xcconfig"; sourceTree = "<group>"; };
 		D3235C242CC7E44A9D0B2B58 /* Pods-SCHTTPServerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCHTTPServerDemo.debug.xcconfig"; path = "Target Support Files/Pods-SCHTTPServerDemo/Pods-SCHTTPServerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		DD41D07022EB161D0062ED53 /* SCHTTPServerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SCHTTPServerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD41D07222EB18040062ED53 /* DDKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDKeychain.h; sourceTree = "<group>"; };
-		DD41D07522EB180B0062ED53 /* MyHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHTTPConnection.m; sourceTree = "<group>"; };
-		DD41D07622EB180B0062ED53 /* MyHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHTTPConnection.h; sourceTree = "<group>"; };
+		DD41D07522EB180B0062ED53 /* TestHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHTTPConnection.m; sourceTree = "<group>"; };
+		DD41D07622EB180B0062ED53 /* TestHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHTTPConnection.h; sourceTree = "<group>"; };
 		DD41D07822EB18B40062ED53 /* SCHTTPServerDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCHTTPServerDemo.entitlements; sourceTree = "<group>"; };
-		DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDKeychain.m; sourceTree = "<group>"; };
 		DD5C7A1D22F0278500C89AB9 /* localhost.gengtaotjut.com.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.gengtaotjut.com.der; sourceTree = "<group>"; };
 		DD5C7A2522F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.gengtaotjut.com.p12; sourceTree = "<group>"; };
+		DD5E03D022F2979200EDFD6F /* pwd.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = pwd.txt; sourceTree = "<group>"; };
 		DD68E4C822EAFE7B00F684AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DD68E4C922EAFE7B00F684AC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DD68E4CB22EAFE7B00F684AC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -42,6 +42,8 @@
 		DD68E4D422EAFE7C00F684AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DD68E4D622EAFE7C00F684AC /* SCHTTPServer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCHTTPServer.entitlements; sourceTree = "<group>"; };
 		DD707B2522EEC1BE0075A0DE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		DDC95BCA22F179F3008081C9 /* MRKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRKeychain.h; sourceTree = "<group>"; };
+		DDC95BCB22F179F3008081C9 /* MRKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRKeychain.m; sourceTree = "<group>"; };
 		E33D6F03FAB6BAE95FC011F2 /* Pods-SCHTTPServerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCHTTPServerDemo.release.xcconfig"; path = "Target Support Files/Pods-SCHTTPServerDemo/Pods-SCHTTPServerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F0A4010E0506DA57FBD189D0 /* Pods-SCHTTPServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCHTTPServer.release.xcconfig"; path = "Target Support Files/Pods-SCHTTPServer/Pods-SCHTTPServer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,10 +90,10 @@
 		DD68E4C722EAFE7B00F684AC /* SCHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
-				DD41D07222EB18040062ED53 /* DDKeychain.h */,
-				DD5C794E22EEF2DD00C89AB9 /* DDKeychain.m */,
-				DD41D07622EB180B0062ED53 /* MyHTTPConnection.h */,
-				DD41D07522EB180B0062ED53 /* MyHTTPConnection.m */,
+				DD41D07622EB180B0062ED53 /* TestHTTPConnection.h */,
+				DD41D07522EB180B0062ED53 /* TestHTTPConnection.m */,
+				DDC95BCA22F179F3008081C9 /* MRKeychain.h */,
+				DDC95BCB22F179F3008081C9 /* MRKeychain.m */,
 				DD68E4C822EAFE7B00F684AC /* AppDelegate.h */,
 				DD68E4C922EAFE7B00F684AC /* AppDelegate.m */,
 				DD68E4CB22EAFE7B00F684AC /* ViewController.h */,
@@ -112,6 +114,7 @@
 			children = (
 				DD5C7A1D22F0278500C89AB9 /* localhost.gengtaotjut.com.der */,
 				DD5C7A2522F03C7E00C89AB9 /* localhost.gengtaotjut.com.p12 */,
+				DD5E03D022F2979200EDFD6F /* pwd.txt */,
 			);
 			path = cert;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD5E03D122F2979200EDFD6F /* pwd.txt in Resources */,
 				DD707B2622EEC1BE0075A0DE /* index.html in Resources */,
 				DD41D06A22EB161D0062ED53 /* Assets.xcassets in Resources */,
 				DD5C7A1E22F0278500C89AB9 /* localhost.gengtaotjut.com.der in Resources */,
@@ -247,10 +251,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD41D06422EB161D0062ED53 /* ViewController.m in Sources */,
-				DD41D07722EB180C0062ED53 /* MyHTTPConnection.m in Sources */,
+				DD41D07722EB180C0062ED53 /* TestHTTPConnection.m in Sources */,
+				DDC95BCC22F179F3008081C9 /* MRKeychain.m in Sources */,
 				DD41D06522EB161D0062ED53 /* main.m in Sources */,
 				DD41D06622EB161D0062ED53 /* AppDelegate.m in Sources */,
-				DD5C794F22EEF2DD00C89AB9 /* DDKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +286,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.SCHTTPServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -302,6 +307,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.SCHTTPServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

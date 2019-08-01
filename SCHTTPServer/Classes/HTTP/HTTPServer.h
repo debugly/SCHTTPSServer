@@ -67,7 +67,7 @@
  * The connection class is the class used to handle incoming HTTP connections.
  * 
  * The default value is [HTTPConnection class].
- * You can override HTTPConnection, and then set this to [MyHTTPConnection class].
+ * You can override HTTPConnection, and then set this to [TestHTTPConnection class].
  * 
  * If you change the connectionClass while the server is running,
  * the change will affect future incoming http connections.

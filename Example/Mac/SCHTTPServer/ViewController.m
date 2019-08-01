@@ -8,25 +8,34 @@
 #import "ViewController.h"
 #import <SCHTTPServer/HTTPServer.h>
 #import <SCHTTPServer/P12HTTPConnection.h>
+#import <WebKit/WebKit.h>
+#import "TestHTTPConnection.h"
+
+@interface ViewController ()
+
+@property (strong) HTTPServer *httpServer;
+@property (weak) IBOutlet WKWebView *wkWebView;
+
+@end
 
 @implementation ViewController
-{
-    HTTPServer *httpServer;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
     // Initalize our http server
-    httpServer = [[HTTPServer alloc] init];
+    self.httpServer = [[HTTPServer alloc] init];
 #warning your PKCS#12 certificate
     NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"localhost.gengtaotjut.com" ofType:@"p12"];
     [P12HTTPConnection pkcsPath:p12Path];
 #warning PKCS#12 password
-    [P12HTTPConnection pkcsPassword:@"123456"];
+    NSString *pwdPath = [[NSBundle mainBundle] pathForResource:@"pwd" ofType:@"txt"];
+    NSString *pwd = [[NSString alloc]initWithContentsOfFile:pwdPath encoding:NSUTF8StringEncoding error:nil];
+    [P12HTTPConnection pkcsPassword:pwd];
     
-    [httpServer setConnectionClass:[P12HTTPConnection class]];
+    [self.httpServer setConnectionClass:[P12HTTPConnection class]];
+//    [self.httpServer setConnectionClass:[TestHTTPConnection class]];
     // Serve files from the standard Sites folder
     NSString *docRoot = [@"~/Sites" stringByExpandingTildeInPath];
     NSLog(@"Setting document root: %@", docRoot);
@@ -38,11 +47,17 @@
         [[NSFileManager defaultManager] copyItemAtPath:fromPath toPath:toPath error:NULL];
     }
     
-    [httpServer setDocumentRoot:docRoot];
-    [httpServer setPort:7981];
+    [self.httpServer setDocumentRoot:docRoot];
+    [self.httpServer setPort:7981];
     NSError *error = nil;
-    if(![httpServer start:&error])
+    if([self.httpServer start:&error])
     {
+//        NSURL *url = [NSURL URLWithString:@"https://localhost:7981"];
+        NSURL *url = [NSURL URLWithString:@"https://localhost.gengtaotjut.com:7981"];
+        
+        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+        [self.wkWebView loadRequest:req];
+    } else {
         NSLog(@"Error starting HTTP Server: %@", error);
     }
 }
