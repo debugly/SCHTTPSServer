@@ -258,7 +258,9 @@ static NSMutableArray *recentNonces;
 	
 	if ([method isEqualToString:@"HEAD"])
 		return YES;
-		
+    
+    if ([method isEqualToString:@"POST"])
+        return YES;
 	return NO;
 }
 
@@ -917,9 +919,16 @@ static NSMutableArray *recentNonces;
 	NSString *method = [request method];
 	
 	// Note: We already checked to ensure the method was supported in onSocket:didReadData:withTag:
-	
-	// Respond properly to HTTP 'GET' and 'HEAD' commands
-	httpResponse = [self httpResponseForMethod:method URI:uri];
+    if ([method isEqualToString:@"POST"]) {
+        // Respond properly to HTTP 'POST' commands
+        httpResponse = [self httpResponseForPost:[request url] header:[request messageData] body:postRequestBodyData];
+    } else {
+        httpResponse = [self httpResponseForGet:[request url] header:[request messageData]];
+        if (!httpResponse) {
+            // Respond properly to HTTP 'GET' and 'HEAD' commands
+            httpResponse = [self httpResponseForMethod:method URI:uri];
+        }
+    }
 	
 	if (httpResponse == nil)
 	{
@@ -1584,6 +1593,71 @@ static NSMutableArray *recentNonces;
 	return fullPath;
 }
 
+static NSMutableDictionary *_s_path_handler_map = nil;
+
++ (void)registerHandler:(id<HTTPResponse> (^)(NSData *header,NSData *body))handler forPath :(NSString *)path method:(NSString *)method
+{
+    if (!_s_path_handler_map) {
+        _s_path_handler_map = [NSMutableDictionary dictionaryWithCapacity:3];
+    }
+    
+    if (!method) {
+        HTTPLogError(@"method can't be nil");
+        return;
+    }
+    
+    NSMutableDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:method];
+    if (!methodHandlerMap) {
+        methodHandlerMap = [NSMutableDictionary dictionaryWithCapacity:3];
+        [_s_path_handler_map setObject:methodHandlerMap forKey:method];
+    }
+    
+    if (path) {
+        if (handler) {
+            [methodHandlerMap setObject:[handler copy] forKey:path];
+        } else {
+            [methodHandlerMap removeObjectForKey:path];
+        }
+    } else {
+        HTTPLogError(@"path can't be nil");
+    }
+}
+
++ (id<HTTPResponse>)postResponseForPath:(NSString *)path header:(NSData *)header body:(NSData *)body
+{
+    HTTPLogTrace2(@"%@",path);
+    NSDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:@"POST"];
+    id<HTTPResponse> (^handler)(NSData *header,NSData *body) = [methodHandlerMap objectForKey:path];
+    if (handler) {
+        return handler(header,body);
+    } else {
+        HTTPLogWarn(@"can't process post for %@",path);
+        return nil;
+    }
+}
+
++ (id<HTTPResponse>)getResponseForPath:(NSString *)path header:(NSData *)header
+{
+    HTTPLogTrace2(@"%@",path);
+    NSDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:@"GET"];
+    id<HTTPResponse> (^handler)(NSData *header,NSData *body) = [methodHandlerMap objectForKey:path];
+    if (handler) {
+        return handler(header,nil);
+    } else {
+        return nil;
+    }
+}
+
+- (id<HTTPResponse>)httpResponseForPost:(NSURL *)url header:(NSData *)header body:(NSData *)body
+{
+    return [[self class] postResponseForPath:[url path] header:header body:body];
+}
+
+- (id<HTTPResponse>)httpResponseForGet:(NSURL *)url header:(NSData *)header
+{
+    return [[self class] getResponseForPath:[url path] header:header];
+}
+
 /**
  * This method is called to get a response for a request.
  * You may return any object that adopts the HTTPResponse protocol.
@@ -1591,10 +1665,9 @@ static NSMutableArray *recentNonces;
  * HTTPFileResponse is a wrapper for an NSFileHandle object, and is the preferred way to send a file response.
  * HTTPDataResponse is a wrapper for an NSData object, and may be used to send a custom response.
 **/
-- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
+- (id<HTTPResponse>)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
 	HTTPLogTrace();
-	
 	// Override me to provide custom responses.
 	
 	NSString *filePath = [self filePathForURI:path allowDirectory:NO];
@@ -1640,6 +1713,12 @@ static NSMutableArray *recentNonces;
 	// This prevents a 50 MB upload from being stored in RAM.
 	// The size of the chunks are limited by the POST_CHUNKSIZE definition.
 	// Therefore, this method may be called multiple times for the same POST request.
+    
+    if (postRequestBodyData == nil) {
+        postRequestBodyData = [NSMutableData data];
+    }
+    
+    [postRequestBodyData appendData:postDataChunk];
 }
 
 /**

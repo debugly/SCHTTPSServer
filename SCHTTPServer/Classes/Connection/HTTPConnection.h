@@ -48,7 +48,7 @@
 	NSString *nonce;
 	long lastNC;
 	
-	NSObject<HTTPResponse> *httpResponse;
+	id<HTTPResponse> httpResponse;
 	
 	NSMutableArray *ranges;
 	NSMutableArray *ranges_headers;
@@ -61,6 +61,7 @@
 	UInt64 requestChunkSizeReceived;
   
 	NSMutableArray *responseDataSizes;
+    NSMutableData  *postRequestBodyData;
 }
 
 - (id)initWithAsyncSocket:(GCDAsyncSocket *)newSocket configuration:(HTTPConfig *)aConfig;
@@ -89,7 +90,7 @@
 - (NSArray *)directoryIndexFileNames;
 - (NSString *)filePathForURI:(NSString *)path;
 - (NSString *)filePathForURI:(NSString *)path allowDirectory:(BOOL)allowDirectory;
-- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path;
+- (id<HTTPResponse>)httpResponseForMethod:(NSString *)method URI:(NSString *)path;
 
 - (void)prepareForBodyWithSize:(UInt64)contentLength;
 - (void)processBodyData:(NSData *)postDataChunk;
@@ -108,6 +109,8 @@
 
 - (BOOL)shouldDie;
 - (void)die;
+
++ (void)registerHandler:(id<HTTPResponse> (^)(NSData *header,NSData *body))handler forPath :(NSString *)path method:(NSString *)method;
 
 @end
 

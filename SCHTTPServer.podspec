@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
   #   'SCHTTPServer' => ['SCHTTPServer/Assets/*.png']
   # }
   s.requires_arc = true
-  s.public_header_files = 'SCHTTPServer/Classes/Connection/HTTPConnection.h' , 'SCHTTPServer/Classes/HTTP/HTTPServer.h', 'SCHTTPServer/Classes/Connection/P12HTTPConnection.h',  'SCHTTPServer/Classes/HTTP/HTTPLogger.h'
+  s.public_header_files = 'SCHTTPServer/Classes/**/*.h'
   s.frameworks = 'Security', 'Foundation'
   s.dependency 'CocoaAsyncSocket'
   

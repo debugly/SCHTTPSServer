@@ -2,7 +2,7 @@
   "name": "SCHTTPServer",
   "version": "0.1.0",
   "summary": "A short description of SCHTTPServer.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "SCHTTPServer is a small, lightweight, embeddable HTTPS server for Mac OS X applications,based on CocoaHTTPServer.",
   "homepage": "https://github.com/debugly/SCHTTPServer",
   "license": {
     "type": "MIT",
@@ -16,17 +16,11 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0",
     "osx": "10.10"
   },
   "source_files": "SCHTTPServer/Classes/**/*",
   "requires_arc": true,
-  "public_header_files": [
-    "SCHTTPServer/Classes/Connection/HTTPConnection.h",
-    "SCHTTPServer/Classes/HTTP/HTTPServer.h",
-    "SCHTTPServer/Classes/Connection/P12HTTPConnection.h",
-    "SCHTTPServer/Classes/HTTP/HTTPLogging.h"
-  ],
+  "public_header_files": "SCHTTPServer/Classes/**/*.h",
   "frameworks": [
     "Security",
     "Foundation"

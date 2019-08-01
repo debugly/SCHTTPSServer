@@ -9,7 +9,7 @@
 #import <SCHTTPServer/HTTPServer.h>
 #import <SCHTTPServer/P12HTTPConnection.h>
 #import <SCHTTPServer/HTTPLogger.h>
-
+#import <SCHTTPServer/HTTPJSONResponse.h>
 #import <WebKit/WebKit.h>
 #import "TestHTTPConnection.h"
 
@@ -33,6 +33,14 @@
     }];
     [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_VERBOSE];
     [[HTTPLogger sharedLogger] setTraceOn:YES];
+    
+    [P12HTTPConnection registerHandler:^id<HTTPResponse>(NSData *header, NSData *body) {
+        return [[HTTPJSONResponse alloc]initWithJSON:@{@"post":@(200)} status:200];
+    } forPath:@"/test" method:@"POST"];
+    //https://localhost.gengtaotjut.com:7981/test?cma=a
+    [P12HTTPConnection registerHandler:^id<HTTPResponse>(NSData *header, NSData *body) {
+        return [[HTTPJSONResponse alloc]initWithJSON:@{@"get":@(201)} status:200];
+    } forPath:@"/test" method:@"GET"];
     
     self.httpServer = [[HTTPServer alloc] init];
 #warning your PKCS#12 certificate
