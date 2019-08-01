@@ -22,4 +22,9 @@
  */
 + (void)pkcsPath:(NSString *)path;
 
+/**
+ 设置 P12 证书描述，设置信任时用到；
+ */
++ (void)pkcsDesc:(NSString *)descriptor;
+
 @end

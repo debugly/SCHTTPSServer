@@ -10,6 +10,7 @@
 
 static NSString *p12Pwd  = nil;
 static NSString *p12Path = nil;
+static NSString *p12Desc = nil;
 
 @implementation P12HTTPConnection
 
@@ -23,6 +24,12 @@ static NSString *p12Path = nil;
 {
     NSAssert([[NSFileManager defaultManager]fileExistsAtPath:path], @"P12 证书不存在！");
     p12Path = path;
+}
+
++ (void)pkcsDesc:(NSString *)descriptor
+{
+    NSAssert([descriptor length] > 0, @"P12 证书描述必须大于0！");
+    p12Desc = descriptor;
 }
 
 /**
@@ -70,7 +77,8 @@ static bool defaultAccess(SecAccessRef * __nonnull CF_RETURNS_RETAINED accessRef
 //    CFArrayAppendValue(trustedApplications, KeychainAccess);
     
     /* create the access from the list */
-    rc = SecAccessCreate(CFSTR("localhost.gengtaotjut.com"), (CFArrayRef)trustedApplications, accessRef);
+    
+    rc = SecAccessCreate((__bridge CFStringRef)p12Desc, (CFArrayRef)trustedApplications, accessRef);
     if ( rc != errSecSuccess ) {
         HTTPLogError(@"SecAccessCreate failed");
     }

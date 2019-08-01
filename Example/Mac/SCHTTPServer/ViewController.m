@@ -33,6 +33,7 @@
     NSString *pwdPath = [[NSBundle mainBundle] pathForResource:@"pwd" ofType:@"txt"];
     NSString *pwd = [[NSString alloc]initWithContentsOfFile:pwdPath encoding:NSUTF8StringEncoding error:nil];
     [P12HTTPConnection pkcsPassword:pwd];
+    [P12HTTPConnection pkcsDesc:@"localhost.gengtaotjut.com"];
     
     [self.httpServer setConnectionClass:[P12HTTPConnection class]];
 //    [self.httpServer setConnectionClass:[TestHTTPConnection class]];
