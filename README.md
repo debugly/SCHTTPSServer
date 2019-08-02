@@ -24,6 +24,7 @@ pod 'SCHTTPServer'
 
 - 0.1.0 HTTPS use P12 certification.
 - 0.1.1 Support GET and POST API Service.
+- 0.1.2 Use static SecIdentityRef
 
 ## License
 
