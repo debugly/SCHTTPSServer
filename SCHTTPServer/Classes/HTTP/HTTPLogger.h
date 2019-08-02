@@ -78,8 +78,8 @@ typedef void(^HTTPLogggerReceiver)(HTTP_LOG_Level level,NSString* log);
 @property(assign) HTTP_LOG_Level level;
 //print trace log? default is off;
 @property(assign) BOOL traceOn;
-
-- (void)writeLog:(HTTP_LOG_Level)level file:(const char*)sourceFile function:(const char*)functionName lineNumber:(int)lineNumber format:(NSString*)format,...;
+//HTTP_LOG_Level
+- (void)writeLog:(int)level file:(const char*)sourceFile function:(const char*)functionName lineNumber:(int)lineNumber format:(NSString*)format,...;
 - (void)receiveLog:(HTTPLogggerReceiver)reveiver;
 
 @end

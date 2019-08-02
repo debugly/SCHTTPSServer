@@ -29,14 +29,14 @@
     return self;
 }
 
-- (void)writeLog:(HTTP_LOG_Level)level file:(const char*)sourceFile function:(const char*)functionName lineNumber:(int)lineNumber format:(NSString*)format,...
+- (void)writeLog:(int)level file:(const char*)sourceFile function:(const char*)functionName lineNumber:(int)lineNumber format:(NSString*)format,...
 {
     if (level == HTTP_LOG_LEVEL_TRACE) {
         if (!self.traceOn) {
             return;
         }
     } else {
-        if (level < self.level) {
+        if (level > self.level) {
             return;
         }
     }
