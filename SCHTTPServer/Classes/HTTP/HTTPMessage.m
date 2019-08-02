@@ -105,6 +105,20 @@
 	return (__bridge_transfer NSData *)CFHTTPMessageCopyBody(message);
 }
 
+- (void)appendBodyData:(NSData *)body
+{
+    if (postBodyData == nil) {
+        postBodyData = [NSMutableData data];
+    }
+    [postBodyData appendData:body];
+}
+
+- (void)finishBodyData
+{
+    [self setBody:postBodyData];
+    postBodyData = nil;
+}
+
 - (void)setBody:(NSData *)body
 {
 	CFHTTPMessageSetBody(message, (__bridge CFDataRef)body);

@@ -10,7 +10,9 @@
 
 static NSString *p12Pwd  = nil;
 static NSString *p12Path = nil;
-static NSString *p12Desc = nil;
+
+static SecKeychainRef privateKeychain = NULL;
+static char *keychainPwd = NULL;
 
 @implementation P12HTTPConnection
 
@@ -24,12 +26,6 @@ static NSString *p12Desc = nil;
 {
     NSAssert([[NSFileManager defaultManager]fileExistsAtPath:path], @"P12 证书不存在！");
     p12Path = path;
-}
-
-+ (void)pkcsDesc:(NSString *)descriptor
-{
-    NSAssert([descriptor length] > 0, @"P12 证书描述必须大于0！");
-    p12Desc = descriptor;
 }
 
 /**
@@ -50,21 +46,22 @@ static void deleteKeychain(NSString *keychainPath){
     }
 }
 
-static bool defaultAccess(SecAccessRef * __nonnull CF_RETURNS_RETAINED accessRef)
+static bool createDefaultAccess(SecAccessRef * __nonnull CF_RETURNS_RETAINED accessRef)
 {
     int rc = 0;
-    CFMutableArrayRef trustedApplications = NULL;
+// https://github.com/DUNE/kx509/blob/f8d9147634c2efb216d5b447e756dbe62342612d/src/client/store_in_keychain.m
     /* build a list of trusted applications */
-    trustedApplications = CFArrayCreateMutable(kCFAllocatorDefault,
+    CFMutableArrayRef trustedApplications = CFArrayCreateMutable(kCFAllocatorDefault,
                                                0, &kCFTypeArrayCallBacks);
     SecTrustedApplicationRef myself = NULL;
     /* add the calling program */
-    
+
     rc = SecTrustedApplicationCreateFromPath(NULL, &myself);
     if ( rc != errSecSuccess ) {
         HTTPLogError(@"SecTrustedApplication Failed!");
     } else {
         CFArrayAppendValue(trustedApplications, myself);
+        CFRelease(myself);
     }
     
 //    /* add keychain access */
@@ -77,36 +74,58 @@ static bool defaultAccess(SecAccessRef * __nonnull CF_RETURNS_RETAINED accessRef
 //    CFArrayAppendValue(trustedApplications, KeychainAccess);
     
     /* create the access from the list */
-    
-    rc = SecAccessCreate((__bridge CFStringRef)p12Desc, (CFArrayRef)trustedApplications, accessRef);
+    rc = SecAccessCreate(CFSTR("Server PKCS12"), (CFArrayRef)trustedApplications, accessRef);
     if ( rc != errSecSuccess ) {
         HTTPLogError(@"SecAccessCreate failed");
+    } else {
+        CFRelease(trustedApplications);
     }
+    //https://developer.apple.com/documentation/security/1393522-secaccesscreate?language=objc
+//    CFArrayRef aclList = NULL;
+//    if (SecAccessCopyACLList(*accessRef, &aclList) == errSecSuccess) {
+//        CFIndex count = CFArrayGetCount(aclList);
+//        for(CFIndex i = 0; i < count; i++ ){
+//            SecACLRef acl = (SecACLRef)CFArrayGetValueAtIndex(aclList, i);
+//            SecACLUpdateAuthorizations(acl,(__bridge CFArrayRef) @[ @(CSSM_ACL_AUTHORIZATION_ANY)]);
+//            //CFArrayRef authiorizations = SecACLCopyAuthorizations(acl);
+//            SecACLCreateWithSimpleContents(*accessRef, NULL, CFSTR("without prompt"), 0, &acl);
+//        }
+//    }
+    
     return rc == errSecSuccess;
+}
+
+static char * generateKeychainPwd(int pwdLength)
+{
+    void *pwd = malloc(pwdLength + 1);
+    memset(pwd, 0, pwdLength + 1);
+    char *dest = (char *)pwd;
+    for (int i = 0; i < pwdLength; i ++) {
+        //[32,126] = 32 + [0,94]
+        int j = 32 + arc4random() % 95;
+        *(dest + i) = j;
+    }
+    return (char *)pwd;
 }
 
 static bool createNewKeychain(NSString *keychainPath,SecKeychainRef * keychain){
     SecAccessRef accessRef = NULL;
     const char *cPath = [keychainPath cStringUsingEncoding:NSUTF8StringEncoding];
-    if (defaultAccess(&accessRef)) {
+    if (createDefaultAccess(&accessRef)) {
         int pwdLength = 6;
-        void *pwd = malloc(pwdLength + 1);
-        memset(pwd, 0, pwdLength + 1);
-        for (int i = 0; i < pwdLength; i ++) {
-            //[32,126] = 32 + [0,94]
-            int j = 32 + arc4random() % 95;
-            char *dest = (char *)pwd;
-            *dest = j;
-            dest ++;
-        }
+        char *pwd = generateKeychainPwd(pwdLength);
+        //https://developer.apple.com/documentation/security/1401214-seckeychaincreate?language=objc
         OSStatus result = SecKeychainCreate(cPath, pwdLength, pwd, NO, accessRef, keychain);
-        if (NULL != pwd) {
-            free(pwd);
-            pwd = NULL;
-        }
+        CFRelease(accessRef);
         if (result == errSecSuccess) {
+            //save it
+            keychainPwd = pwd;
             HTTPLogInfo(@"SecKeychainCreate succeed!");
         } else {
+            if (NULL != pwd) {
+                free(pwd);
+                pwd = NULL;
+            }
             HTTPLogError(@"SecKeychainCreate failed:(%d)", result);
         }
         return result == errSecSuccess;
@@ -114,29 +133,14 @@ static bool createNewKeychain(NSString *keychainPath,SecKeychainRef * keychain){
     return false;
 }
 
-static bool openExistKeychain(NSString *keychainPath,SecKeychainRef * keychain){
-    if ([[NSFileManager defaultManager] fileExistsAtPath:keychainPath]) {
-        const char *cPath = [keychainPath cStringUsingEncoding:NSUTF8StringEncoding];
-        if (errSecSuccess == SecKeychainOpen(cPath, keychain)) {
-            HTTPLogInfo(@"Use Exist Keychain: %@", keychainPath);
-            return true;
-        } else {
-            HTTPLogInfo(@"Can't Open Old Keychain, so delete it: %@", keychainPath);
-            deleteKeychain(keychainPath);
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-static void removeKeychainIfAccessBad(NSString *keychainPath)
+static void removeOldKeychain(NSString *keychainPath)
 {
     //1、these method are not implemented! can't check current process can access the old keychain!
+    //https://github.com/lionheart/openradar-mirror/issues/16765
     //OSStatus result = SecKeychainCopyAccess(privateKeychain, &accessRef2);
     //OSStatus result = SecKeychainSetAccess(keychain, accessRef);
     
-    //2、I want to use sc_lastTrustPath record the application path, if the path not equal current runing process then remove the old keychain, because current runing process can't access the old keychain before user confirm access alert! However I failed ,even the application bundle path equal,but still can' access before user confirm access alert!
+    //2、I want to use sc_lastTrustPath record the application path, if the path not equal current runing process then remove the old keychain, because current runing process can't access the old keychain before display a password dialog to the user! However I failed ,even the application bundle path equal,but still can't access without dialog!
         
 //    NSString *lastTrustPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"sc_lastTrustPath"];
 //    NSString *currentTrustPath = [[NSBundle mainBundle] bundlePath];
@@ -145,7 +149,8 @@ static void removeKeychainIfAccessBad(NSString *keychainPath)
 //        deleteKeychain(keychainPath);
 //        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sc_lastTrustPath"];
 //    }
-    //so delete it!
+    
+    //When Open Old Exist Keychain, system will display a password dialog to the user！so delete it anyway!
     if ([[NSFileManager defaultManager] fileExistsAtPath:keychainPath]) {
         deleteKeychain(keychainPath);
         HTTPLogInfo(@"Removed old keychain file");
@@ -158,23 +163,44 @@ static void removeKeychainIfAccessBad(NSString *keychainPath)
 //    [[NSUserDefaults standardUserDefaults] setObject:currentTrustPath forKey:@"sc_lastTrustPath"];
 //}
 
+//OSStatus keychainCallback(SecKeychainEvent keychainEvent, SecKeychainCallbackInfo *info, void * __nullable context){
+//    HTTPLogWarn(@"Keychain Loacked!");
+//    SecKeychainRef keychain = (SecKeychainRef)context;
+//    if (privateKeychain == keychain) {
+//        if(errSecSuccess == SecKeychainUnlock(privateKeychain, strlen(keychainPwd), keychainPwd, YES)){
+//
+//        }
+//    }
+//    return errSecSuccess;
+//}
+
 static SecKeychainRef privateKeyChain()
 {
-    //static
-    SecKeychainRef privateKeychain = NULL;
     if (!privateKeychain) {
-        
         NSString *keychainPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"SCKeychain"];
         
-        removeKeychainIfAccessBad(keychainPath);
-        
-        if (!openExistKeychain(keychainPath, &privateKeychain)) {
-            createNewKeychain(keychainPath, &privateKeychain);
-        }
+        removeOldKeychain(keychainPath);
+        createNewKeychain(keychainPath, &privateKeychain);
+
+//  以下代码测试发现没效果 ㄟ( ▔, ▔ )ㄏ
+//        SecKeychainSettings outSettings;
+//        SecKeychainCopySettings(privateKeychain, &outSettings);
+//        NSLog(@"interval:%d",outSettings.lockInterval);
+//        NSLog(@"lockOnSleep:%d",outSettings.lockOnSleep);
+//        NSLog(@"useLockInterval:%d",outSettings.useLockInterval);
+//        outSettings.lockInterval = 3;
+//        outSettings.lockOnSleep = 0;
+//        outSettings.useLockInterval = 3;
+//        SecKeychainSetSettings(privateKeychain, &outSettings);
+//        SecKeychainSetUserInteractionAllowed(NO);
+//        if(errSecSuccess == SecKeychainAddCallback(keychainCallback, kSecEveryEventMask, privateKeychain)){
+//            HTTPLogInfo(@"SecKeychain Added Callback");
+//        }
     }
     return privateKeychain;
 }
 
+//http://103.17.55.198/zao/downloads/curl-7.51.0/curl-7.51.0/lib/vtls/darwinssl.c
 static OSStatus CopyIdentityFromPKCS12File(NSString *path,
                                            NSString *password,
                                            SecIdentityRef *out_cert_and_key)
@@ -182,7 +208,7 @@ static OSStatus CopyIdentityFromPKCS12File(NSString *path,
     CFDataRef pkcs_data = NULL;
     NSData *data = [NSData dataWithContentsOfFile:path];
     pkcs_data = (__bridge CFDataRef)(data);
-    
+//https://stackoverflow.com/questions/19020074/cfurlcreatedataandpropertiesfromresource-deprecated-and-looking-for-substitute/29846425
 //    CFURLRef pkcs_url = CFURLCreateFromFileSystemRepresentation(NULL,
 //                                                                (const UInt8 *)cPath, strlen(cPath), false);
 //
@@ -197,6 +223,9 @@ static OSStatus CopyIdentityFromPKCS12File(NSString *path,
     if (privateKeychain == NULL) {
         assert(0);
     }
+//https://opensource.apple.com/source/libsecurity_keychain/libsecurity_keychain-55050.9/lib/SecImportExport.c.auto.html
+//https://stackoverflow.com/questions/33181127/why-does-secpkcs12import-automatically-add-secidentities-to-the-keychain
+//https://forums.developer.apple.com/thread/69642
     
     CFStringRef pwdRef    = (__bridge CFStringRef)(password);
     const void *cKeys[]   = {kSecImportExportPassphrase,kSecImportExportKeychain};
@@ -248,6 +277,19 @@ CF_INLINE CFStringRef CopyCertSubject(SecCertificateRef cert)
     return server_cert_summary;
 }
 
+static void unlockKeyChain()
+{
+    if (NULL != keychainPwd) {
+        ///测试发现只要超过10min没有请求就会弹出让用户确定的框，因此这里先解锁！避免这个问题！
+        OSStatus err = SecKeychainUnlock(privateKeychain, (UInt32)strlen(keychainPwd), keychainPwd, YES);
+        if(errSecSuccess == err){
+            HTTPLogInfo(@"Unlock SecKeychain");
+        } else {
+            HTTPLogError(@"Unlock SecKeychain Failed:%d",err);
+        }
+    }
+}
+
 /**
  * Overrides HTTPConnection's method
  *
@@ -287,6 +329,8 @@ CF_INLINE CFStringRef CopyCertSubject(SecCertificateRef cert)
                 CFRelease(cert);
             }
         }
+    } else {
+        unlockKeyChain();
     }
     
     NSArray *result = cert_and_key != NULL ? @[(__bridge id)cert_and_key] : nil;

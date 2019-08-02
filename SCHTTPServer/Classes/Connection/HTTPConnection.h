@@ -61,7 +61,6 @@
 	UInt64 requestChunkSizeReceived;
   
 	NSMutableArray *responseDataSizes;
-    NSMutableData  *postRequestBodyData;
 }
 
 - (id)initWithAsyncSocket:(GCDAsyncSocket *)newSocket configuration:(HTTPConfig *)aConfig;
@@ -110,7 +109,7 @@
 - (BOOL)shouldDie;
 - (void)die;
 
-+ (void)registerHandler:(id<HTTPResponse> (^)(NSData *header,NSData *body))handler forPath :(NSString *)path method:(NSString *)method;
++ (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPath :(NSString *)path method:(NSString *)method;
 
 @end
 

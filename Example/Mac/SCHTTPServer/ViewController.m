@@ -10,6 +10,7 @@
 #import <SCHTTPServer/P12HTTPConnection.h>
 #import <SCHTTPServer/HTTPLogger.h>
 #import <SCHTTPServer/HTTPJSONResponse.h>
+#import <SCHTTPServer/HTTPMessage.h>
 #import <WebKit/WebKit.h>
 #import "TestHTTPConnection.h"
 
@@ -31,16 +32,25 @@
     [[HTTPLogger sharedLogger] receiveLog:^(HTTP_LOG_Level level, NSString *log) {
        NSLog(@"%d %@",level,log);
     }];
-    [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_WARN];
+    [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_VERBOSE];
     [[HTTPLogger sharedLogger] setTraceOn:YES];
     
-    [P12HTTPConnection registerHandler:^id<HTTPResponse>(NSData *header, NSData *body) {
+    [P12HTTPConnection registerHandler:^id<HTTPResponse>(HTTPMessage *req) {
+        NSData *body = [req body];
+        NSString *bodyStr = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+        NSLog(@"Post Body:%@",bodyStr);
         return [[HTTPJSONResponse alloc]initWithJSON:@{@"post":@(200)} status:200];
     } forPath:@"/test" method:@"POST"];
     //https://localhost.gengtaotjut.com:7981/test?cma=a
-    [P12HTTPConnection registerHandler:^id<HTTPResponse>(NSData *header, NSData *body) {
+    [P12HTTPConnection registerHandler:^id<HTTPResponse>(HTTPMessage *req) {
         return [[HTTPJSONResponse alloc]initWithJSON:@{@"get":@(201)} status:200];
     } forPath:@"/test" method:@"GET"];
+    
+    NSDate *date = [NSDate date];
+    [P12HTTPConnection registerHandler:^id<HTTPResponse>(HTTPMessage *req) {
+        int interval = (int)[[NSDate date] timeIntervalSinceDate:date];
+        return [[HTTPJSONResponse alloc]initWithJSON:@{@"run time":@(interval)} status:200];
+    } forPath:@"/" method:@"GET"];
     
     self.httpServer = [[HTTPServer alloc] init];
 #warning your PKCS#12 certificate
@@ -50,7 +60,6 @@
     NSString *pwdPath = [[NSBundle mainBundle] pathForResource:@"pwd" ofType:@"txt"];
     NSString *pwd = [[NSString alloc]initWithContentsOfFile:pwdPath encoding:NSUTF8StringEncoding error:nil];
     [P12HTTPConnection pkcsPassword:pwd];
-    [P12HTTPConnection pkcsDesc:@"localhost.gengtaotjut.com"];
     
     [self.httpServer setConnectionClass:[P12HTTPConnection class]];
 //    [self.httpServer setConnectionClass:[TestHTTPConnection class]];

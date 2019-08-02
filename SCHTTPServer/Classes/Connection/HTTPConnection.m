@@ -919,15 +919,10 @@ static NSMutableArray *recentNonces;
 	NSString *method = [request method];
 	
 	// Note: We already checked to ensure the method was supported in onSocket:didReadData:withTag:
-    if ([method isEqualToString:@"POST"]) {
-        // Respond properly to HTTP 'POST' commands
-        httpResponse = [self httpResponseForPost:[request url] header:[request messageData] body:postRequestBodyData];
-    } else {
-        httpResponse = [self httpResponseForGet:[request url] header:[request messageData]];
-        if (!httpResponse) {
-            // Respond properly to HTTP 'GET' and 'HEAD' commands
-            httpResponse = [self httpResponseForMethod:method URI:uri];
-        }
+    httpResponse = [[self class] httpResponseForRequest:request];
+    if (!httpResponse) {
+        // Respond properly to HTTP 'GET' and 'HEAD' commands
+        httpResponse = [self httpResponseForMethod:method URI:uri];
     }
 	
 	if (httpResponse == nil)
@@ -1595,7 +1590,7 @@ static NSMutableArray *recentNonces;
 
 static NSMutableDictionary *_s_path_handler_map = nil;
 
-+ (void)registerHandler:(id<HTTPResponse> (^)(NSData *header,NSData *body))handler forPath :(NSString *)path method:(NSString *)method
++ (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPath :(NSString *)path method:(NSString *)method
 {
     if (!_s_path_handler_map) {
         _s_path_handler_map = [NSMutableDictionary dictionaryWithCapacity:3];
@@ -1623,39 +1618,19 @@ static NSMutableDictionary *_s_path_handler_map = nil;
     }
 }
 
-+ (id<HTTPResponse>)postResponseForPath:(NSString *)path header:(NSData *)header body:(NSData *)body
++ (id<HTTPResponse>)httpResponseForRequest:(HTTPMessage *)req
 {
-    HTTPLogTrace2(@"%@",path);
-    NSDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:@"POST"];
-    id<HTTPResponse> (^handler)(NSData *header,NSData *body) = [methodHandlerMap objectForKey:path];
+    NSString *method = [req method];
+    NSString *path = [[req url] path];
+    HTTPLogTrace2(@"%@:%@",method,path);
+    NSDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:method];
+    id<HTTPResponse> (^handler)(HTTPMessage *) = [methodHandlerMap objectForKey:path];
     if (handler) {
-        return handler(header,body);
+        return handler(req);
     } else {
-        HTTPLogWarn(@"can't process post for %@",path);
+        HTTPLogWarn(@"can't %@ post for %@",method,path);
         return nil;
     }
-}
-
-+ (id<HTTPResponse>)getResponseForPath:(NSString *)path header:(NSData *)header
-{
-    HTTPLogTrace2(@"%@",path);
-    NSDictionary *methodHandlerMap = [_s_path_handler_map objectForKey:@"GET"];
-    id<HTTPResponse> (^handler)(NSData *header,NSData *body) = [methodHandlerMap objectForKey:path];
-    if (handler) {
-        return handler(header,nil);
-    } else {
-        return nil;
-    }
-}
-
-- (id<HTTPResponse>)httpResponseForPost:(NSURL *)url header:(NSData *)header body:(NSData *)body
-{
-    return [[self class] postResponseForPath:[url path] header:header body:body];
-}
-
-- (id<HTTPResponse>)httpResponseForGet:(NSURL *)url header:(NSData *)header
-{
-    return [[self class] getResponseForPath:[url path] header:header];
 }
 
 /**
@@ -1714,11 +1689,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	// The size of the chunks are limited by the POST_CHUNKSIZE definition.
 	// Therefore, this method may be called multiple times for the same POST request.
     
-    if (postRequestBodyData == nil) {
-        postRequestBodyData = [NSMutableData data];
-    }
-    
-    [postRequestBodyData appendData:postDataChunk];
+    [request appendBodyData:postDataChunk];
 }
 
 /**
@@ -1726,6 +1697,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 **/
 - (void)finishBody
 {
+    [request finishBodyData];
 	// Override me to perform any final operations on an upload.
 	// For example, if you were saving the upload to disk this would be
 	// the hook to flush any pending data to disk and maybe close the file.

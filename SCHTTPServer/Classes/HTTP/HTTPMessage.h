@@ -16,6 +16,7 @@
 @interface HTTPMessage : NSObject
 {
 	CFHTTPMessageRef message;
+    NSMutableData  *postBodyData;
 }
 
 - (id)initEmptyRequest;
@@ -43,6 +44,10 @@
 - (NSData *)messageData;
 
 - (NSData *)body;
+
+- (void)appendBodyData:(NSData *)body;
+- (void)finishBodyData;
+
 - (void)setBody:(NSData *)body;
 
 @end
