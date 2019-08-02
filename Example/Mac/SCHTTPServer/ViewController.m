@@ -31,7 +31,7 @@
     [[HTTPLogger sharedLogger] receiveLog:^(HTTP_LOG_Level level, NSString *log) {
        NSLog(@"%d %@",level,log);
     }];
-    [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_VERBOSE];
+    [[HTTPLogger sharedLogger] setLevel:HTTP_LOG_LEVEL_WARN];
     [[HTTPLogger sharedLogger] setTraceOn:YES];
     
     [P12HTTPConnection registerHandler:^id<HTTPResponse>(NSData *header, NSData *body) {
@@ -66,12 +66,12 @@
     }
     
     [self.httpServer setDocumentRoot:docRoot];
-    [self.httpServer setPort:7981];
+    [self.httpServer setPort:7777];
     NSError *error = nil;
     if([self.httpServer start:&error])
     {
-//        NSURL *url = [NSURL URLWithString:@"https://localhost:7981"];
-        NSURL *url = [NSURL URLWithString:@"https://localhost.gengtaotjut.com:7981"];
+//        NSURL *url = [NSURL URLWithString:@"https://localhost:7777"];
+        NSURL *url = [NSURL URLWithString:@"https://localhost.gengtaotjut.com:7777"];
         
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
         [self.wkWebView loadRequest:req];
