@@ -160,7 +160,8 @@ static void removeKeychainIfAccessBad(NSString *keychainPath)
 
 static SecKeychainRef privateKeyChain()
 {
-    static SecKeychainRef privateKeychain = NULL;
+    //static
+    SecKeychainRef privateKeychain = NULL;
     if (!privateKeychain) {
         
         NSString *keychainPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"SCKeychain"];
@@ -252,47 +253,45 @@ CF_INLINE CFStringRef CopyCertSubject(SecCertificateRef cert)
  *
  * This method is expected to returns an array appropriate for use in kCFStreamSSLCertificates SSL Settings.
  * It should be an array of SecCertificateRefs except for the first element in the array, which is a SecIdentityRef.
+ v0.1.2 修改
+ 将 SecIdentityRef 做成静态的，不必每次都从keychain导一次；keychain做成非静态的；
+ 解决程序重启后仍旧出现弹出授权询问框问题；
  **/
 - (NSArray *)sslIdentityAndCertificates
 {
     HTTPLogTrace();
-    SecIdentityRef cert_and_key = NULL;
-
-    CopyIdentityFromPKCS12File(p12Path, p12Pwd, &cert_and_key);
+    static SecIdentityRef cert_and_key = NULL;
     
-    SecCertificateRef cert = NULL;
-    
-    /* If we found one, print it out: */
-    OSStatus err = SecIdentityCopyCertificate(cert_and_key, &cert);
-    if(err == noErr) {
-        CFStringRef cert_summary = CopyCertSubject(cert);
-        char cert_summary_c[128];
+    if (!cert_and_key) {
+        HTTPLogInfo(@"Create SecIdentityRef from PKCS12 file!");
+        CopyIdentityFromPKCS12File(p12Path, p12Pwd, &cert_and_key);
+        CFRetain(cert_and_key);
         
-        if(cert_summary) {
-            memset(cert_summary_c, 0, 128);
-            if(CFStringGetCString(cert_summary,
-                                  cert_summary_c,
-                                  128,
-                                  kCFStringEncodingUTF8)) {
-                NSLog(@"Client certificate: %s\n", cert_summary_c);
+        SecCertificateRef cert = NULL;
+        
+        /* If we found one, print it out: */
+        OSStatus err = SecIdentityCopyCertificate(cert_and_key, &cert);
+        if(err == noErr) {
+            CFStringRef cert_summary = CopyCertSubject(cert);
+            char cert_summary_c[128];
+            
+            if(cert_summary) {
+                memset(cert_summary_c, 0, 128);
+                if(CFStringGetCString(cert_summary,
+                                      cert_summary_c,
+                                      128,
+                                      kCFStringEncodingUTF8)) {
+                    HTTPLogInfo(@"Client certificate: %s\n", cert_summary_c);
+                }
+                CFRelease(cert_summary);
+                CFRelease(cert);
             }
-            CFRelease(cert_summary);
-            CFRelease(cert);
         }
     }
     
-//    CFTypeRef certs_c[1];
-//    CFArrayRef certs;
-//
-//    certs_c[0] = cert_and_key;
-//    certs = CFArrayCreate(NULL, (const void **)certs_c, 1L,
-//                          &kCFTypeArrayCallBacks);
-//    if(certs)
-//        CFRelease(certs);
-    
     NSArray *result = cert_and_key != NULL ? @[(__bridge id)cert_and_key] : nil;
-    if (cert_and_key)
-        CFRelease(cert_and_key);
+//    if (cert_and_key)
+//        CFRelease(cert_and_key);
     
     return result;
 }
