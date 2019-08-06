@@ -1,6 +1,6 @@
 PODS:
   - CocoaAsyncSocket (7.6.3)
-  - SCHTTPServer (0.1.0):
+  - SCHTTPServer (0.1.3):
     - CocoaAsyncSocket
 
 DEPENDENCIES:
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  SCHTTPServer: 56d5e48adbd131cfaadda1cf4f553ff153ffbda5
+  SCHTTPServer: 7fdbb463243e3da466e4a28d27cf54aeff7832da
 
 PODFILE CHECKSUM: a0584266d429a3b1e3ab1063a9e66674c3260d3d
 

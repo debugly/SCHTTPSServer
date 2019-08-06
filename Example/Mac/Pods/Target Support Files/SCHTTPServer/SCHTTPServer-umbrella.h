@@ -28,8 +28,10 @@
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPErrorResponse.h"
 #import "HTTPFileResponse.h"
+#import "HTTPJSONPResponse.h"
 #import "HTTPJSONResponse.h"
 #import "HTTPRedirectResponse.h"
+#import "HTTPResponseMaker.h"
 
 FOUNDATION_EXPORT double SCHTTPServerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SCHTTPServerVersionString[];

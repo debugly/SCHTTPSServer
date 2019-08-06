@@ -1590,6 +1590,13 @@ static NSMutableArray *recentNonces;
 
 static NSMutableDictionary *_s_path_handler_map = nil;
 
++ (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPaths :(NSArray <NSString *>*)pathArr method:(NSString *)method
+{
+    for (NSString * path in pathArr) {
+        [self registerHandler:handler forPath:path method:method];
+    }
+}
+
 + (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPath :(NSString *)path method:(NSString *)method
 {
     if (!_s_path_handler_map) {
@@ -1628,7 +1635,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
     if (handler) {
         return handler(req);
     } else {
-        HTTPLogWarn(@"can't %@ post for %@",method,path);
+        HTTPLogWarn(@"can't %@ for %@",method,path);
         return nil;
     }
 }

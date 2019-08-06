@@ -1,12 +1,11 @@
-#import <Foundation/Foundation.h>
 #import "HTTPResponse.h"
 
-
 @interface HTTPDataResponse : NSObject <HTTPResponse>
-{
-	NSUInteger offset;
-	NSData *data;
-}
+
+//default is 200
+@property (nonatomic) NSInteger status;
+//Content-Type: text/html;charset=UTF-8
+@property (nonatomic) NSDictionary *httpHeaders;
 
 - (id)initWithData:(NSData *)data;
 

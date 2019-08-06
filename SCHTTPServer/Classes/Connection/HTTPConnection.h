@@ -111,6 +111,8 @@
 
 + (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPath :(NSString *)path method:(NSString *)method;
 
++ (void)registerHandler:(id<HTTPResponse> (^)(HTTPMessage *))handler forPaths :(NSArray <NSString *>*)pathArr method:(NSString *)method;
+
 @end
 
 @interface HTTPConnection (AsynchronousHTTPResponse)

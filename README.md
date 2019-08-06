@@ -26,6 +26,7 @@ pod 'SCHTTPServer'
 - 0.1.1 Support GET and POST API Service.
 - 0.1.2 Use static SecIdentityRef.
 - 0.1.3 Fix display a password dialog problem.
+- 0.1.4 Support JSONP response.
 
 ## License
 

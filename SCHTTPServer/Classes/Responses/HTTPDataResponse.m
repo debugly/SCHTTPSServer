@@ -5,17 +5,32 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-
 @implementation HTTPDataResponse
+{
+    NSUInteger offset;
+    NSData *data;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithCapacity:3];
+        [headers setObject:@"text/html;charset=UTF-8" forKey:@"Content-Type"];
+        [headers setObject:@"SCHTTPServer" forKey:@"Server"];
+        self.httpHeaders = [headers copy];
+    }
+    return self;
+}
 
 - (id)initWithData:(NSData *)dataParam
 {
-	if((self = [super init]))
+	if((self = [self init]))
 	{
 		HTTPLogTrace();
-		
 		offset = 0;
 		data = dataParam;
+        self.status = 200;
 	}
 	return self;
 }
@@ -23,7 +38,6 @@
 - (void)dealloc
 {
 	HTTPLogTrace();
-	
 }
 
 - (UInt64)contentLength

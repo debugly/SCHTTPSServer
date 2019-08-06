@@ -7,67 +7,71 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		006F06DE01F657243C9D19034D02770F /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB71C065A47937504BCB0C785AFDDFA /* DDRange.m */; };
 		020D33939FC4B1691EECEC877CCAE098 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C98D61F0ED0333B2C2C0DA65B20EC3E /* Cocoa.framework */; };
-		05AEB4A0C73367BD6D07A8817E331578 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC79F4E25A7FF06C182A641DF55E4D5 /* CocoaAsyncSocket.framework */; };
-		07A6F7F9A73662B8D26CF6EA9C14AEC4 /* HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F22B884B184D64CD7926BFEE64C4593 /* HTTPConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BBDC1BD9FC212CDF3E1C964FC9D7E57 /* HTTPDynamicFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = B60C120F21FC4095A944F2209436F1C6 /* HTTPDynamicFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D3AA324A473BB3587E0B81FF1157570 /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 531FAB77BAB7C0811365CEEEE8078D05 /* HTTPRedirectResponse.m */; };
+		034273367B533705C00CCF3133EDDFAA /* HTTPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DDD6DB2F753C0004A71FB64D06DA55 /* HTTPLogger.m */; };
+		080BA7244F540D215148E497290E9A80 /* HTTPJSONPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 739CD5521B307E92045E1D771215CF5C /* HTTPJSONPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		128C23BFB534D5CBD651D3E385F915DE /* HTTPRedirectResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = E8091FF7B77C4698363110B6FA76B4AF /* HTTPRedirectResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1490429E0BCCE2D4F7771584E13317CF /* P12HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = D5007B778B9E205AD1F90E3D00F93AE1 /* P12HTTPConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15392F550D59E6B1181F236EAE14D296 /* HTTPFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 5873FF757EFD0F3BE7701E4B52480A73 /* HTTPFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16C1870A28AAA54A455B3182E30ABF15 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C195E0220D760C40C3D781DC6D205232 /* HTTPAsyncFileResponse.m */; };
 		181C81C739F806BCDD6F760FD30A01FB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88212923B780DE4BF75C3E81880D01B8 /* CoreServices.framework */; };
-		1866EE7B03B83AC7E3DB1B613FB5B99A /* HTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = B78EFC08F89B6D94371FC90EAC5B4E11 /* HTTPServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B9991F55531B5611A424173CEE0BE26 /* HTTPErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6C319525546277042BF1DBF031891 /* HTTPErrorResponse.m */; };
+		18A9156FA9D12CFB747D6FEC45518F9B /* HTTPJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FD1AE115D9494D353FE797A55F1DC6 /* HTTPJSONResponse.m */; };
 		1C7C608091334B29AA1F96D400B24326 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0D9393A92083DA9D32F56244F48A39 /* GCDAsyncSocket.m */; };
-		1D746C2B086FAE232C11B070AB35D436 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E32973CFA75ADAAC9EB3434187342373 /* HTTPConnection.m */; };
-		1DE898F4E4BB3C39DEC161E9E6580945 /* HTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 08730D3B151864B9DE8682D49B667A83 /* HTTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		21D5026EF69566C3742E57AD74CB88F6 /* HTTPJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 7287A4292A74A3579743DF5A2EDCBB17 /* HTTPJSONResponse.m */; };
-		25C03D1C233DCC4FB633927116BD76BE /* HTTPAuthenticationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 26DE63784E375B7A9F4B0604EAE5843D /* HTTPAuthenticationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21E35DA176684C0B9F6512B41B380261 /* SCHTTPServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1E6081C17EA2D4AC887521AD25A10 /* SCHTTPServer-dummy.m */; };
+		23E3D967399814E223F7D980AE2FDADE /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9954409EB7C40B02C38B29BC6F436E25 /* HTTPConnection.m */; };
 		2922C954DCA50DB1C087E9E9C9440393 /* CocoaAsyncSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E8773045111A5CD08ECF026E48421F3B /* CocoaAsyncSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6D0856D5CABE3CF7AF2B6BE1B08F31 /* HTTPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = BDEC54224D7DD8CD67E255030142D718 /* HTTPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		349C8D438ABAEFBEFF964E86BB64CC72 /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C1CF6C3FEBF2989D07D836077B77F0 /* HTTPMessage.m */; };
+		29624B210CEFD291EA40F86477029509 /* MultipartMessageHeaderField.h in Headers */ = {isa = PBXBuildFile; fileRef = AA2B94CBD66FEE9D99A9A248BBDEBD48 /* MultipartMessageHeaderField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35DE28D30279CFEFA18BF53CD6396A99 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = AE37EE2AB722A36EA66592A2E491D801 /* DDNumber.m */; };
+		3FC85402552BE86A9DF69154A7046909 /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F6B0C2A4B122141E29017CE7535CF3 /* MultipartFormDataParser.m */; };
 		411EE6BA92B228BF3497175C14FC7A90 /* GCDAsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5A665204A6EB0247240DDA87819CB4 /* GCDAsyncUdpSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		414E17E453D93233157FBD83E20F6DEE /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 271CC9714EC5DA03AABD941E72FD4824 /* HTTPServer.m */; };
-		42F378FEAE200EAD2227F7B3A520BFBA /* HTTPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = DF9C52E72FD57AAADE640B28FD20102F /* HTTPLogger.m */; };
-		44C38C8E846F15CE35B1770D3AAC1085 /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9CD3A361B6F874973AAB5AA650F81 /* MultipartMessageHeaderField.m */; };
-		4932ADB8ADE5D19E866C6E44B7998B48 /* HTTPRedirectResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = CFEE9BDBF60A4800D4C4BE9BDB622BF9 /* HTTPRedirectResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4AB963CBF62F25FC960B309ABCC79A5C /* SCHTTPServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 33107295C106B1B9AA8FB628B006E16E /* SCHTTPServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D883A18AD00581EB6D225C1389D6C2F /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9892CB43277D0122C8BD7A17D3546B56 /* HTTPDataResponse.m */; };
-		56132E48BE1BDCE084DE017A510AF28A /* MultipartFormDataParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8F82E846FA14CF8BFA1AD8A9F8FD5A /* MultipartFormDataParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56410C6950E0490BB39801CF7E3F9385 /* MultipartMessageHeaderField.h in Headers */ = {isa = PBXBuildFile; fileRef = 630A239955C5E57DEFD6087E5C659EBD /* MultipartMessageHeaderField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC9EEAC7B94FC2D1DE5E8A07A003F85 /* HTTPDataResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 430931C56033DBF7CC287895B7F1F520 /* HTTPDataResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5F8CFBC5F61BBBF6A60528ECC5658F43 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9A923C6F5A3054375166D92A83F0DC /* HTTPAuthenticationRequest.m */; };
-		67069DB059D6C547F909E2FA834C4DA8 /* HTTPFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D5D3F61AB7D857008C8D28F57359BA /* HTTPFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6A7CCF5053B3B161A6E7C20B0068AA68 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B37702DBD3F02418B06D33373F8564 /* HTTPAsyncFileResponse.m */; };
-		6AA3C191F8B7BE7D43F7FBDCCCC370FC /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 46194B368A91559E6AE360E1265B9DFF /* MultipartMessageHeader.m */; };
-		6E3736E2130BD7BDB77432F94EF732D0 /* HTTPJSONResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = FFDCCD008D1348882C41DA48F781B661 /* HTTPJSONResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47DB79402D37C19AE846A7F185E462DB /* HTTPJSONResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = E473E512BB762FC1AA939788B05EEE70 /* HTTPJSONResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4855795BD53BF6FDB88BA2970A77E51B /* DDData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE18E6228E86632E29C1B38D2A23CB5 /* DDData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53317B50C2B8CEF52F22BDCE4FE37EFF /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F1EFBF53F5795868D65836B853ACFD /* HTTPAuthenticationRequest.m */; };
+		551B5201B5D4F300E416900F15131B7E /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = EA65D46A8EB08488DE6F99883CC5AF99 /* HTTPMessage.m */; };
+		56A8D878A9DB53D393D70A9D55D91450 /* HTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = AD677387010425ED087541D0C194A81A /* HTTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57D21C8677161D7AB38E093E9952FA0A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C98D61F0ED0333B2C2C0DA65B20EC3E /* Cocoa.framework */; };
+		5981231C89B0D9B32D622A703C0495AC /* DDNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = E218F44DF7976384DE723F4D717103E1 /* DDNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5CF5DC5ED17FDBE0D1B1310F2AF5B498 /* HTTPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 94F066BE7307AE433CAC902AA1AF2A3C /* HTTPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5DC4A54C6B6F5C17423674391038443E /* HTTPResponseMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 3743BB5983A70F444A94CB4D31855AF4 /* HTTPResponseMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5EBCE1DDC94F2AC063AA6FC4D3CF60A5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F248B6C3C60007BB173D9797A6D834 /* Security.framework */; };
+		6284B36FB2B714E30CED933D80A8A01E /* HTTPResponseMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 88641A77E85FD49D1A487167365A86F9 /* HTTPResponseMaker.m */; };
+		63E8C0BF17DD9DD28937401BFB3BECD3 /* HTTPErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A4937DBB3BF2C358EB98219E81BF8C /* HTTPErrorResponse.m */; };
+		6985AAE7A6BDECED83159ED3BA98204B /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC79F4E25A7FF06C182A641DF55E4D5 /* CocoaAsyncSocket.framework */; };
+		6F5674D120E2BDBA88D77FC4E7FEB3A6 /* HTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B1DED71DDA57F064C729C90F6DC55D /* HTTPServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FFB23DD5E8DD756D3A4AB53EEE4BA8E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A64404F0A4CC1801E1409DF393AB248B /* GCDAsyncUdpSocket.m */; };
-		7358263CC806AC14A7AF7D0FD15A8E97 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3AF67BDCC59606B53786250451A135 /* DDNumber.m */; };
-		747EE6BFB21EA69E4C42538B3B83BB7F /* P12HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA254A6CBF3204B0F4D29BFB6ABA0BD /* P12HTTPConnection.m */; };
-		77933E530985C47D18C5FAF9F1156187 /* HTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0814A2C8DBF2FDE07C62964350383ED9 /* HTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B9419DC8E78D649EF755FBBD82E415B /* SCHTTPServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA289A629B29A9E43345DBE7AA9A6D1 /* SCHTTPServer-dummy.m */; };
-		7CB2195CA91F91959592B49FBFF79912 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2CBAC7410452E48CE184D811DF228 /* HTTPDynamicFileResponse.m */; };
-		7EF5AE31AE4F9508B0B4F4BA0EB48FA0 /* DDNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E5C3DA4E870C9B2DC4182F8C9B803CB /* DDNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		805171AF6F590EEE96BF3702937F5A0D /* DDData.h in Headers */ = {isa = PBXBuildFile; fileRef = 15A6C897D8BD25127E19A1F81D95C3FA /* DDData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		70B43BF59339E696DCE8F423A92E6CC6 /* MultipartMessageHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 94AA6D2A317A8C46332396FA1EE76FA2 /* MultipartMessageHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		799E80A2EEA6CB40A0D324A50B18082E /* SCHTTPServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46E6749BC6954AB4AD6BB79F7CE2621C /* SCHTTPServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79ABBDC5457DD29794A46AADA7AA113C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD52152277EB273A866F63632D4BEED /* Foundation.framework */; };
+		8541DF1DB5A5EE2752BA8E39DEF9AB1E /* HTTPErrorResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AA93440EC3D288169E655FC8B8A93AAD /* HTTPErrorResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8E833467B449C5AA8EB04A12B5674FC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C98D61F0ED0333B2C2C0DA65B20EC3E /* Cocoa.framework */; };
-		9091CE7A837E0AC05341056821FD8D33 /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 29AA0F7F463DCC2CC3865581057697E6 /* MultipartFormDataParser.m */; };
-		91674F32536D3BA320B96E51D3A152FD /* HTTPAsyncFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 79E158221E96EEE3D3AC0262403460E7 /* HTTPAsyncFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		94B70FBEF71B95816E01058D430CE641 /* P12HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F4CDB58CF75036310B0880C19260721 /* P12HTTPConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9C357BE6D4E39B67389AD3862628D2FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD52152277EB273A866F63632D4BEED /* Foundation.framework */; };
-		A3356AF4480AEA89C7531FBF4E0CF087 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C98D61F0ED0333B2C2C0DA65B20EC3E /* Cocoa.framework */; };
+		9944FA18E9E5458F51357001C9E8E9E3 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE31632D36673F876E08FF1C83A5143 /* HTTPDynamicFileResponse.m */; };
+		9E0475B0B62769BA029AE0A9048E3170 /* HTTPJSONPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F9F352C6E4135B18446123AD5137C /* HTTPJSONPResponse.m */; };
+		ABB356DDEDD331738F40CD98ED4C906C /* HTTPConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 76780B797C33A6815DD1E1DB51BEBB32 /* HTTPConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ABE2CF7FE359B07D646CBBE2C5A6B147 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F248B6C3C60007BB173D9797A6D834 /* Security.framework */; };
-		AEDA17248BE5C5F77F029A659CCDF3EA /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF2443E228B59A92F6E90D3DE46E0B0 /* DDData.m */; };
-		AFAEFC90BC80DCB2B4EBCFF400FBF012 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F248B6C3C60007BB173D9797A6D834 /* Security.framework */; };
-		B7C6138B13ACF77B47D799612BCC447E /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 676BF7170D508D1E137EE557BBE741DB /* HTTPFileResponse.m */; };
-		BFD8EA2BC02512FFA20F7110169E8536 /* MultipartMessageHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = EC4C4C857DF3AF0020B70D8C768B727C /* MultipartMessageHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C93C8B271C34F2162DC3D807D587DACF /* DDRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F6AC89AB681972455FF7B7E8F640A0 /* DDRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD02B9DDBC65AD3E4FB4878EBDEDEDAA /* HTTPErrorResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = A5B3ADF2E05A0EB9A1DE1BD9D2A3FC91 /* HTTPErrorResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0302350CD53FD473A4766AE242E3853 /* HTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 105D95312E5AFAC4EEC6F2812DF81B63 /* HTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B26707203F3011F2B88372E17284B328 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = F811DFFDF9873883ED084652395B39D1 /* DDRange.m */; };
+		BF2BAE7EE85C98C03846B793E2CABE1E /* MultipartFormDataParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 93B3FA4791F732C58247886775847CED /* MultipartFormDataParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C33C50DB43D5689EF79A4B888260CCC3 /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B3D79FF0B2DAFB55891BB8E12F0407 /* HTTPFileResponse.m */; };
+		CA673A5C0C8FF25DB6B199CE55EC1399 /* HTTPAsyncFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2555724AE0FAB9D561293503F570770E /* HTTPAsyncFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CB1976E8B16E370CBB9225E9641F5783 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF46C20601E1173EEA099453F990C26 /* DDData.m */; };
+		CB4F5E9520D8F412E6098380157D07AE /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B9BAE28A4E907432AF4E184784E097 /* MultipartMessageHeader.m */; };
+		D248641A83B82B9C32E5E12B6848457D /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 683BB8A32CD7C0E435DE20F8FA052F41 /* HTTPServer.m */; };
+		D254B77EDD9C228BEE49A4147DF87BB1 /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C4B3FEE62E69622D1CDEC2372125C8 /* HTTPDataResponse.m */; };
+		D25CBD6DCDCBE3C0CC89665DF55C408A /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DD94A8723C658B8B1CB2D0CB49AB36 /* HTTPRedirectResponse.m */; };
+		D761D5EB10D0F71E25EDEE25D9388B62 /* HTTPAuthenticationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B16B31336FA8970FDA0F5FABCB67DAD /* HTTPAuthenticationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCC2CD3A0EEE214E1638A64967DC7917 /* DDRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 53FC8AD2CBA2D5E8F8FEDA5F88E110C6 /* DDRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD84F895857A3E00892B8E35FBA4963D /* P12HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F279F1A52FD12082DA03DD6B923AF145 /* P12HTTPConnection.m */; };
 		DF77DA76BD5962EE7DD383126BBBBAC8 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DA293C446B580EEC70F631B729C1078 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E005FA3C949B6CA0180DFDBAFFB3EFAB /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8572EC787D2C165F1B8C0F631908DA /* MultipartMessageHeaderField.m */; };
+		F05BD72DCD6BB79485BF71EFA9385FD6 /* HTTPDynamicFileResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA4D800EB7CCFD604175128C66E4B17 /* HTTPDynamicFileResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F54B15306BF84883350B0A843CED2E56 /* Pods-SCHTTPServerDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F6AB4DBFA78DDFECD4B149FBD8A6B4 /* Pods-SCHTTPServerDemo-dummy.m */; };
+		F95CA8A4DF645F72B971D9777609AE0A /* HTTPDataResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EE847DF8DA961A2C7875BEF899C337 /* HTTPDataResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBB70AF3F803450935EE98C837D98688 /* CocoaAsyncSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99BD1B356EA29219B7BDC08082938B68 /* CocoaAsyncSocket-dummy.m */; };
 		FCEFFFB67F08F26C1E58428506DB58FD /* Pods-SCHTTPServerDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 93C3AEF58219FB90C1B314DF527EEBE3 /* Pods-SCHTTPServerDemo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46E0153D255FEC2E5547D600FDD3A569 /* PBXContainerItemProxy */ = {
+		31FCEF7FB39871296E3653C8483F9D7C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -92,92 +96,96 @@
 
 /* Begin PBXFileReference section */
 		01A7D220812698279C764BD6655B2A59 /* Pods-SCHTTPServerDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SCHTTPServerDemo-frameworks.sh"; sourceTree = "<group>"; };
-		04C2C3F016B692B3271DE0D782BDBA3F /* SCHTTPServer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SCHTTPServer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		06C1CF6C3FEBF2989D07D836077B77F0 /* HTTPMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPMessage.m; sourceTree = "<group>"; };
-		0814A2C8DBF2FDE07C62964350383ED9 /* HTTPResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
-		082BBB3880C1F633EEF48F373CEB7E5F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		08730D3B151864B9DE8682D49B667A83 /* HTTPMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPMessage.h; sourceTree = "<group>"; };
-		09F6AC89AB681972455FF7B7E8F640A0 /* DDRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
-		0AA289A629B29A9E43345DBE7AA9A6D1 /* SCHTTPServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SCHTTPServer-dummy.m"; sourceTree = "<group>"; };
-		0F4CDB58CF75036310B0880C19260721 /* P12HTTPConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = P12HTTPConnection.h; sourceTree = "<group>"; };
+		07E1E6081C17EA2D4AC887521AD25A10 /* SCHTTPServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SCHTTPServer-dummy.m"; sourceTree = "<group>"; };
+		105D95312E5AFAC4EEC6F2812DF81B63 /* HTTPResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
 		12D2BC450C4A6B05397075508D93D9CE /* CocoaAsyncSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CocoaAsyncSocket.modulemap; sourceTree = "<group>"; };
-		15A6C897D8BD25127E19A1F81D95C3FA /* DDData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		16F248B6C3C60007BB173D9797A6D834 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		18811A9D05F9D400FAB1E5C9817A7DEC /* SCHTTPServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SCHTTPServer-Info.plist"; sourceTree = "<group>"; };
 		1C517C58B3EB24492A2458BC36C0853A /* Pods_SCHTTPServerDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SCHTTPServerDemo.framework; path = "Pods-SCHTTPServerDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		26DE63784E375B7A9F4B0604EAE5843D /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
-		271CC9714EC5DA03AABD941E72FD4824 /* HTTPServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
-		29AA0F7F463DCC2CC3865581057697E6 /* MultipartFormDataParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartFormDataParser.m; sourceTree = "<group>"; };
-		33107295C106B1B9AA8FB628B006E16E /* SCHTTPServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-umbrella.h"; sourceTree = "<group>"; };
-		33856453CE68587902B837535A8C2950 /* SCHTTPServer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-prefix.pch"; sourceTree = "<group>"; };
-		35D5D3F61AB7D857008C8D28F57359BA /* HTTPFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
+		1CF46C20601E1173EEA099453F990C26 /* DDData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
+		2555724AE0FAB9D561293503F570770E /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
+		2B16B31336FA8970FDA0F5FABCB67DAD /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
+		2DE18E6228E86632E29C1B38D2A23CB5 /* DDData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
+		3743BB5983A70F444A94CB4D31855AF4 /* HTTPResponseMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPResponseMaker.h; sourceTree = "<group>"; };
 		38F6AB4DBFA78DDFECD4B149FBD8A6B4 /* Pods-SCHTTPServerDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SCHTTPServerDemo-dummy.m"; sourceTree = "<group>"; };
 		39BA1F8ED279870C0C292502A9AB4850 /* Pods-SCHTTPServerDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SCHTTPServerDemo.modulemap"; sourceTree = "<group>"; };
-		3BF9CD3A361B6F874973AAB5AA650F81 /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
 		3CB520ED7A6D489B86A1D46662564A4F /* SCHTTPServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SCHTTPServer.framework; path = SCHTTPServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		41CBD419A37DF898A15EE98F8F76F12F /* SCHTTPServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SCHTTPServer.modulemap; sourceTree = "<group>"; };
-		430931C56033DBF7CC287895B7F1F520 /* HTTPDataResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
-		46194B368A91559E6AE360E1265B9DFF /* MultipartMessageHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
-		531FAB77BAB7C0811365CEEEE8078D05 /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
-		5DA254A6CBF3204B0F4D29BFB6ABA0BD /* P12HTTPConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = P12HTTPConnection.m; sourceTree = "<group>"; };
-		630A239955C5E57DEFD6087E5C659EBD /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
-		676BF7170D508D1E137EE557BBE741DB /* HTTPFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
+		46E6749BC6954AB4AD6BB79F7CE2621C /* SCHTTPServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-umbrella.h"; sourceTree = "<group>"; };
+		4A4F9F352C6E4135B18446123AD5137C /* HTTPJSONPResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPJSONPResponse.m; sourceTree = "<group>"; };
+		4E8572EC787D2C165F1B8C0F631908DA /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
+		53FC8AD2CBA2D5E8F8FEDA5F88E110C6 /* DDRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
+		57EE847DF8DA961A2C7875BEF899C337 /* HTTPDataResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
+		5873FF757EFD0F3BE7701E4B52480A73 /* HTTPFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
+		61B9BAE28A4E907432AF4E184784E097 /* MultipartMessageHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
+		62B3D79FF0B2DAFB55891BB8E12F0407 /* HTTPFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
+		683BB8A32CD7C0E435DE20F8FA052F41 /* HTTPServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
+		68F6B0C2A4B122141E29017CE7535CF3 /* MultipartFormDataParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MultipartFormDataParser.m; sourceTree = "<group>"; };
 		6CBEFE4F9E22AFDC6347A739BB35FF8C /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CocoaAsyncSocket.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D0D9393A92083DA9D32F56244F48A39 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = Source/GCD/GCDAsyncSocket.m; sourceTree = "<group>"; };
-		6D9A923C6F5A3054375166D92A83F0DC /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPAuthenticationRequest.m; sourceTree = "<group>"; };
-		7287A4292A74A3579743DF5A2EDCBB17 /* HTTPJSONResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPJSONResponse.m; sourceTree = "<group>"; };
-		79E158221E96EEE3D3AC0262403460E7 /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
-		83A6C319525546277042BF1DBF031891 /* HTTPErrorResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPErrorResponse.m; sourceTree = "<group>"; };
-		84EE02AFC7BB9E78F40845371A9E615D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		739CD5521B307E92045E1D771215CF5C /* HTTPJSONPResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPJSONPResponse.h; sourceTree = "<group>"; };
+		75B1DED71DDA57F064C729C90F6DC55D /* HTTPServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
+		76780B797C33A6815DD1E1DB51BEBB32 /* HTTPConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
+		76F9279F99DAB1C374FFD88B85EBE3F4 /* SCHTTPServer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SCHTTPServer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		779EF75036B9F14D7CF3D9FC667E1ECE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		8507D15AE22DD993FF26451D84A6895E /* SCHTTPServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SCHTTPServer-Info.plist"; sourceTree = "<group>"; };
 		85B686CFAB542400135ACE0C23847EBF /* CocoaAsyncSocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaAsyncSocket.xcconfig; sourceTree = "<group>"; };
 		88212923B780DE4BF75C3E81880D01B8 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
-		8AB2CBAC7410452E48CE184D811DF228 /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
-		8AF2443E228B59A92F6E90D3DE46E0B0 /* DDData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
+		88641A77E85FD49D1A487167365A86F9 /* HTTPResponseMaker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPResponseMaker.m; sourceTree = "<group>"; };
+		89DDD6DB2F753C0004A71FB64D06DA55 /* HTTPLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPLogger.m; sourceTree = "<group>"; };
+		8AE31632D36673F876E08FF1C83A5143 /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
+		8B02813D031D995E4197135ACDECAF12 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		8C98D61F0ED0333B2C2C0DA65B20EC3E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		8D6FDFBCD18DBDA0070C7AD43B67801E /* Pods-SCHTTPServerDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServerDemo-Info.plist"; sourceTree = "<group>"; };
 		8DA293C446B580EEC70F631B729C1078 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = Source/GCD/GCDAsyncSocket.h; sourceTree = "<group>"; };
-		8DB71C065A47937504BCB0C785AFDDFA /* DDRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
+		91DD94A8723C658B8B1CB2D0CB49AB36 /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
+		93B3FA4791F732C58247886775847CED /* MultipartFormDataParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartFormDataParser.h; sourceTree = "<group>"; };
 		93C3AEF58219FB90C1B314DF527EEBE3 /* Pods-SCHTTPServerDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SCHTTPServerDemo-umbrella.h"; sourceTree = "<group>"; };
+		94AA6D2A317A8C46332396FA1EE76FA2 /* MultipartMessageHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeader.h; sourceTree = "<group>"; };
+		94F066BE7307AE433CAC902AA1AF2A3C /* HTTPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPLogger.h; sourceTree = "<group>"; };
 		957A529941AC67DB65677466BAD1B75A /* Pods-SCHTTPServerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServerDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		97B37702DBD3F02418B06D33373F8564 /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
-		9892CB43277D0122C8BD7A17D3546B56 /* HTTPDataResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
+		9954409EB7C40B02C38B29BC6F436E25 /* HTTPConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPConnection.m; sourceTree = "<group>"; };
 		99BD1B356EA29219B7BDC08082938B68 /* CocoaAsyncSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaAsyncSocket-dummy.m"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E5C3DA4E870C9B2DC4182F8C9B803CB /* DDNumber.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
-		9F22B884B184D64CD7926BFEE64C4593 /* HTTPConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
-		A5B3ADF2E05A0EB9A1DE1BD9D2A3FC91 /* HTTPErrorResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPErrorResponse.h; sourceTree = "<group>"; };
 		A64404F0A4CC1801E1409DF393AB248B /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = Source/GCD/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		A905023E6DEC0CB3ACF18BC768C59C2E /* CocoaAsyncSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaAsyncSocket-prefix.pch"; sourceTree = "<group>"; };
-		AA3AF67BDCC59606B53786250451A135 /* DDNumber.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
+		AA2B94CBD66FEE9D99A9A248BBDEBD48 /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
 		AA5A665204A6EB0247240DDA87819CB4 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncUdpSocket.h; path = Source/GCD/GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		B60C120F21FC4095A944F2209436F1C6 /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
-		B78EFC08F89B6D94371FC90EAC5B4E11 /* HTTPServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
+		AA93440EC3D288169E655FC8B8A93AAD /* HTTPErrorResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPErrorResponse.h; sourceTree = "<group>"; };
+		AD677387010425ED087541D0C194A81A /* HTTPMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPMessage.h; sourceTree = "<group>"; };
+		AE37EE2AB722A36EA66592A2E491D801 /* DDNumber.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
+		B1A4937DBB3BF2C358EB98219E81BF8C /* HTTPErrorResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPErrorResponse.m; sourceTree = "<group>"; };
+		B1C4B3FEE62E69622D1CDEC2372125C8 /* HTTPDataResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
 		B9246AF7A558553AC97FBDFFD8FACEDD /* Pods-SCHTTPServerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCHTTPServerDemo.release.xcconfig"; sourceTree = "<group>"; };
-		BDEC54224D7DD8CD67E255030142D718 /* HTTPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPLogger.h; sourceTree = "<group>"; };
-		CD8F82E846FA14CF8BFA1AD8A9F8FD5A /* MultipartFormDataParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartFormDataParser.h; sourceTree = "<group>"; };
-		CFEE9BDBF60A4800D4C4BE9BDB622BF9 /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
+		C195E0220D760C40C3D781DC6D205232 /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
+		C3FBED8024423AAD0E65DE041B07A8B4 /* SCHTTPServer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SCHTTPServer.xcconfig; sourceTree = "<group>"; };
+		CDA4D800EB7CCFD604175128C66E4B17 /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
+		D5007B778B9E205AD1F90E3D00F93AE1 /* P12HTTPConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = P12HTTPConnection.h; sourceTree = "<group>"; };
 		DBA0B8350EA741B4FD1CA13FB5E69C47 /* Pods-SCHTTPServerDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SCHTTPServerDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		DDC79F4E25A7FF06C182A641DF55E4D5 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDF7C163CCDD077150D4AD748AEAB409 /* Pods-SCHTTPServerDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCHTTPServerDemo-acknowledgements.plist"; sourceTree = "<group>"; };
 		DEA17E24F689BAD69B80C9E2639F6EE9 /* CocoaAsyncSocket-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CocoaAsyncSocket-Info.plist"; sourceTree = "<group>"; };
-		DF9C52E72FD57AAADE640B28FD20102F /* HTTPLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPLogger.m; sourceTree = "<group>"; };
-		E32973CFA75ADAAC9EB3434187342373 /* HTTPConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPConnection.m; sourceTree = "<group>"; };
+		DFD62C9E1616BD8ECC2CEB7FECEE8CAB /* SCHTTPServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SCHTTPServer.modulemap; sourceTree = "<group>"; };
+		E218F44DF7976384DE723F4D717103E1 /* DDNumber.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
+		E473E512BB762FC1AA939788B05EEE70 /* HTTPJSONResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPJSONResponse.h; sourceTree = "<group>"; };
+		E4F1EFBF53F5795868D65836B853ACFD /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPAuthenticationRequest.m; sourceTree = "<group>"; };
+		E8091FF7B77C4698363110B6FA76B4AF /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
 		E8773045111A5CD08ECF026E48421F3B /* CocoaAsyncSocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaAsyncSocket-umbrella.h"; sourceTree = "<group>"; };
-		EC4C4C857DF3AF0020B70D8C768B727C /* MultipartMessageHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeader.h; sourceTree = "<group>"; };
-		ED9FB4C1F6AB6B310CFB3E9852C07BB7 /* SCHTTPServer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SCHTTPServer.xcconfig; sourceTree = "<group>"; };
+		E8FD1AE115D9494D353FE797A55F1DC6 /* HTTPJSONResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPJSONResponse.m; sourceTree = "<group>"; };
+		EA65D46A8EB08488DE6F99883CC5AF99 /* HTTPMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HTTPMessage.m; sourceTree = "<group>"; };
+		EBD1A143E718E9F8EC2C99F6CD593D7C /* SCHTTPServer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCHTTPServer-prefix.pch"; sourceTree = "<group>"; };
+		F279F1A52FD12082DA03DD6B923AF145 /* P12HTTPConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = P12HTTPConnection.m; sourceTree = "<group>"; };
+		F811DFFDF9873883ED084652395B39D1 /* DDRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
 		FDD52152277EB273A866F63632D4BEED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		FFDCCD008D1348882C41DA48F781B661 /* HTTPJSONResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPJSONResponse.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A407C9F36D8BEBC9B8A576EBA4C9A1BD /* Frameworks */ = {
+		A8BF22AF9E1783B159FE15408D020864 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3356AF4480AEA89C7531FBF4E0CF087 /* Cocoa.framework in Frameworks */,
-				05AEB4A0C73367BD6D07A8817E331578 /* CocoaAsyncSocket.framework in Frameworks */,
-				9C357BE6D4E39B67389AD3862628D2FD /* Foundation.framework in Frameworks */,
-				AFAEFC90BC80DCB2B4EBCFF400FBF012 /* Security.framework in Frameworks */,
+				57D21C8677161D7AB38E093E9952FA0A /* Cocoa.framework in Frameworks */,
+				6985AAE7A6BDECED83159ED3BA98204B /* CocoaAsyncSocket.framework in Frameworks */,
+				79ABBDC5457DD29794A46AADA7AA113C /* Foundation.framework in Frameworks */,
+				5EBCE1DDC94F2AC063AA6FC4D3CF60A5 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,41 +229,44 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4CCD23B13C8D8066BCD3FB54504EA4BA /* Responses */ = {
+		344880E4FBF96FA56A2D0B82D8A094CD /* Connection */ = {
 			isa = PBXGroup;
 			children = (
-				79E158221E96EEE3D3AC0262403460E7 /* HTTPAsyncFileResponse.h */,
-				97B37702DBD3F02418B06D33373F8564 /* HTTPAsyncFileResponse.m */,
-				430931C56033DBF7CC287895B7F1F520 /* HTTPDataResponse.h */,
-				9892CB43277D0122C8BD7A17D3546B56 /* HTTPDataResponse.m */,
-				B60C120F21FC4095A944F2209436F1C6 /* HTTPDynamicFileResponse.h */,
-				8AB2CBAC7410452E48CE184D811DF228 /* HTTPDynamicFileResponse.m */,
-				A5B3ADF2E05A0EB9A1DE1BD9D2A3FC91 /* HTTPErrorResponse.h */,
-				83A6C319525546277042BF1DBF031891 /* HTTPErrorResponse.m */,
-				35D5D3F61AB7D857008C8D28F57359BA /* HTTPFileResponse.h */,
-				676BF7170D508D1E137EE557BBE741DB /* HTTPFileResponse.m */,
-				FFDCCD008D1348882C41DA48F781B661 /* HTTPJSONResponse.h */,
-				7287A4292A74A3579743DF5A2EDCBB17 /* HTTPJSONResponse.m */,
-				CFEE9BDBF60A4800D4C4BE9BDB622BF9 /* HTTPRedirectResponse.h */,
-				531FAB77BAB7C0811365CEEEE8078D05 /* HTTPRedirectResponse.m */,
+				76780B797C33A6815DD1E1DB51BEBB32 /* HTTPConnection.h */,
+				9954409EB7C40B02C38B29BC6F436E25 /* HTTPConnection.m */,
+				D5007B778B9E205AD1F90E3D00F93AE1 /* P12HTTPConnection.h */,
+				F279F1A52FD12082DA03DD6B923AF145 /* P12HTTPConnection.m */,
 			);
-			name = Responses;
-			path = SCHTTPServer/Classes/Responses;
+			name = Connection;
+			path = SCHTTPServer/Classes/Connection;
 			sourceTree = "<group>";
 		};
-		501837FD6582078ABC11352DF1D2D6D0 /* SCHTTPServer */ = {
+		46D5F8C37217DC35DEBF6E2B1FB7ABAB /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				67861F6BBC1C2FE7760EECD4D31B711A /* Categories */,
-				FC69DF7EBD646D6A31054F3A8183CD7C /* Connection */,
-				78FE327153E9E75BA0DC6CD5E68E519D /* HTTP */,
-				F493AA0075600AB0D838FA505A69B22E /* Mime */,
-				6971DC0B52E7E01D62D5407AB15BDB9C /* Pod */,
-				4CCD23B13C8D8066BCD3FB54504EA4BA /* Responses */,
-				A8DA25B8FC0227DCDD352653DDF8A4A7 /* Support Files */,
+				2DE18E6228E86632E29C1B38D2A23CB5 /* DDData.h */,
+				1CF46C20601E1173EEA099453F990C26 /* DDData.m */,
+				E218F44DF7976384DE723F4D717103E1 /* DDNumber.h */,
+				AE37EE2AB722A36EA66592A2E491D801 /* DDNumber.m */,
+				53FC8AD2CBA2D5E8F8FEDA5F88E110C6 /* DDRange.h */,
+				F811DFFDF9873883ED084652395B39D1 /* DDRange.m */,
 			);
-			name = SCHTTPServer;
-			path = ../../..;
+			name = Categories;
+			path = SCHTTPServer/Classes/Categories;
+			sourceTree = "<group>";
+		};
+		47C985FC01174D3C1C00B98485709F7D /* Mime */ = {
+			isa = PBXGroup;
+			children = (
+				93B3FA4791F732C58247886775847CED /* MultipartFormDataParser.h */,
+				68F6B0C2A4B122141E29017CE7535CF3 /* MultipartFormDataParser.m */,
+				94AA6D2A317A8C46332396FA1EE76FA2 /* MultipartMessageHeader.h */,
+				61B9BAE28A4E907432AF4E184784E097 /* MultipartMessageHeader.m */,
+				AA2B94CBD66FEE9D99A9A248BBDEBD48 /* MultipartMessageHeaderField.h */,
+				4E8572EC787D2C165F1B8C0F631908DA /* MultipartMessageHeaderField.m */,
+			);
+			name = Mime;
+			path = SCHTTPServer/Classes/Mime;
 			sourceTree = "<group>";
 		};
 		5F3B5C7318F4BBDA38A25109EC9A4BAC /* OS X */ = {
@@ -269,45 +280,18 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		67861F6BBC1C2FE7760EECD4D31B711A /* Categories */ = {
+		7E390E817B8F0C904EDF4C26C610EBAA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				15A6C897D8BD25127E19A1F81D95C3FA /* DDData.h */,
-				8AF2443E228B59A92F6E90D3DE46E0B0 /* DDData.m */,
-				9E5C3DA4E870C9B2DC4182F8C9B803CB /* DDNumber.h */,
-				AA3AF67BDCC59606B53786250451A135 /* DDNumber.m */,
-				09F6AC89AB681972455FF7B7E8F640A0 /* DDRange.h */,
-				8DB71C065A47937504BCB0C785AFDDFA /* DDRange.m */,
+				DFD62C9E1616BD8ECC2CEB7FECEE8CAB /* SCHTTPServer.modulemap */,
+				C3FBED8024423AAD0E65DE041B07A8B4 /* SCHTTPServer.xcconfig */,
+				07E1E6081C17EA2D4AC887521AD25A10 /* SCHTTPServer-dummy.m */,
+				8507D15AE22DD993FF26451D84A6895E /* SCHTTPServer-Info.plist */,
+				EBD1A143E718E9F8EC2C99F6CD593D7C /* SCHTTPServer-prefix.pch */,
+				46E6749BC6954AB4AD6BB79F7CE2621C /* SCHTTPServer-umbrella.h */,
 			);
-			name = Categories;
-			path = SCHTTPServer/Classes/Categories;
-			sourceTree = "<group>";
-		};
-		6971DC0B52E7E01D62D5407AB15BDB9C /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				082BBB3880C1F633EEF48F373CEB7E5F /* LICENSE */,
-				84EE02AFC7BB9E78F40845371A9E615D /* README.md */,
-				04C2C3F016B692B3271DE0D782BDBA3F /* SCHTTPServer.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		78FE327153E9E75BA0DC6CD5E68E519D /* HTTP */ = {
-			isa = PBXGroup;
-			children = (
-				26DE63784E375B7A9F4B0604EAE5843D /* HTTPAuthenticationRequest.h */,
-				6D9A923C6F5A3054375166D92A83F0DC /* HTTPAuthenticationRequest.m */,
-				BDEC54224D7DD8CD67E255030142D718 /* HTTPLogger.h */,
-				DF9C52E72FD57AAADE640B28FD20102F /* HTTPLogger.m */,
-				08730D3B151864B9DE8682D49B667A83 /* HTTPMessage.h */,
-				06C1CF6C3FEBF2989D07D836077B77F0 /* HTTPMessage.m */,
-				0814A2C8DBF2FDE07C62964350383ED9 /* HTTPResponse.h */,
-				B78EFC08F89B6D94371FC90EAC5B4E11 /* HTTPServer.h */,
-				271CC9714EC5DA03AABD941E72FD4824 /* HTTPServer.m */,
-			);
-			name = HTTP;
-			path = SCHTTPServer/Classes/HTTP;
+			name = "Support Files";
+			path = "Example/Mac/Pods/Target Support Files/SCHTTPServer";
 			sourceTree = "<group>";
 		};
 		905725DB6AC082657E84315A8DDD408D /* Pods-SCHTTPServerDemo */ = {
@@ -327,6 +311,32 @@
 			path = "Target Support Files/Pods-SCHTTPServerDemo";
 			sourceTree = "<group>";
 		};
+		A18FB5067371AF2CA94C34925FA3A4DD /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				2555724AE0FAB9D561293503F570770E /* HTTPAsyncFileResponse.h */,
+				C195E0220D760C40C3D781DC6D205232 /* HTTPAsyncFileResponse.m */,
+				57EE847DF8DA961A2C7875BEF899C337 /* HTTPDataResponse.h */,
+				B1C4B3FEE62E69622D1CDEC2372125C8 /* HTTPDataResponse.m */,
+				CDA4D800EB7CCFD604175128C66E4B17 /* HTTPDynamicFileResponse.h */,
+				8AE31632D36673F876E08FF1C83A5143 /* HTTPDynamicFileResponse.m */,
+				AA93440EC3D288169E655FC8B8A93AAD /* HTTPErrorResponse.h */,
+				B1A4937DBB3BF2C358EB98219E81BF8C /* HTTPErrorResponse.m */,
+				5873FF757EFD0F3BE7701E4B52480A73 /* HTTPFileResponse.h */,
+				62B3D79FF0B2DAFB55891BB8E12F0407 /* HTTPFileResponse.m */,
+				739CD5521B307E92045E1D771215CF5C /* HTTPJSONPResponse.h */,
+				4A4F9F352C6E4135B18446123AD5137C /* HTTPJSONPResponse.m */,
+				E473E512BB762FC1AA939788B05EEE70 /* HTTPJSONResponse.h */,
+				E8FD1AE115D9494D353FE797A55F1DC6 /* HTTPJSONResponse.m */,
+				E8091FF7B77C4698363110B6FA76B4AF /* HTTPRedirectResponse.h */,
+				91DD94A8723C658B8B1CB2D0CB49AB36 /* HTTPRedirectResponse.m */,
+				3743BB5983A70F444A94CB4D31855AF4 /* HTTPResponseMaker.h */,
+				88641A77E85FD49D1A487167365A86F9 /* HTTPResponseMaker.m */,
+			);
+			name = Responses;
+			path = SCHTTPServer/Classes/Responses;
+			sourceTree = "<group>";
+		};
 		A49791B92A7781B859EAEEF581EE6D8B /* CocoaAsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,20 +348,6 @@
 			);
 			name = CocoaAsyncSocket;
 			path = CocoaAsyncSocket;
-			sourceTree = "<group>";
-		};
-		A8DA25B8FC0227DCDD352653DDF8A4A7 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				41CBD419A37DF898A15EE98F8F76F12F /* SCHTTPServer.modulemap */,
-				ED9FB4C1F6AB6B310CFB3E9852C07BB7 /* SCHTTPServer.xcconfig */,
-				0AA289A629B29A9E43345DBE7AA9A6D1 /* SCHTTPServer-dummy.m */,
-				18811A9D05F9D400FAB1E5C9817A7DEC /* SCHTTPServer-Info.plist */,
-				33856453CE68587902B837535A8C2950 /* SCHTTPServer-prefix.pch */,
-				33107295C106B1B9AA8FB628B006E16E /* SCHTTPServer-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Mac/Pods/Target Support Files/SCHTTPServer";
 			sourceTree = "<group>";
 		};
 		B862B4264C2F1D9F87C12772C46C54AE /* Support Files */ = {
@@ -384,6 +380,31 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		C7897C6B7C83ED74EB4300772A403E4B /* SCHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				46D5F8C37217DC35DEBF6E2B1FB7ABAB /* Categories */,
+				344880E4FBF96FA56A2D0B82D8A094CD /* Connection */,
+				F69F5D284856D215F58864650FDBC220 /* HTTP */,
+				47C985FC01174D3C1C00B98485709F7D /* Mime */,
+				C804AE6267C777B8C9C7747B44986DC0 /* Pod */,
+				A18FB5067371AF2CA94C34925FA3A4DD /* Responses */,
+				7E390E817B8F0C904EDF4C26C610EBAA /* Support Files */,
+			);
+			name = SCHTTPServer;
+			path = ../../..;
+			sourceTree = "<group>";
+		};
+		C804AE6267C777B8C9C7747B44986DC0 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				8B02813D031D995E4197135ACDECAF12 /* LICENSE */,
+				779EF75036B9F14D7CF3D9FC667E1ECE /* README.md */,
+				76F9279F99DAB1C374FFD88B85EBE3F4 /* SCHTTPServer.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
@@ -399,73 +420,66 @@
 		DFCE6C90AE911A132EDC070691F268D9 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				501837FD6582078ABC11352DF1D2D6D0 /* SCHTTPServer */,
+				C7897C6B7C83ED74EB4300772A403E4B /* SCHTTPServer */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		F493AA0075600AB0D838FA505A69B22E /* Mime */ = {
+		F69F5D284856D215F58864650FDBC220 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
-				CD8F82E846FA14CF8BFA1AD8A9F8FD5A /* MultipartFormDataParser.h */,
-				29AA0F7F463DCC2CC3865581057697E6 /* MultipartFormDataParser.m */,
-				EC4C4C857DF3AF0020B70D8C768B727C /* MultipartMessageHeader.h */,
-				46194B368A91559E6AE360E1265B9DFF /* MultipartMessageHeader.m */,
-				630A239955C5E57DEFD6087E5C659EBD /* MultipartMessageHeaderField.h */,
-				3BF9CD3A361B6F874973AAB5AA650F81 /* MultipartMessageHeaderField.m */,
+				2B16B31336FA8970FDA0F5FABCB67DAD /* HTTPAuthenticationRequest.h */,
+				E4F1EFBF53F5795868D65836B853ACFD /* HTTPAuthenticationRequest.m */,
+				94F066BE7307AE433CAC902AA1AF2A3C /* HTTPLogger.h */,
+				89DDD6DB2F753C0004A71FB64D06DA55 /* HTTPLogger.m */,
+				AD677387010425ED087541D0C194A81A /* HTTPMessage.h */,
+				EA65D46A8EB08488DE6F99883CC5AF99 /* HTTPMessage.m */,
+				105D95312E5AFAC4EEC6F2812DF81B63 /* HTTPResponse.h */,
+				75B1DED71DDA57F064C729C90F6DC55D /* HTTPServer.h */,
+				683BB8A32CD7C0E435DE20F8FA052F41 /* HTTPServer.m */,
 			);
-			name = Mime;
-			path = SCHTTPServer/Classes/Mime;
-			sourceTree = "<group>";
-		};
-		FC69DF7EBD646D6A31054F3A8183CD7C /* Connection */ = {
-			isa = PBXGroup;
-			children = (
-				9F22B884B184D64CD7926BFEE64C4593 /* HTTPConnection.h */,
-				E32973CFA75ADAAC9EB3434187342373 /* HTTPConnection.m */,
-				0F4CDB58CF75036310B0880C19260721 /* P12HTTPConnection.h */,
-				5DA254A6CBF3204B0F4D29BFB6ABA0BD /* P12HTTPConnection.m */,
-			);
-			name = Connection;
-			path = SCHTTPServer/Classes/Connection;
+			name = HTTP;
+			path = SCHTTPServer/Classes/HTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		30D4E328B6054CBA563943E1D5B87DB4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4855795BD53BF6FDB88BA2970A77E51B /* DDData.h in Headers */,
+				5981231C89B0D9B32D622A703C0495AC /* DDNumber.h in Headers */,
+				DCC2CD3A0EEE214E1638A64967DC7917 /* DDRange.h in Headers */,
+				CA673A5C0C8FF25DB6B199CE55EC1399 /* HTTPAsyncFileResponse.h in Headers */,
+				D761D5EB10D0F71E25EDEE25D9388B62 /* HTTPAuthenticationRequest.h in Headers */,
+				ABB356DDEDD331738F40CD98ED4C906C /* HTTPConnection.h in Headers */,
+				F95CA8A4DF645F72B971D9777609AE0A /* HTTPDataResponse.h in Headers */,
+				F05BD72DCD6BB79485BF71EFA9385FD6 /* HTTPDynamicFileResponse.h in Headers */,
+				8541DF1DB5A5EE2752BA8E39DEF9AB1E /* HTTPErrorResponse.h in Headers */,
+				15392F550D59E6B1181F236EAE14D296 /* HTTPFileResponse.h in Headers */,
+				080BA7244F540D215148E497290E9A80 /* HTTPJSONPResponse.h in Headers */,
+				47DB79402D37C19AE846A7F185E462DB /* HTTPJSONResponse.h in Headers */,
+				5CF5DC5ED17FDBE0D1B1310F2AF5B498 /* HTTPLogger.h in Headers */,
+				56A8D878A9DB53D393D70A9D55D91450 /* HTTPMessage.h in Headers */,
+				128C23BFB534D5CBD651D3E385F915DE /* HTTPRedirectResponse.h in Headers */,
+				B0302350CD53FD473A4766AE242E3853 /* HTTPResponse.h in Headers */,
+				5DC4A54C6B6F5C17423674391038443E /* HTTPResponseMaker.h in Headers */,
+				6F5674D120E2BDBA88D77FC4E7FEB3A6 /* HTTPServer.h in Headers */,
+				BF2BAE7EE85C98C03846B793E2CABE1E /* MultipartFormDataParser.h in Headers */,
+				70B43BF59339E696DCE8F423A92E6CC6 /* MultipartMessageHeader.h in Headers */,
+				29624B210CEFD291EA40F86477029509 /* MultipartMessageHeaderField.h in Headers */,
+				1490429E0BCCE2D4F7771584E13317CF /* P12HTTPConnection.h in Headers */,
+				799E80A2EEA6CB40A0D324A50B18082E /* SCHTTPServer-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		481C4FDB719DDD2867352FC38B01EB6D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FCEFFFB67F08F26C1E58428506DB58FD /* Pods-SCHTTPServerDemo-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E8B3E33F1A220AF43227243001D9D9FD /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				805171AF6F590EEE96BF3702937F5A0D /* DDData.h in Headers */,
-				7EF5AE31AE4F9508B0B4F4BA0EB48FA0 /* DDNumber.h in Headers */,
-				C93C8B271C34F2162DC3D807D587DACF /* DDRange.h in Headers */,
-				91674F32536D3BA320B96E51D3A152FD /* HTTPAsyncFileResponse.h in Headers */,
-				25C03D1C233DCC4FB633927116BD76BE /* HTTPAuthenticationRequest.h in Headers */,
-				07A6F7F9A73662B8D26CF6EA9C14AEC4 /* HTTPConnection.h in Headers */,
-				5BC9EEAC7B94FC2D1DE5E8A07A003F85 /* HTTPDataResponse.h in Headers */,
-				0BBDC1BD9FC212CDF3E1C964FC9D7E57 /* HTTPDynamicFileResponse.h in Headers */,
-				CD02B9DDBC65AD3E4FB4878EBDEDEDAA /* HTTPErrorResponse.h in Headers */,
-				67069DB059D6C547F909E2FA834C4DA8 /* HTTPFileResponse.h in Headers */,
-				6E3736E2130BD7BDB77432F94EF732D0 /* HTTPJSONResponse.h in Headers */,
-				2B6D0856D5CABE3CF7AF2B6BE1B08F31 /* HTTPLogger.h in Headers */,
-				1DE898F4E4BB3C39DEC161E9E6580945 /* HTTPMessage.h in Headers */,
-				4932ADB8ADE5D19E866C6E44B7998B48 /* HTTPRedirectResponse.h in Headers */,
-				77933E530985C47D18C5FAF9F1156187 /* HTTPResponse.h in Headers */,
-				1866EE7B03B83AC7E3DB1B613FB5B99A /* HTTPServer.h in Headers */,
-				56132E48BE1BDCE084DE017A510AF28A /* MultipartFormDataParser.h in Headers */,
-				BFD8EA2BC02512FFA20F7110169E8536 /* MultipartMessageHeader.h in Headers */,
-				56410C6950E0490BB39801CF7E3F9385 /* MultipartMessageHeaderField.h in Headers */,
-				94B70FBEF71B95816E01058D430CE641 /* P12HTTPConnection.h in Headers */,
-				4AB963CBF62F25FC960B309ABCC79A5C /* SCHTTPServer-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,17 +498,17 @@
 /* Begin PBXNativeTarget section */
 		0774A393CED162E25E754DF510EFB536 /* SCHTTPServer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E7DC02E1527A9D234CF26DE59928E6E /* Build configuration list for PBXNativeTarget "SCHTTPServer" */;
+			buildConfigurationList = BCE2F37FEAEB246966D41A333A3E0C58 /* Build configuration list for PBXNativeTarget "SCHTTPServer" */;
 			buildPhases = (
-				E8B3E33F1A220AF43227243001D9D9FD /* Headers */,
-				8DF2B29C7AE3693127E5DC7630554630 /* Sources */,
-				A407C9F36D8BEBC9B8A576EBA4C9A1BD /* Frameworks */,
-				0F22595448CC4045FC16CAF4E3F8F5D5 /* Resources */,
+				30D4E328B6054CBA563943E1D5B87DB4 /* Headers */,
+				FE333F462B096868507A354EC7254F41 /* Sources */,
+				A8BF22AF9E1783B159FE15408D020864 /* Frameworks */,
+				F4B1F832814B35E865A9557E6F8C8B22 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				19B4D965F656D4BB24E70C0DB9083D21 /* PBXTargetDependency */,
+				B75D6F5AD48CA34EAA66E5AF01E709AD /* PBXTargetDependency */,
 			);
 			name = SCHTTPServer;
 			productName = SCHTTPServer;
@@ -568,13 +582,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0F22595448CC4045FC16CAF4E3F8F5D5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8A37D2A4F9049649C9E6756245160F39 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -583,6 +590,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B7B5EDC45A81FF70431CFBFB2ABDFFEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4B1F832814B35E865A9557E6F8C8B22 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -610,41 +624,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8DF2B29C7AE3693127E5DC7630554630 /* Sources */ = {
+		FE333F462B096868507A354EC7254F41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEDA17248BE5C5F77F029A659CCDF3EA /* DDData.m in Sources */,
-				7358263CC806AC14A7AF7D0FD15A8E97 /* DDNumber.m in Sources */,
-				006F06DE01F657243C9D19034D02770F /* DDRange.m in Sources */,
-				6A7CCF5053B3B161A6E7C20B0068AA68 /* HTTPAsyncFileResponse.m in Sources */,
-				5F8CFBC5F61BBBF6A60528ECC5658F43 /* HTTPAuthenticationRequest.m in Sources */,
-				1D746C2B086FAE232C11B070AB35D436 /* HTTPConnection.m in Sources */,
-				4D883A18AD00581EB6D225C1389D6C2F /* HTTPDataResponse.m in Sources */,
-				7CB2195CA91F91959592B49FBFF79912 /* HTTPDynamicFileResponse.m in Sources */,
-				1B9991F55531B5611A424173CEE0BE26 /* HTTPErrorResponse.m in Sources */,
-				B7C6138B13ACF77B47D799612BCC447E /* HTTPFileResponse.m in Sources */,
-				21D5026EF69566C3742E57AD74CB88F6 /* HTTPJSONResponse.m in Sources */,
-				42F378FEAE200EAD2227F7B3A520BFBA /* HTTPLogger.m in Sources */,
-				349C8D438ABAEFBEFF964E86BB64CC72 /* HTTPMessage.m in Sources */,
-				0D3AA324A473BB3587E0B81FF1157570 /* HTTPRedirectResponse.m in Sources */,
-				414E17E453D93233157FBD83E20F6DEE /* HTTPServer.m in Sources */,
-				9091CE7A837E0AC05341056821FD8D33 /* MultipartFormDataParser.m in Sources */,
-				6AA3C191F8B7BE7D43F7FBDCCCC370FC /* MultipartMessageHeader.m in Sources */,
-				44C38C8E846F15CE35B1770D3AAC1085 /* MultipartMessageHeaderField.m in Sources */,
-				747EE6BFB21EA69E4C42538B3B83BB7F /* P12HTTPConnection.m in Sources */,
-				7B9419DC8E78D649EF755FBBD82E415B /* SCHTTPServer-dummy.m in Sources */,
+				CB1976E8B16E370CBB9225E9641F5783 /* DDData.m in Sources */,
+				35DE28D30279CFEFA18BF53CD6396A99 /* DDNumber.m in Sources */,
+				B26707203F3011F2B88372E17284B328 /* DDRange.m in Sources */,
+				16C1870A28AAA54A455B3182E30ABF15 /* HTTPAsyncFileResponse.m in Sources */,
+				53317B50C2B8CEF52F22BDCE4FE37EFF /* HTTPAuthenticationRequest.m in Sources */,
+				23E3D967399814E223F7D980AE2FDADE /* HTTPConnection.m in Sources */,
+				D254B77EDD9C228BEE49A4147DF87BB1 /* HTTPDataResponse.m in Sources */,
+				9944FA18E9E5458F51357001C9E8E9E3 /* HTTPDynamicFileResponse.m in Sources */,
+				63E8C0BF17DD9DD28937401BFB3BECD3 /* HTTPErrorResponse.m in Sources */,
+				C33C50DB43D5689EF79A4B888260CCC3 /* HTTPFileResponse.m in Sources */,
+				9E0475B0B62769BA029AE0A9048E3170 /* HTTPJSONPResponse.m in Sources */,
+				18A9156FA9D12CFB747D6FEC45518F9B /* HTTPJSONResponse.m in Sources */,
+				034273367B533705C00CCF3133EDDFAA /* HTTPLogger.m in Sources */,
+				551B5201B5D4F300E416900F15131B7E /* HTTPMessage.m in Sources */,
+				D25CBD6DCDCBE3C0CC89665DF55C408A /* HTTPRedirectResponse.m in Sources */,
+				6284B36FB2B714E30CED933D80A8A01E /* HTTPResponseMaker.m in Sources */,
+				D248641A83B82B9C32E5E12B6848457D /* HTTPServer.m in Sources */,
+				3FC85402552BE86A9DF69154A7046909 /* MultipartFormDataParser.m in Sources */,
+				CB4F5E9520D8F412E6098380157D07AE /* MultipartMessageHeader.m in Sources */,
+				E005FA3C949B6CA0180DFDBAFFB3EFAB /* MultipartMessageHeaderField.m in Sources */,
+				DD84F895857A3E00892B8E35FBA4963D /* P12HTTPConnection.m in Sources */,
+				21E35DA176684C0B9F6512B41B380261 /* SCHTTPServer-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		19B4D965F656D4BB24E70C0DB9083D21 /* PBXTargetDependency */ = {
+		B75D6F5AD48CA34EAA66E5AF01E709AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CocoaAsyncSocket;
 			target = 6083682834ABE0AE7BD1CBF06CADD036 /* CocoaAsyncSocket */;
-			targetProxy = 46E0153D255FEC2E5547D600FDD3A569 /* PBXContainerItemProxy */;
+			targetProxy = 31FCEF7FB39871296E3653C8483F9D7C /* PBXContainerItemProxy */;
 		};
 		DB0EBEE6D5A5B69856CC1F4515C7061F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -661,43 +677,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0A3D0A03DBDB41FD31B774B1628917F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED9FB4C1F6AB6B310CFB3E9852C07BB7 /* SCHTTPServer.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/SCHTTPServer/SCHTTPServer-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULEMAP_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer.modulemap";
-				PRODUCT_MODULE_NAME = SCHTTPServer;
-				PRODUCT_NAME = SCHTTPServer;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		0A4E8437AC7C5E8A6E80920A6EEE3954 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -757,6 +736,43 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
+		};
+		0C39BF3F5FF699954520F4EF486E5DD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3FBED8024423AAD0E65DE041B07A8B4 /* SCHTTPServer.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/SCHTTPServer/SCHTTPServer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/SCHTTPServer/SCHTTPServer.modulemap";
+				PRODUCT_MODULE_NAME = SCHTTPServer;
+				PRODUCT_NAME = SCHTTPServer;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		0C6A6D7132916CD550CEA3CF2B21AE51 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -934,9 +950,9 @@
 			};
 			name = Debug;
 		};
-		9B383BA1243F436FDC3B3DFAEBBAF6F3 /* Release */ = {
+		79733AB5BC72CC95CAA68430F2380E2B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED9FB4C1F6AB6B310CFB3E9852C07BB7 /* SCHTTPServer.xcconfig */;
+			baseConfigurationReference = C3FBED8024423AAD0E65DE041B07A8B4 /* SCHTTPServer.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1032,11 +1048,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E7DC02E1527A9D234CF26DE59928E6E /* Build configuration list for PBXNativeTarget "SCHTTPServer" */ = {
+		BCE2F37FEAEB246966D41A333A3E0C58 /* Build configuration list for PBXNativeTarget "SCHTTPServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A3D0A03DBDB41FD31B774B1628917F1 /* Debug */,
-				9B383BA1243F436FDC3B3DFAEBBAF6F3 /* Release */,
+				0C39BF3F5FF699954520F4EF486E5DD4 /* Debug */,
+				79733AB5BC72CC95CAA68430F2380E2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

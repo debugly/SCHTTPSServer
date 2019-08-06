@@ -9,7 +9,7 @@
 #import <SCHTTPServer/HTTPServer.h>
 #import <SCHTTPServer/P12HTTPConnection.h>
 #import <SCHTTPServer/HTTPLogger.h>
-#import <SCHTTPServer/HTTPJSONResponse.h>
+#import <SCHTTPServer/HTTPResponseMaker.h>
 #import <SCHTTPServer/HTTPMessage.h>
 #import <WebKit/WebKit.h>
 #import "TestHTTPConnection.h"
@@ -39,17 +39,17 @@
         NSData *body = [req body];
         NSString *bodyStr = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
         NSLog(@"Post Body:%@",bodyStr);
-        return [[HTTPJSONResponse alloc]initWithJSON:@{@"post":@(200)} status:200];
+        return [HTTPResponseMaker make:@{@"post":@(200)} req:req];
     } forPath:@"/test" method:@"POST"];
     //https://localhost.gengtaotjut.com:7981/test?cma=a
     [P12HTTPConnection registerHandler:^id<HTTPResponse>(HTTPMessage *req) {
-        return [[HTTPJSONResponse alloc]initWithJSON:@{@"get":@(201)} status:200];
+        return [HTTPResponseMaker make:@{@"get":@(201)} req:req];;
     } forPath:@"/test" method:@"GET"];
     
     NSDate *date = [NSDate date];
     [P12HTTPConnection registerHandler:^id<HTTPResponse>(HTTPMessage *req) {
         int interval = (int)[[NSDate date] timeIntervalSinceDate:date];
-        return [[HTTPJSONResponse alloc]initWithJSON:@{@"run time":@(interval)} status:200];
+        return [HTTPResponseMaker make:@{@"run time":@(interval)} req:req];
     } forPath:@"/" method:@"GET"];
     
     self.httpServer = [[HTTPServer alloc] init];
