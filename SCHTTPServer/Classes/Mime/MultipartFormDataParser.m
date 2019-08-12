@@ -21,7 +21,7 @@
 - (int) findHeaderEnd:(NSData*) workingData fromOffset:(int) offset;
 - (int) findContentEnd:(NSData*) data fromOffset:(int) offset;
 
-- (int) numberOfBytesToLeavePendingWithData:(NSData*) data length:(NSUInteger) length encoding:(int) encoding;
+- (int) numberOfBytesToLeavePendingWithData:(NSData*) data length:(int) length encoding:(int) encoding;
 - (int) offsetTillNewlineSinceOffset:(int) offset inData:(NSData*) data;
 
 - (int) processPreamble:(NSData*) workingData;
@@ -239,7 +239,7 @@
 			NSUInteger sizeToPass = workingData.length - offset - sizeToLeavePending;
 
 			// if we parse BASE64 encoded data, or Quoted-Printable data, we will make sure we don't break the format
-			int leaveTrailing = [self numberOfBytesToLeavePendingWithData:data length:sizeToPass encoding:currentEncoding];
+			int leaveTrailing = [self numberOfBytesToLeavePendingWithData:data length:(int)sizeToPass encoding:currentEncoding];
 			sizeToPass -= leaveTrailing;
 			
 			if( sizeToPass <= 0 ) {

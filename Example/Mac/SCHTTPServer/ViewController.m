@@ -63,18 +63,7 @@
     
     [self.httpServer setConnectionClass:[P12HTTPConnection class]];
 //    [self.httpServer setConnectionClass:[TestHTTPConnection class]];
-    // Serve files from the standard Sites folder
-    NSString *docRoot = [@"~/Sites" stringByExpandingTildeInPath];
-    NSLog(@"Setting document root: %@", docRoot);
-    BOOL isDirectory = NO;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:docRoot isDirectory:&isDirectory]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:docRoot withIntermediateDirectories:YES attributes:nil error:NULL];
-        NSString *fromPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-        NSString *toPath = [docRoot stringByAppendingPathComponent:@"index.html"];
-        [[NSFileManager defaultManager] copyItemAtPath:fromPath toPath:toPath error:NULL];
-    }
     
-    [self.httpServer setDocumentRoot:docRoot];
     [self.httpServer setPort:7777];
     NSError *error = nil;
     if([self.httpServer start:&error])

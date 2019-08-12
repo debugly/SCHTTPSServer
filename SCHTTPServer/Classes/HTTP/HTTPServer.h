@@ -2,66 +2,7 @@
 
 @class GCDAsyncSocket;
 
-#if TARGET_OS_IPHONE
-  #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 40000 // iPhone 4.0
-    #define IMPLEMENTED_PROTOCOLS <NSNetServiceDelegate>
-  #else
-    #define IMPLEMENTED_PROTOCOLS 
-  #endif
-#else
-  #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 // Mac OS X 10.6
-    #define IMPLEMENTED_PROTOCOLS <NSNetServiceDelegate>
-  #else
-    #define IMPLEMENTED_PROTOCOLS 
-  #endif
-#endif
-
-
-@interface HTTPServer : NSObject IMPLEMENTED_PROTOCOLS
-{
-	// Underlying asynchronous TCP/IP socket
-	GCDAsyncSocket *asyncSocket;
-	
-	// Dispatch queues
-	dispatch_queue_t serverQueue;
-	dispatch_queue_t connectionQueue;
-	void *IsOnServerQueueKey;
-	void *IsOnConnectionQueueKey;
-	
-	// HTTP server configuration
-	NSString *documentRoot;
-	Class connectionClass;
-	NSString *interface;
-	UInt16 port;
-	
-	// NSNetService and related variables
-	NSNetService *netService;
-	NSString *domain;
-	NSString *type;
-	NSString *name;
-	NSString *publishedName;
-	NSDictionary *txtRecordDictionary;
-	
-	// Connection management
-	NSMutableArray *connections;
-	NSLock *connectionsLock;
-	
-	BOOL isRunning;
-}
-
-/**
- * Specifies the document root to serve files from.
- * For example, if you set this to "/Users/<your_username>/Sites",
- * then it will serve files out of the local Sites directory (including subdirectories).
- * 
- * The default value is nil.
- * The default server configuration will not serve any files until this is set.
- * 
- * If you change the documentRoot while the server is running,
- * the change will affect future incoming http connections.
-**/
-- (NSString *)documentRoot;
-- (void)setDocumentRoot:(NSString *)value;
+@interface HTTPServer : NSObject <NSNetServiceDelegate>
 
 /**
  * The connection class is the class used to handle incoming HTTP connections.

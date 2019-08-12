@@ -15,15 +15,13 @@
 @interface HTTPConfig : NSObject
 {
 	HTTPServer __unsafe_unretained *server;
-	NSString __strong *documentRoot;
 	dispatch_queue_t queue;
 }
 
-- (id)initWithServer:(HTTPServer *)server documentRoot:(NSString *)documentRoot;
-- (id)initWithServer:(HTTPServer *)server documentRoot:(NSString *)documentRoot queue:(dispatch_queue_t)q;
+- (id)initWithServer:(HTTPServer *)server;
+- (id)initWithServer:(HTTPServer *)server queue:(dispatch_queue_t)q;
 
 @property (nonatomic, unsafe_unretained, readonly) HTTPServer *server;
-@property (nonatomic, strong, readonly) NSString *documentRoot;
 @property (nonatomic, readonly) dispatch_queue_t queue;
 
 @end
@@ -35,22 +33,13 @@
 @interface HTTPConnection : NSObject
 {
 	dispatch_queue_t connectionQueue;
-	GCDAsyncSocket *asyncSocket;
 	HTTPConfig *config;
-	
-	BOOL started;
-	
 	HTTPMessage *request;
 	unsigned int numHeaderLines;
-	
-	BOOL sentResponseHeaders;
-	
+
 	NSString *nonce;
 	long lastNC;
-	
-	id<HTTPResponse> httpResponse;
-	
-	NSMutableArray *ranges;
+		
 	NSMutableArray *ranges_headers;
 	NSString *ranges_boundry;
 	int rangeIndex;
@@ -85,11 +74,6 @@
 - (NSDictionary *)parseGetParams;
 
 - (NSString *)requestURI;
-
-- (NSArray *)directoryIndexFileNames;
-- (NSString *)filePathForURI:(NSString *)path;
-- (NSString *)filePathForURI:(NSString *)path allowDirectory:(BOOL)allowDirectory;
-- (id<HTTPResponse>)httpResponseForMethod:(NSString *)method URI:(NSString *)path;
 
 - (void)prepareForBodyWithSize:(UInt64)contentLength;
 - (void)processBodyData:(NSData *)postDataChunk;

@@ -6,8 +6,6 @@
 #import "DDNumber.h"
 #import "DDRange.h"
 #import "DDData.h"
-#import "HTTPFileResponse.h"
-#import "HTTPAsyncFileResponse.h"
 #import "HTTPLogger.h"
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
@@ -76,6 +74,16 @@
 // If you are sending multiple data segments in a custom response, make sure that only the last segment has
 // the HTTP_RESPONSE tag. For all other segments prior to the last segment use HTTP_PARTIAL_RESPONSE, or some other
 // tag of your own invention.
+
+@interface HTTPConnection ()
+
+@property GCDAsyncSocket *asyncSocket;
+@property BOOL started;
+@property id<HTTPResponse> httpResponse;
+@property BOOL sentResponseHeaders;
+@property NSMutableArray *ranges;
+
+@end
 
 @interface HTTPConnection (PrivateAPI)
 - (void)startReadingRequest;
@@ -187,8 +195,8 @@ static NSMutableArray *recentNonces;
 		}
 		
 		// Take over ownership of the socket
-		asyncSocket = newSocket;
-		[asyncSocket setDelegate:(id)self delegateQueue:connectionQueue];
+		self.asyncSocket = newSocket;
+		[self.asyncSocket setDelegate:(id)self delegateQueue:connectionQueue];
 		
 		// Store configuration
 		config = aConfig;
@@ -219,12 +227,12 @@ static NSMutableArray *recentNonces;
 	dispatch_release(connectionQueue);
 	#endif
 	
-	[asyncSocket setDelegate:nil delegateQueue:NULL];
-	[asyncSocket disconnect];
+	[self.asyncSocket setDelegate:nil delegateQueue:NULL];
+	[self.asyncSocket disconnect];
 	
-	if ([httpResponse respondsToSelector:@selector(connectionDidClose)])
+	if ([self.httpResponse respondsToSelector:@selector(connectionDidClose)])
 	{
-		[httpResponse connectionDidClose];
+		[self.httpResponse connectionDidClose];
 	}
 }
 
@@ -565,9 +573,9 @@ static NSMutableArray *recentNonces;
 {
 	dispatch_async(connectionQueue, ^{ @autoreleasepool {
 		
-		if (!started)
+		if (!self.started)
 		{
-			started = YES;
+			self.started = YES;
 			[self startConnection];
 		}
 	}});
@@ -583,7 +591,7 @@ static NSMutableArray *recentNonces;
 		
 		// Disconnect the socket.
 		// The socketDidDisconnect delegate method will handle everything else.
-		[asyncSocket disconnect];
+		[self.asyncSocket disconnect];
 	}});
 }
 
@@ -621,7 +629,7 @@ static NSMutableArray *recentNonces;
 //            [settings setObject:(NSString *)kCFStreamSocketSecurityLevelTLSv1
 //                         forKey:(NSString *)kCFStreamSSLLevel];
 			
-			[asyncSocket startTLS:settings];
+			[self.asyncSocket startTLS:settings];
 		}
 	}
 	
@@ -635,7 +643,7 @@ static NSMutableArray *recentNonces;
 {
 	HTTPLogTrace();
 	
-	[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+	[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 	                withTimeout:TIMEOUT_READ_FIRST_HEADER_LINE
 	                  maxLength:MAX_HEADER_LINE_LENGTH
 	                        tag:HTTP_REQUEST_HEADER];
@@ -769,7 +777,7 @@ static NSMutableArray *recentNonces;
 	
 	if([rangeComponents count] == 0) return NO;
 	
-	ranges = [[NSMutableArray alloc] initWithCapacity:[rangeComponents count]];
+	self.ranges = [[NSMutableArray alloc] initWithCapacity:[rangeComponents count]];
 	
 	rangeIndex = 0;
 	
@@ -792,7 +800,7 @@ static NSMutableArray *recentNonces;
 			
 			if(byteIndex >= contentLength) return NO;
 			
-			[ranges addObject:[NSValue valueWithDDRange:DDMakeRange(byteIndex, 1)]];
+			[self.ranges addObject:[NSValue valueWithDDRange:DDMakeRange(byteIndex, 1)]];
 		}
 		else
 		{
@@ -820,7 +828,7 @@ static NSMutableArray *recentNonces;
 				
 				UInt64 startIndex = contentLength - r2;
 				
-				[ranges addObject:[NSValue valueWithDDRange:DDMakeRange(startIndex, r2)]];
+				[self.ranges addObject:[NSValue valueWithDDRange:DDMakeRange(startIndex, r2)]];
 			}
 			else if (!hasR2)
 			{
@@ -830,7 +838,7 @@ static NSMutableArray *recentNonces;
 				
 				if(r1 >= contentLength) return NO;
 				
-				[ranges addObject:[NSValue valueWithDDRange:DDMakeRange(r1, contentLength - r1)]];
+				[self.ranges addObject:[NSValue valueWithDDRange:DDMakeRange(r1, contentLength - r1)]];
 			}
 			else
 			{
@@ -841,23 +849,23 @@ static NSMutableArray *recentNonces;
 				if(r1 > r2) return NO;
 				if(r2 >= contentLength) return NO;
 				
-				[ranges addObject:[NSValue valueWithDDRange:DDMakeRange(r1, r2 - r1 + 1)]];
+				[self.ranges addObject:[NSValue valueWithDDRange:DDMakeRange(r1, r2 - r1 + 1)]];
 			}
 		}
 	}
 	
-	if([ranges count] == 0) return NO;
+	if([self.ranges count] == 0) return NO;
 	
-	// Now make sure none of the ranges overlap
+	// Now make sure none of the self.ranges overlap
 	
-	for (i = 0; i < [ranges count] - 1; i++)
+	for (i = 0; i < [self.ranges count] - 1; i++)
 	{
-		DDRange range1 = [[ranges objectAtIndex:i] ddrangeValue];
+		DDRange range1 = [[self.ranges objectAtIndex:i] ddrangeValue];
 		
 		NSUInteger j;
-		for (j = i+1; j < [ranges count]; j++)
+		for (j = i+1; j < [self.ranges count]; j++)
 		{
-			DDRange range2 = [[ranges objectAtIndex:j] ddrangeValue];
+			DDRange range2 = [[self.ranges objectAtIndex:j] ddrangeValue];
 			
 			DDRange iRange = DDIntersectionRange(range1, range2);
 			
@@ -868,9 +876,9 @@ static NSMutableArray *recentNonces;
 		}
 	}
 	
-	// Sort the ranges
+	// Sort the self.ranges
 	
-	[ranges sortUsingSelector:@selector(ddrangeCompare:)];
+	[self.ranges sortUsingSelector:@selector(ddrangeCompare:)];
 	
 	return YES;
 }
@@ -915,17 +923,10 @@ static NSMutableArray *recentNonces;
 		return;
 	}
 	
-	// Extract the method
-	NSString *method = [request method];
-	
 	// Note: We already checked to ensure the method was supported in onSocket:didReadData:withTag:
-    httpResponse = [[self class] httpResponseForRequest:request];
-    if (!httpResponse) {
-        // Respond properly to HTTP 'GET' and 'HEAD' commands
-        httpResponse = [self httpResponseForMethod:method URI:uri];
-    }
+    self.httpResponse = [[self class] httpResponseForRequest:request];
 	
-	if (httpResponse == nil)
+	if (self.httpResponse == nil)
 	{
 		[self handleResourceNotFound];
 		return;
@@ -946,7 +947,7 @@ static NSMutableArray *recentNonces;
 	// Status Code 206 - Partial Content
 	HTTPMessage *response = [[HTTPMessage alloc] initResponseWithStatusCode:206 description:nil version:HTTPVersion1_1];
 	
-	DDRange range = [[ranges objectAtIndex:0] ddrangeValue];
+	DDRange range = [[self.ranges firstObject] ddrangeValue];
 	
 	NSString *contentLengthStr = [NSString stringWithFormat:@"%qu", range.length];
 	[response setHeaderField:@"Content-Length" value:contentLengthStr];
@@ -989,7 +990,7 @@ static NSMutableArray *recentNonces;
 	// [...]
 	// --4554d24e986f76dd6--
 	
-	ranges_headers = [[NSMutableArray alloc] initWithCapacity:[ranges count]];
+	ranges_headers = [[NSMutableArray alloc] initWithCapacity:[self.ranges count]];
 	
 	CFUUIDRef theUUID = CFUUIDCreate(NULL);
 	ranges_boundry = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, theUUID);
@@ -1001,9 +1002,9 @@ static NSMutableArray *recentNonces;
 	UInt64 actualContentLength = 0;
 	
 	NSUInteger i;
-	for (i = 0; i < [ranges count]; i++)
+	for (i = 0; i < [self.ranges count]; i++)
 	{
-		DDRange range = [[ranges objectAtIndex:i] ddrangeValue];
+		DDRange range = [[self.ranges objectAtIndex:i] ddrangeValue];
 		
 		NSString *rangeStr = [NSString stringWithFormat:@"%qu-%qu", range.location, DDMaxRange(range) - 1];
 		NSString *contentRangeVal = [NSString stringWithFormat:@"bytes %@/%qu", rangeStr, contentLength];
@@ -1056,9 +1057,9 @@ static NSMutableArray *recentNonces;
 
 - (void)sendResponseHeadersAndBody
 {
-	if ([httpResponse respondsToSelector:@selector(delayResponseHeaders)])
+	if ([self.httpResponse respondsToSelector:@selector(delayResponseHeaders)])
 	{
-		if ([httpResponse delayResponseHeaders])
+		if ([self.httpResponse delayResponseHeaders])
 		{
 			return;
 		}
@@ -1066,9 +1067,9 @@ static NSMutableArray *recentNonces;
 	
 	BOOL isChunked = NO;
 	
-	if ([httpResponse respondsToSelector:@selector(isChunked)])
+	if ([self.httpResponse respondsToSelector:@selector(isChunked)])
 	{
-		isChunked = [httpResponse isChunked];
+		isChunked = [self.httpResponse isChunked];
 	}
 	
 	// If a response is "chunked", this simply means the HTTPResponse object
@@ -1078,7 +1079,7 @@ static NSMutableArray *recentNonces;
 	
 	if (!isChunked)
 	{
-		contentLength = [httpResponse contentLength];
+		contentLength = [self.httpResponse contentLength];
 	}
 	
 	// Check for specific range request
@@ -1106,9 +1107,9 @@ static NSMutableArray *recentNonces;
 		// Default status code: 200 - OK
 		NSInteger status = 200;
 		
-		if ([httpResponse respondsToSelector:@selector(status)])
+		if ([self.httpResponse respondsToSelector:@selector(status)])
 		{
-			status = [httpResponse status];
+			status = [self.httpResponse status];
 		}
 		response = [[HTTPMessage alloc] initResponseWithStatusCode:status description:nil version:HTTPVersion1_1];
 		
@@ -1124,7 +1125,7 @@ static NSMutableArray *recentNonces;
 	}
 	else
 	{
-		if ([ranges count] == 1)
+		if ([self.ranges count] == 1)
 		{
 			response = [self newUniRangeResponse:contentLength];
 		}
@@ -1142,23 +1143,23 @@ static NSMutableArray *recentNonces;
 	if ([[request method] isEqualToString:@"HEAD"] || isZeroLengthResponse)
 	{
 		NSData *responseData = [self preprocessResponse:response];
-		[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
+		[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
 		
-		sentResponseHeaders = YES;
+		self.sentResponseHeaders = YES;
 	}
 	else
 	{
 		// Write the header response
 		NSData *responseData = [self preprocessResponse:response];
-		[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
+		[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
 		
-		sentResponseHeaders = YES;
+		self.sentResponseHeaders = YES;
 		
 		// Now we need to send the body of the response
 		if (!isRangeRequest)
 		{
 			// Regular request
-			NSData *data = [httpResponse readDataOfLength:READ_CHUNKSIZE];
+			NSData *data = [self.httpResponse readDataOfLength:READ_CHUNKSIZE];
 			
 			if ([data length] > 0)
 			{
@@ -1167,25 +1168,25 @@ static NSMutableArray *recentNonces;
 				if (isChunked)
 				{
 					NSData *chunkSize = [self chunkedTransferSizeLineForLength:[data length]];
-					[asyncSocket writeData:chunkSize withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_HEADER];
+					[self.asyncSocket writeData:chunkSize withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_HEADER];
 					
-					[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_CHUNKED_RESPONSE_BODY];
+					[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_CHUNKED_RESPONSE_BODY];
 					
-					if ([httpResponse isDone])
+					if ([self.httpResponse isDone])
 					{
 						NSData *footer = [self chunkedTransferFooter];
-						[asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
+						[self.asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
 					}
 					else
 					{
 						NSData *footer = [GCDAsyncSocket CRLFData];
-						[asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_FOOTER];
+						[self.asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_FOOTER];
 					}
 				}
 				else
 				{
-					long tag = [httpResponse isDone] ? HTTP_RESPONSE : HTTP_PARTIAL_RESPONSE_BODY;
-					[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
+					long tag = [self.httpResponse isDone] ? HTTP_RESPONSE : HTTP_PARTIAL_RESPONSE_BODY;
+					[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
 				}
 			}
 		}
@@ -1193,23 +1194,23 @@ static NSMutableArray *recentNonces;
 		{
 			// Client specified a byte range in request
 			
-			if ([ranges count] == 1)
+			if ([self.ranges count] == 1)
 			{
 				// Client is requesting a single range
-				DDRange range = [[ranges objectAtIndex:0] ddrangeValue];
+				DDRange range = [[self.ranges firstObject] ddrangeValue];
 				
-				[httpResponse setOffset:range.location];
+				[self.httpResponse setOffset:range.location];
 				
 				NSUInteger bytesToRead = range.length < READ_CHUNKSIZE ? (NSUInteger)range.length : READ_CHUNKSIZE;
 				
-				NSData *data = [httpResponse readDataOfLength:bytesToRead];
+				NSData *data = [self.httpResponse readDataOfLength:bytesToRead];
 				
 				if ([data length] > 0)
 				{
 					[responseDataSizes addObject:[NSNumber numberWithUnsignedInteger:[data length]]];
 					
 					long tag = [data length] == range.length ? HTTP_RESPONSE : HTTP_PARTIAL_RANGE_RESPONSE_BODY;
-					[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
+					[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
 				}
 			}
 			else
@@ -1218,23 +1219,23 @@ static NSMutableArray *recentNonces;
 				// We have to send each range using multipart/byteranges
 				
 				// Write range header
-				NSData *rangeHeaderData = [ranges_headers objectAtIndex:0];
-				[asyncSocket writeData:rangeHeaderData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
+				NSData *rangeHeaderData = [ranges_headers firstObject];
+				[self.asyncSocket writeData:rangeHeaderData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
 				
 				// Start writing range body
-				DDRange range = [[ranges objectAtIndex:0] ddrangeValue];
+				DDRange range = [[self.ranges firstObject] ddrangeValue];
 				
-				[httpResponse setOffset:range.location];
+				[self.httpResponse setOffset:range.location];
 				
 				NSUInteger bytesToRead = range.length < READ_CHUNKSIZE ? (NSUInteger)range.length : READ_CHUNKSIZE;
 				
-				NSData *data = [httpResponse readDataOfLength:bytesToRead];
+				NSData *data = [self.httpResponse readDataOfLength:bytesToRead];
 				
 				if ([data length] > 0)
 				{
 					[responseDataSizes addObject:[NSNumber numberWithUnsignedInteger:[data length]]];
 					
-					[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
+					[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
 				}
 			}
 		}
@@ -1290,7 +1291,7 @@ static NSMutableArray *recentNonces;
 	if(writeQueueSize >= READ_CHUNKSIZE) return;
 	
 	NSUInteger available = READ_CHUNKSIZE - writeQueueSize;
-	NSData *data = [httpResponse readDataOfLength:available];
+	NSData *data = [self.httpResponse readDataOfLength:available];
 	
 	if ([data length] > 0)
 	{
@@ -1298,33 +1299,33 @@ static NSMutableArray *recentNonces;
 		
 		BOOL isChunked = NO;
 		
-		if ([httpResponse respondsToSelector:@selector(isChunked)])
+		if ([self.httpResponse respondsToSelector:@selector(isChunked)])
 		{
-			isChunked = [httpResponse isChunked];
+			isChunked = [self.httpResponse isChunked];
 		}
 		
 		if (isChunked)
 		{
 			NSData *chunkSize = [self chunkedTransferSizeLineForLength:[data length]];
-			[asyncSocket writeData:chunkSize withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_HEADER];
+			[self.asyncSocket writeData:chunkSize withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_HEADER];
 			
-			[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_CHUNKED_RESPONSE_BODY];
+			[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_CHUNKED_RESPONSE_BODY];
 			
-			if([httpResponse isDone])
+			if([self.httpResponse isDone])
 			{
 				NSData *footer = [self chunkedTransferFooter];
-				[asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
+				[self.asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
 			}
 			else
 			{
 				NSData *footer = [GCDAsyncSocket CRLFData];
-				[asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_FOOTER];
+				[self.asyncSocket writeData:footer withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_CHUNKED_RESPONSE_FOOTER];
 			}
 		}
 		else
 		{
-			long tag = [httpResponse isDone] ? HTTP_RESPONSE : HTTP_PARTIAL_RESPONSE_BODY;
-			[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
+			long tag = [self.httpResponse isDone] ? HTTP_RESPONSE : HTTP_PARTIAL_RESPONSE_BODY;
+			[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
 		}
 	}
 }
@@ -1357,9 +1358,9 @@ static NSMutableArray *recentNonces;
 	
 	if(writeQueueSize >= READ_CHUNKSIZE) return;
 	
-	DDRange range = [[ranges objectAtIndex:0] ddrangeValue];
+	DDRange range = [[self.ranges firstObject] ddrangeValue];
 	
-	UInt64 offset = [httpResponse offset];
+	UInt64 offset = [self.httpResponse offset];
 	UInt64 bytesRead = offset - range.location;
 	UInt64 bytesLeft = range.length - bytesRead;
 	
@@ -1368,14 +1369,14 @@ static NSMutableArray *recentNonces;
 		NSUInteger available = READ_CHUNKSIZE - writeQueueSize;
 		NSUInteger bytesToRead = bytesLeft < available ? (NSUInteger)bytesLeft : available;
 		
-		NSData *data = [httpResponse readDataOfLength:bytesToRead];
+		NSData *data = [self.httpResponse readDataOfLength:bytesToRead];
 		
 		if ([data length] > 0)
 		{
 			[responseDataSizes addObject:[NSNumber numberWithUnsignedInteger:[data length]]];
 			
 			long tag = [data length] == bytesLeft ? HTTP_RESPONSE : HTTP_PARTIAL_RANGE_RESPONSE_BODY;
-			[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
+			[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
 		}
 	}
 }
@@ -1408,9 +1409,9 @@ static NSMutableArray *recentNonces;
 	
 	if(writeQueueSize >= READ_CHUNKSIZE) return;
 	
-	DDRange range = [[ranges objectAtIndex:rangeIndex] ddrangeValue];
+	DDRange range = [[self.ranges objectAtIndex:rangeIndex] ddrangeValue];
 	
-	UInt64 offset = [httpResponse offset];
+	UInt64 offset = [self.httpResponse offset];
 	UInt64 bytesRead = offset - range.location;
 	UInt64 bytesLeft = range.length - bytesRead;
 	
@@ -1419,38 +1420,38 @@ static NSMutableArray *recentNonces;
 		NSUInteger available = READ_CHUNKSIZE - writeQueueSize;
 		NSUInteger bytesToRead = bytesLeft < available ? (NSUInteger)bytesLeft : available;
 		
-		NSData *data = [httpResponse readDataOfLength:bytesToRead];
+		NSData *data = [self.httpResponse readDataOfLength:bytesToRead];
 		
 		if ([data length] > 0)
 		{
 			[responseDataSizes addObject:[NSNumber numberWithUnsignedInteger:[data length]]];
 			
-			[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
+			[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
 		}
 	}
 	else
 	{
-		if (++rangeIndex < [ranges count])
+		if (++rangeIndex < [self.ranges count])
 		{
 			// Write range header
 			NSData *rangeHeader = [ranges_headers objectAtIndex:rangeIndex];
-			[asyncSocket writeData:rangeHeader withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
+			[self.asyncSocket writeData:rangeHeader withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
 			
 			// Start writing range body
-			range = [[ranges objectAtIndex:rangeIndex] ddrangeValue];
+			range = [[self.ranges objectAtIndex:rangeIndex] ddrangeValue];
 			
-			[httpResponse setOffset:range.location];
+			[self.httpResponse setOffset:range.location];
 			
 			NSUInteger available = READ_CHUNKSIZE - writeQueueSize;
 			NSUInteger bytesToRead = range.length < available ? (NSUInteger)range.length : available;
 			
-			NSData *data = [httpResponse readDataOfLength:bytesToRead];
+			NSData *data = [self.httpResponse readDataOfLength:bytesToRead];
 			
 			if ([data length] > 0)
 			{
 				[responseDataSizes addObject:[NSNumber numberWithUnsignedInteger:[data length]]];
 				
-				[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
+				[self.asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:HTTP_PARTIAL_RANGES_RESPONSE_BODY];
 			}
 		}
 		else
@@ -1459,133 +1460,9 @@ static NSMutableArray *recentNonces;
 			NSString *endingBoundryStr = [NSString stringWithFormat:@"\r\n--%@--\r\n", ranges_boundry];
 			NSData *endingBoundryData = [endingBoundryStr dataUsingEncoding:NSUTF8StringEncoding];
 			
-			[asyncSocket writeData:endingBoundryData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
+			[self.asyncSocket writeData:endingBoundryData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_RESPONSE];
 		}
 	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Responses
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Returns an array of possible index pages.
- * For example: {"index.html", "index.htm"}
-**/
-- (NSArray *)directoryIndexFileNames
-{
-	HTTPLogTrace();
-	
-	// Override me to support other index pages.
-	
-	return [NSArray arrayWithObjects:@"index.html", @"index.htm", nil];
-}
-
-- (NSString *)filePathForURI:(NSString *)path
-{
-	return [self filePathForURI:path allowDirectory:NO];
-}
-
-/**
- * Converts relative URI path into full file-system path.
-**/
-- (NSString *)filePathForURI:(NSString *)path allowDirectory:(BOOL)allowDirectory
-{
-	HTTPLogTrace();
-	
-	// Override me to perform custom path mapping.
-	// For example you may want to use a default file other than index.html, or perhaps support multiple types.
-	
-	NSString *documentRoot = [config documentRoot];
-	
-	// Part 0: Validate document root setting.
-	// 
-	// If there is no configured documentRoot,
-	// then it makes no sense to try to return anything.
-	
-	if (documentRoot == nil)
-	{
-        HTTPLogWarn(@"[%p]: No configured document root", self);
-		return nil;
-	}
-	
-	// Part 1: Strip parameters from the url
-	// 
-	// E.g.: /page.html?q=22&var=abc -> /page.html
-	
-	NSURL *docRoot = [NSURL fileURLWithPath:documentRoot isDirectory:YES];
-	if (docRoot == nil)
-	{
-        HTTPLogWarn(@"[%p]: Document root is invalid file path", self);
-		return nil;
-	}
-	
-	NSString *relativePath = [[NSURL URLWithString:path relativeToURL:docRoot] relativePath];
-	
-	// Part 2: Append relative path to document root (base path)
-	// 
-	// E.g.: relativePath="/images/icon.png"
-	//       documentRoot="/Users/robbie/Sites"
-	//           fullPath="/Users/robbie/Sites/images/icon.png"
-	// 
-	// We also standardize the path.
-	// 
-	// E.g.: "Users/robbie/Sites/images/../index.html" -> "/Users/robbie/Sites/index.html"
-	
-	NSString *fullPath = [[documentRoot stringByAppendingPathComponent:relativePath] stringByStandardizingPath];
-	
-	if ([relativePath isEqualToString:@"/"])
-	{
-		fullPath = [fullPath stringByAppendingString:@"/"];
-	}
-	
-	// Part 3: Prevent serving files outside the document root.
-	// 
-	// Sneaky requests may include ".." in the path.
-	// 
-	// E.g.: relativePath="../Documents/TopSecret.doc"
-	//       documentRoot="/Users/robbie/Sites"
-	//           fullPath="/Users/robbie/Documents/TopSecret.doc"
-	// 
-	// E.g.: relativePath="../Sites_Secret/TopSecret.doc"
-	//       documentRoot="/Users/robbie/Sites"
-	//           fullPath="/Users/robbie/Sites_Secret/TopSecret"
-	
-	if (![documentRoot hasSuffix:@"/"])
-	{
-		documentRoot = [documentRoot stringByAppendingString:@"/"];
-	}
-	
-	if (![fullPath hasPrefix:documentRoot])
-	{
-        HTTPLogWarn(@"[%p]: Request for file outside document root", self);
-		return nil;
-	}
-	
-	// Part 4: Search for index page if path is pointing to a directory
-	if (!allowDirectory)
-	{
-		BOOL isDir = NO;
-		if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir)
-		{
-			NSArray *indexFileNames = [self directoryIndexFileNames];
-
-			for (NSString *indexFileName in indexFileNames)
-			{
-				NSString *indexFilePath = [fullPath stringByAppendingPathComponent:indexFileName];
-
-				if ([[NSFileManager defaultManager] fileExistsAtPath:indexFilePath isDirectory:&isDir] && !isDir)
-				{
-					return indexFilePath;
-				}
-			}
-
-			// No matching index files found in directory
-			return nil;
-		}
-	}
-
-	return fullPath;
 }
 
 static NSMutableDictionary *_s_path_handler_map = nil;
@@ -1638,35 +1515,6 @@ static NSMutableDictionary *_s_path_handler_map = nil;
         HTTPLogWarn(@"can't %@ for %@",method,path);
         return nil;
     }
-}
-
-/**
- * This method is called to get a response for a request.
- * You may return any object that adopts the HTTPResponse protocol.
- * The HTTPServer comes with two such classes: HTTPFileResponse and HTTPDataResponse.
- * HTTPFileResponse is a wrapper for an NSFileHandle object, and is the preferred way to send a file response.
- * HTTPDataResponse is a wrapper for an NSData object, and may be used to send a custom response.
-**/
-- (id<HTTPResponse>)httpResponseForMethod:(NSString *)method URI:(NSString *)path
-{
-	HTTPLogTrace();
-	// Override me to provide custom responses.
-	
-	NSString *filePath = [self filePathForURI:path allowDirectory:NO];
-	
-	BOOL isDir = NO;
-	
-	if (filePath && [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDir] && !isDir)
-	{
-		return [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
-	
-		// Use me instead for asynchronous file IO.
-		// Generally better for larger files.
-		
-	//	return [[[HTTPAsyncFileResponse alloc] initWithFilePath:filePath forConnection:self] autorelease];
-	}
-	
-	return nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1729,7 +1577,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Content-Length" value:@"0"];
     
 	NSData *responseData = [self preprocessErrorResponse:response];
-	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
+	[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
 	
 }
 
@@ -1758,7 +1606,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	}
 	
 	NSData *responseData = [self preprocessErrorResponse:response];
-	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
+	[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
 	
 }
 
@@ -1781,7 +1629,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Connection" value:@"close"];
 	
 	NSData *responseData = [self preprocessErrorResponse:response];
-	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_FINAL_RESPONSE];
+	[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_FINAL_RESPONSE];
 	
 	
 	// Note: We used the HTTP_FINAL_RESPONSE tag to disconnect after the response is sent.
@@ -1809,7 +1657,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Connection" value:@"close"];
 	
 	NSData *responseData = [self preprocessErrorResponse:response];
-	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_FINAL_RESPONSE];
+	[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_FINAL_RESPONSE];
     
 	
 	// Note: We used the HTTP_FINAL_RESPONSE tag to disconnect after the response is sent.
@@ -1833,7 +1681,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Content-Length" value:@"0"];
 	
 	NSData *responseData = [self preprocessErrorResponse:response];
-	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
+	[self.asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
 	
 }
 
@@ -1898,9 +1746,9 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Accept-Ranges" value:@"bytes"];
 	
 	// Add optional response headers
-	if ([httpResponse respondsToSelector:@selector(httpHeaders)])
+	if ([self.httpResponse respondsToSelector:@selector(httpHeaders)])
 	{
-		NSDictionary *responseHeaders = [httpResponse httpHeaders];
+		NSDictionary *responseHeaders = [self.httpResponse httpHeaders];
 		
 		NSEnumerator *keyEnumerator = [responseHeaders keyEnumerator];
 		NSString *key;
@@ -1951,9 +1799,9 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	[response setHeaderField:@"Accept-Ranges" value:@"bytes"];
 	
 	// Add optional response headers
-	if ([httpResponse respondsToSelector:@selector(httpHeaders)])
+	if ([self.httpResponse respondsToSelector:@selector(httpHeaders)])
 	{
-		NSDictionary *responseHeaders = [httpResponse httpHeaders];
+		NSDictionary *responseHeaders = [self.httpResponse httpHeaders];
 		
 		NSEnumerator *keyEnumerator = [responseHeaders keyEnumerator];
 		NSString *key;
@@ -1997,14 +1845,14 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 			{
 				// Reached the maximum amount of header lines in a single HTTP request
 				// This could be an attempted DOS attack
-				[asyncSocket disconnect];
+				[self.asyncSocket disconnect];
 				
 				// Explictly return to ensure we don't do anything after the socket disconnect
 				return;
 			}
 			else
 			{
-				[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+				[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 				                withTimeout:TIMEOUT_READ_SUBSEQUENT_HEADER_LINE
 				                  maxLength:MAX_HEADER_LINE_LENGTH
 				                        tag:HTTP_REQUEST_HEADER];
@@ -2107,7 +1955,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 					{
 						// Chunked transfer
 						
-						[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+						[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 						                withTimeout:TIMEOUT_READ_BODY
 						                  maxLength:MAX_CHUNK_LINE_LENGTH
 						                        tag:HTTP_REQUEST_CHUNK_SIZE];
@@ -2120,7 +1968,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 						else
 							bytesToRead = POST_CHUNKSIZE;
 						
-						[asyncSocket readDataToLength:bytesToRead
+						[self.asyncSocket readDataToLength:bytesToRead
 						                  withTimeout:TIMEOUT_READ_BODY
 						                          tag:HTTP_REQUEST_BODY];
 					}
@@ -2186,7 +2034,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				NSUInteger bytesToRead;
 				bytesToRead = (requestChunkSize < POST_CHUNKSIZE) ? (NSUInteger)requestChunkSize : POST_CHUNKSIZE;
 				
-				[asyncSocket readDataToLength:bytesToRead
+				[self.asyncSocket readDataToLength:bytesToRead
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_DATA];
 			}
@@ -2195,7 +2043,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				// This is the "0" (zero) line,
 				// which is to be followed by optional footers (just like headers) and finally a blank line.
 				
-				[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+				[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 				                withTimeout:TIMEOUT_READ_BODY
 				                  maxLength:MAX_HEADER_LINE_LENGTH
 				                        tag:HTTP_REQUEST_CHUNK_FOOTER];
@@ -2217,7 +2065,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 			{
 				NSUInteger bytesToRead = (bytesLeft < POST_CHUNKSIZE) ? (NSUInteger)bytesLeft : POST_CHUNKSIZE;
 				
-				[asyncSocket readDataToLength:bytesToRead
+				[self.asyncSocket readDataToLength:bytesToRead
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_DATA];
 			}
@@ -2226,7 +2074,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				// We've read in all the data for this chunk.
 				// The data is followed by a CRLF, which we need to read (and basically ignore)
 				
-				[asyncSocket readDataToLength:2
+				[self.asyncSocket readDataToLength:2
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_TRAILER];
 			}
@@ -2248,7 +2096,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 			
 			// Now continue with the next chunk
 			
-			[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+			[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 			                withTimeout:TIMEOUT_READ_BODY
 			                  maxLength:MAX_CHUNK_LINE_LENGTH
 			                        tag:HTTP_REQUEST_CHUNK_SIZE];
@@ -2260,7 +2108,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 			{
 				// Reached the maximum amount of header lines in a single HTTP request
 				// This could be an attempted DOS attack
-				[asyncSocket disconnect];
+				[self.asyncSocket disconnect];
 				
 				// Explictly return to ensure we don't do anything after the socket disconnect
 				return;
@@ -2272,7 +2120,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				// In the future we may want to append these to the request.
 				// For now we ignore, and continue reading the footers, waiting for the final blank line.
 				
-				[asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
+				[self.asyncSocket readDataToData:[GCDAsyncSocket CRLFData]
 				                withTimeout:TIMEOUT_READ_BODY
 				                  maxLength:MAX_HEADER_LINE_LENGTH
 				                        tag:HTTP_REQUEST_CHUNK_FOOTER];
@@ -2297,7 +2145,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				
 				NSUInteger bytesToRead = bytesLeft < POST_CHUNKSIZE ? (NSUInteger)bytesLeft : POST_CHUNKSIZE;
 				
-				[asyncSocket readDataToLength:bytesToRead
+				[self.asyncSocket readDataToLength:bytesToRead
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_BODY];
 			}
@@ -2381,9 +2229,9 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	if (doneSendingResponse)
 	{
 		// Inform the http response that we're done
-		if ([httpResponse respondsToSelector:@selector(connectionDidClose)])
+		if ([self.httpResponse respondsToSelector:@selector(connectionDidClose)])
 		{
-			[httpResponse connectionDidClose];
+			[self.httpResponse connectionDidClose];
 		}
 		
 		
@@ -2393,7 +2241,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 			[self finishResponse];
 			
 			// Terminate the connection
-			[asyncSocket disconnect];
+			[self.asyncSocket disconnect];
 			
 			// Explictly return to ensure we don't do anything after the socket disconnects
 			return;
@@ -2409,7 +2257,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				// The only time we should invoke [self die] is from socketDidDisconnect,
 				// or if the socket gets taken over by someone else like a WebSocket.
 				
-				[asyncSocket disconnect];
+				[self.asyncSocket disconnect];
 			}
 			else
 			{
@@ -2425,7 +2273,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 				request = [[HTTPMessage alloc] initEmptyRequest];
 				
 				numHeaderLines = 0;
-				sentResponseHeaders = NO;
+				self.sentResponseHeaders = NO;
 				
 				// And start listening for more requests
 				[self startReadingRequest];
@@ -2441,7 +2289,7 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 {
 	HTTPLogTrace();
 	
-	asyncSocket = nil;
+	self.asyncSocket = nil;
 	
 	[self die];
 }
@@ -2468,25 +2316,25 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	
 	dispatch_async(connectionQueue, ^{ @autoreleasepool {
 		
-		if (sender != httpResponse)
+		if (sender != self.httpResponse)
 		{
             HTTPLogWarn(@"[%p]: %@ - Sender is not current httpResponse", self, NSStringFromSelector(_cmd));
 			return;
 		}
 		
-		if (!sentResponseHeaders)
+		if (!self.sentResponseHeaders)
 		{
 			[self sendResponseHeadersAndBody];
 		}
 		else
 		{
-			if (ranges == nil)
+			if (self.ranges == nil)
 			{
 				[self continueSendingStandardResponseBody];
 			}
 			else
 			{
-				if ([ranges count] == 1)
+				if ([self.ranges count] == 1)
 					[self continueSendingSingleRangeResponseBody];
 				else
 					[self continueSendingMultiRangeResponseBody];
@@ -2511,13 +2359,13 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	
 	dispatch_async(connectionQueue, ^{ @autoreleasepool {
 		
-		if (sender != httpResponse)
+		if (sender != self.httpResponse)
 		{
             HTTPLogWarn(@"[%p]: %@ - Sender is not current httpResponse", self, NSStringFromSelector(_cmd));
 			return;
 		}
 		
-		[asyncSocket disconnectAfterWriting];
+		[self.asyncSocket disconnectAfterWriting];
 	}});
 }
 
@@ -2541,9 +2389,9 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	
 	request = nil;
 	
-	httpResponse = nil;
+	self.httpResponse = nil;
 	
-	ranges = nil;
+	self.ranges = nil;
 	ranges_headers = nil;
 	ranges_boundry = nil;
 }
@@ -2604,13 +2452,13 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 	// If you override this method, you should be prepared for this situation.
 	
 	// Inform the http response that we're done
-	if ([httpResponse respondsToSelector:@selector(connectionDidClose)])
+	if ([self.httpResponse respondsToSelector:@selector(connectionDidClose)])
 	{
-		[httpResponse connectionDidClose];
+		[self.httpResponse connectionDidClose];
 	}
 	
 	// Release the http response so we don't call it's connectionDidClose method again in our dealloc method
-	httpResponse = nil;
+	self.httpResponse = nil;
 	
 	// Post notification of dead connection
 	// This will allow our server to release us from its array of connections
@@ -2626,30 +2474,22 @@ static NSMutableDictionary *_s_path_handler_map = nil;
 @implementation HTTPConfig
 
 @synthesize server;
-@synthesize documentRoot;
 @synthesize queue;
 
-- (id)initWithServer:(HTTPServer *)aServer documentRoot:(NSString *)aDocumentRoot
+- (id)initWithServer:(HTTPServer *)aServer
 {
 	if ((self = [super init]))
 	{
 		server = aServer;
-		documentRoot = aDocumentRoot;
 	}
 	return self;
 }
 
-- (id)initWithServer:(HTTPServer *)aServer documentRoot:(NSString *)aDocumentRoot queue:(dispatch_queue_t)q
+- (id)initWithServer:(HTTPServer *)aServer queue:(dispatch_queue_t)q
 {
 	if ((self = [super init]))
 	{
 		server = aServer;
-		
-		documentRoot = [aDocumentRoot stringByStandardizingPath];
-		if ([documentRoot hasSuffix:@"/"])
-		{
-			documentRoot = [documentRoot stringByAppendingString:@"/"];
-		}
 		
 		if (q)
 		{

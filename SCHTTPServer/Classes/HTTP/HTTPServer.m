@@ -7,6 +7,40 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
+@interface HTTPServer ()
+{
+    void *IsOnServerQueueKey;
+    void *IsOnConnectionQueueKey;
+}
+
+// Underlying asynchronous TCP/IP socket
+@property GCDAsyncSocket * asyncSocket;
+
+// Dispatch queues
+@property dispatch_queue_t serverQueue;
+@property dispatch_queue_t connectionQueue;
+
+// HTTP server configuration
+@property Class connectionClass;
+@property NSString *interface;
+@property UInt16 port;
+
+// NSNetService and related variables
+@property NSNetService *netService;
+@property NSString *domain;
+@property NSString *type;
+@property NSString *name;
+@property (nonatomic) NSString *publishedName;
+@property NSDictionary *txtRecordDictionary;
+
+// Connection management
+@property NSMutableArray *connections;
+@property NSLock *connectionsLock;
+
+@property (nonatomic,getter=isRunning) BOOL running;
+
+@end
+
 @interface HTTPServer (PrivateAPI)
 
 - (void)unpublishBonjour;
@@ -23,6 +57,13 @@
 
 @implementation HTTPServer
 
+@synthesize connectionClass = _connectionClass;
+@synthesize port = _port;
+@synthesize domain = _domain;
+@synthesize name = _name;
+@synthesize interface = _interface;
+@synthesize type = _type;
+
 /**
  * Standard Constructor.
  * Instantiates an HTTP server, but does not start it.
@@ -33,44 +74,44 @@
 	{
 		HTTPLogTrace();
 		// Setup underlying dispatch queues
-		serverQueue = dispatch_queue_create("HTTPServer", NULL);
-		connectionQueue = dispatch_queue_create("HTTPConnection", NULL);
+		_serverQueue = dispatch_queue_create("HTTPServer", NULL);
+		_connectionQueue = dispatch_queue_create("HTTPConnection", NULL);
 		
 		IsOnServerQueueKey = &IsOnServerQueueKey;
 		IsOnConnectionQueueKey = &IsOnConnectionQueueKey;
 		
 		void *nonNullUnusedPointer = (__bridge void *)self; // Whatever, just not null
 		
-		dispatch_queue_set_specific(serverQueue, IsOnServerQueueKey, nonNullUnusedPointer, NULL);
-		dispatch_queue_set_specific(connectionQueue, IsOnConnectionQueueKey, nonNullUnusedPointer, NULL);
+		dispatch_queue_set_specific(_serverQueue, IsOnServerQueueKey, nonNullUnusedPointer, NULL);
+		dispatch_queue_set_specific(_connectionQueue, IsOnConnectionQueueKey, nonNullUnusedPointer, NULL);
 		
 		// Initialize underlying GCD based tcp socket
-		asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:(id)self delegateQueue:serverQueue];
+		_asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:(id)self delegateQueue:_serverQueue];
 		
 		// Use default connection class of HTTPConnection
-		connectionClass = [HTTPConnection self];
+		_connectionClass = [HTTPConnection self];
 		
 		// By default bind on all available interfaces, en1, wifi etc
-		interface = nil;
+		_interface = nil;
 		
 		// Use a default port of 0
 		// This will allow the kernel to automatically pick an open port for us
-		port = 0;
+		_port = 0;
 		
 		// Configure default values for bonjour service
 		
 		// Bonjour domain. Use the local domain by default
-		domain = @"local.";
+		_domain = @"local.";
 		
 		// If using an empty string ("") for the service name when registering,
 		// the system will automatically use the "Computer Name".
 		// Passing in an empty string will also handle name conflicts
 		// by automatically appending a digit to the end of the name.
-		name = @"";
+		_name = @"";
 		
 		// Initialize arrays to hold all the HTTP and webSocket connections
-		connections = [[NSMutableArray alloc] init];
-		connectionsLock = [[NSLock alloc] init];
+		_connections = [[NSMutableArray alloc] init];
+		_connectionsLock = [[NSLock alloc] init];
 		
 		// Register for notifications of closed connections
 		[[NSNotificationCenter defaultCenter] addObserver:self
@@ -78,7 +119,7 @@
 		                                             name:HTTPConnectionDidDieNotification
 		                                           object:nil];
 		
-		isRunning = NO;
+		_running = NO;
 	}
 	return self;
 }
@@ -100,53 +141,16 @@
 	// Release all instance variables
 	
 	#if !OS_OBJECT_USE_OBJC
-	dispatch_release(serverQueue);
-	dispatch_release(connectionQueue);
+	dispatch_release(_serverQueue);
+	dispatch_release(_connectionQueue);
 	#endif
 	
-	[asyncSocket setDelegate:nil delegateQueue:NULL];
+	[_asyncSocket setDelegate:nil delegateQueue:NULL];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Server Configuration
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * The document root is filesystem root for the webserver.
- * Thus requests for /index.html will be referencing the index.html file within the document root directory.
- * All file requests are relative to this document root.
-**/
-- (NSString *)documentRoot
-{
-	__block NSString *result;
-	
-	dispatch_sync(serverQueue, ^{
-		result = documentRoot;
-	});
-	
-	return result;
-}
-
-- (void)setDocumentRoot:(NSString *)value
-{
-	HTTPLogTrace();
-	
-	// Document root used to be of type NSURL.
-	// Add type checking for early warning to developers upgrading from older versions.
-	
-	if (value && ![value isKindOfClass:[NSString class]])
-	{
-        HTTPLogWarn(@"Expecting NSString parameter, received %@ parameter",value);
-		return;
-	}
-	
-	NSString *valueCopy = [value copy];
-	
-	dispatch_async(serverQueue, ^{
-		documentRoot = valueCopy;
-	});
-	
-}
 
 /**
  * The connection class is the class that will be used to handle connections.
@@ -158,8 +162,8 @@
 {
 	__block Class result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = connectionClass;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_connectionClass;
 	});
 	
 	return result;
@@ -169,8 +173,8 @@
 {
 	HTTPLogTrace();
 	
-	dispatch_async(serverQueue, ^{
-		connectionClass = value;
+	dispatch_async(_serverQueue, ^{
+        self->_connectionClass = value;
 	});
 }
 
@@ -181,8 +185,8 @@
 {
 	__block NSString *result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = interface;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_interface;
 	});
 	
 	return result;
@@ -192,8 +196,8 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(serverQueue, ^{
-		interface = valueCopy;
+	dispatch_async(_serverQueue, ^{
+        self->_interface = valueCopy;
 	});
 	
 }
@@ -207,8 +211,8 @@
 {
 	__block UInt16 result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = port;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_port;
 	});
 	
     return result;
@@ -218,9 +222,9 @@
 {
 	__block UInt16 result;
 	
-	dispatch_sync(serverQueue, ^{
-		if (isRunning)
-			result = [asyncSocket localPort];
+	dispatch_sync(_serverQueue, ^{
+		if (self.isRunning)
+			result = [self.asyncSocket localPort];
 		else
 			result = 0;
 	});
@@ -232,8 +236,8 @@
 {
 	HTTPLogTrace();
 	
-	dispatch_async(serverQueue, ^{
-		port = value;
+	dispatch_async(_serverQueue, ^{
+        self->_port = value;
 	});
 }
 
@@ -245,8 +249,8 @@
 {
 	__block NSString *result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = domain;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_domain;
 	});
 	
     return result;
@@ -258,8 +262,8 @@
 	
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(serverQueue, ^{
-		domain = valueCopy;
+	dispatch_async(_serverQueue, ^{
+        self->_domain = valueCopy;
 	});
 	
 }
@@ -273,8 +277,8 @@
 {
 	__block NSString *result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = name;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_name;
 	});
 	
 	return result;
@@ -284,9 +288,9 @@
 {
 	__block NSString *result;
 	
-	dispatch_sync(serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
 		
-		if (netService == nil)
+		if (self.netService == nil)
 		{
 			result = nil;
 		}
@@ -294,7 +298,7 @@
 		{
 			
 			dispatch_block_t bonjourBlock = ^{
-				result = [[netService name] copy];
+				result = [[self.netService name] copy];
 			};
 			
 			[[self class] performBonjourBlock:bonjourBlock];
@@ -308,8 +312,8 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(serverQueue, ^{
-		name = valueCopy;
+	dispatch_async(_serverQueue, ^{
+        self->_name = valueCopy;
 	});
 	
 }
@@ -322,8 +326,8 @@
 {
 	__block NSString *result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = type;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_type;
 	});
 	
 	return result;
@@ -333,8 +337,8 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(serverQueue, ^{
-		type = valueCopy;
+	dispatch_async(_serverQueue, ^{
+        self->_type = valueCopy;
 	});
 	
 }
@@ -346,8 +350,8 @@
 {
 	__block NSDictionary *result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = txtRecordDictionary;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_txtRecordDictionary;
 	});
 	
 	return result;
@@ -359,17 +363,17 @@
 	
 	NSDictionary *valueCopy = [value copy];
 	
-	dispatch_async(serverQueue, ^{
+	dispatch_async(_serverQueue, ^{
 	
-		txtRecordDictionary = valueCopy;
+		self.txtRecordDictionary = valueCopy;
 		
 		// Update the txtRecord of the netService if it has already been published
-		if (netService)
+		if (self.netService)
 		{
-			NSNetService *theNetService = netService;
+			NSNetService *theNetService = self.netService;
 			NSData *txtRecordData = nil;
-			if (txtRecordDictionary)
-				txtRecordData = [NSNetService dataFromTXTRecordDictionary:txtRecordDictionary];
+			if (self.txtRecordDictionary)
+				txtRecordData = [NSNetService dataFromTXTRecordDictionary:self.txtRecordDictionary];
 			
 			dispatch_block_t bonjourBlock = ^{
 				[theNetService setTXTRecordData:txtRecordData];
@@ -392,14 +396,16 @@
 	__block BOOL success = YES;
 	__block NSError *err = nil;
 	
-	dispatch_sync(serverQueue, ^{ @autoreleasepool {
+    NSString *inInterface = _interface;
+    uint16_t port = _port;
+	dispatch_sync(_serverQueue, ^{ @autoreleasepool {
 		
-		success = [asyncSocket acceptOnInterface:interface port:port error:&err];
+        success = [self.asyncSocket acceptOnInterface:inInterface port:port error:&err];
 		if (success)
 		{
-			HTTPLogInfo(@"Started HTTP server on port %hu", [asyncSocket localPort]);
+			HTTPLogInfo(@"Started HTTP server on port %hu", [self.asyncSocket localPort]);
 			
-			isRunning = YES;
+			self.running = YES;
 			[self publishBonjour];
 		}
 		else
@@ -423,25 +429,25 @@
 {
 	HTTPLogTrace();
 	
-	dispatch_sync(serverQueue, ^{ @autoreleasepool {
+	dispatch_sync(_serverQueue, ^{ @autoreleasepool {
 		
 		// First stop publishing the service via bonjour
 		[self unpublishBonjour];
 		
 		// Stop listening / accepting incoming connections
-		[asyncSocket disconnect];
-		isRunning = NO;
+		[self.asyncSocket disconnect];
+		self.running = NO;
 		
 		if (!keepExistingConnections)
 		{
 			// Stop all HTTP connections the server owns
-			[connectionsLock lock];
-			for (HTTPConnection *connection in connections)
+			[self.connectionsLock lock];
+			for (HTTPConnection *connection in self.connections)
 			{
 				[connection stop];
 			}
-			[connections removeAllObjects];
-			[connectionsLock unlock];
+			[self.connections removeAllObjects];
+			[self.connectionsLock unlock];
 		}
 	}});
 }
@@ -450,8 +456,8 @@
 {
 	__block BOOL result;
 	
-	dispatch_sync(serverQueue, ^{
-		result = isRunning;
+	dispatch_sync(_serverQueue, ^{
+        result = self->_running;
 	});
 	
 	return result;
@@ -468,9 +474,9 @@
 {
 	NSUInteger result = 0;
 	
-	[connectionsLock lock];
-	result = [connections count];
-	[connectionsLock unlock];
+	[self.connectionsLock lock];
+	result = [self.connections count];
+	[self.connectionsLock unlock];
 	
 	return result;
 }
@@ -492,16 +498,16 @@
 	// Try the apache benchmark tool (already installed on your Mac):
 	// $  ab -n 1000 -c 1 http://localhost:<port>/some_path.html
 	
-	return [[HTTPConfig alloc] initWithServer:self documentRoot:documentRoot queue:connectionQueue];
+	return [[HTTPConfig alloc] initWithServer:self queue:self.connectionQueue];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
-	HTTPConnection *newConnection = (HTTPConnection *)[[connectionClass alloc] initWithAsyncSocket:newSocket
+	HTTPConnection *newConnection = (HTTPConnection *)[[_connectionClass alloc] initWithAsyncSocket:newSocket
 	                                                                                 configuration:[self config]];
-	[connectionsLock lock];
-	[connections addObject:newConnection];
-	[connectionsLock unlock];
+	[self.connectionsLock lock];
+	[self.connections addObject:newConnection];
+	[self.connectionsLock unlock];
 	
 	[newConnection start];
 }
@@ -516,15 +522,15 @@
 	
 	NSAssert(dispatch_get_specific(IsOnServerQueueKey) != NULL, @"Must be on serverQueue");
 	
-	if (type)
+	if (_type)
 	{
-		netService = [[NSNetService alloc] initWithDomain:domain type:type name:name port:[asyncSocket localPort]];
-		[netService setDelegate:self];
+		self.netService = [[NSNetService alloc] initWithDomain:_domain type:_type name:_name port:[self.asyncSocket localPort]];
+		[self.netService setDelegate:self];
 		
-		NSNetService *theNetService = netService;
+		NSNetService *theNetService = self.netService;
 		NSData *txtRecordData = nil;
-		if (txtRecordDictionary)
-			txtRecordData = [NSNetService dataFromTXTRecordDictionary:txtRecordDictionary];
+		if (_txtRecordDictionary)
+			txtRecordData = [NSNetService dataFromTXTRecordDictionary:_txtRecordDictionary];
 		
 		dispatch_block_t bonjourBlock = ^{
 			
@@ -551,9 +557,9 @@
 	
 	NSAssert(dispatch_get_specific(IsOnServerQueueKey) != NULL, @"Must be on serverQueue");
 	
-	if (netService)
+	if (self.netService)
 	{
-		NSNetService *theNetService = netService;
+		NSNetService *theNetService = self.netService;
 		
 		dispatch_block_t bonjourBlock = ^{
 			
@@ -562,7 +568,7 @@
 		
 		[[self class] performBonjourBlock:bonjourBlock];
 		
-		netService = nil;
+		self.netService = nil;
 	}
 }
 
@@ -574,7 +580,7 @@
 {
 	HTTPLogTrace();
 	
-	dispatch_async(serverQueue, ^{
+	dispatch_async(_serverQueue, ^{
 		
 		[self unpublishBonjour];
 		[self publishBonjour];
@@ -620,12 +626,12 @@
 {
 	// Note: This method is called on the connection queue that posted the notification
 	
-	[connectionsLock lock];
+	[self.connectionsLock lock];
 	
 	HTTPLogTrace();
-	[connections removeObject:[notification object]];
+	[self.connections removeObject:[notification object]];
 	
-	[connectionsLock unlock];
+	[self.connectionsLock unlock];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
