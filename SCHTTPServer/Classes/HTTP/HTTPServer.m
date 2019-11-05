@@ -23,7 +23,7 @@
 // HTTP server configuration
 @property Class connectionClass;
 @property NSString *interface;
-@property UInt16 port;
+@property uint16_t port;
 
 // NSNetService and related variables
 @property NSNetService *netService;
@@ -173,7 +173,7 @@
 {
 	HTTPLogTrace();
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_connectionClass = value;
 	});
 }
@@ -196,7 +196,7 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_interface = valueCopy;
 	});
 	
@@ -207,9 +207,9 @@
  * By default this port is initially set to zero, which allows the kernel to pick an available port for us.
  * After the HTTP server has started, the port being used may be obtained by this method.
 **/
-- (UInt16)port
+- (uint16_t)port
 {
-	__block UInt16 result;
+	__block uint16_t result;
 	
 	dispatch_sync(_serverQueue, ^{
         result = self->_port;
@@ -218,9 +218,9 @@
     return result;
 }
 
-- (UInt16)listeningPort
+- (uint16_t)listeningPort
 {
-	__block UInt16 result;
+	__block uint16_t result;
 	
 	dispatch_sync(_serverQueue, ^{
 		if (self.isRunning)
@@ -232,11 +232,11 @@
 	return result;
 }
 
-- (void)setPort:(UInt16)value
+- (void)setPort:(uint16_t)value
 {
 	HTTPLogTrace();
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_port = value;
 	});
 }
@@ -262,7 +262,7 @@
 	
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_domain = valueCopy;
 	});
 	
@@ -312,7 +312,7 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_name = valueCopy;
 	});
 	
@@ -337,7 +337,7 @@
 {
 	NSString *valueCopy = [value copy];
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
         self->_type = valueCopy;
 	});
 	
@@ -363,7 +363,7 @@
 	
 	NSDictionary *valueCopy = [value copy];
 	
-	dispatch_async(_serverQueue, ^{
+	dispatch_sync(_serverQueue, ^{
 	
 		self.txtRecordDictionary = valueCopy;
 		

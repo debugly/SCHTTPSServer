@@ -305,6 +305,10 @@ static void unlockKeyChain()
     static SecIdentityRef cert_and_key = NULL;
     
     if (!cert_and_key) {
+        
+        NSAssert(p12Path, @"p12 can't be nil!");
+        NSAssert(p12Pwd, @"p12 pwd can't be nil!");
+        
         HTTPLogInfo(@"Create SecIdentityRef from PKCS12 file!");
         CopyIdentityFromPKCS12File(p12Path, p12Pwd, &cert_and_key);
         CFRetain(cert_and_key);

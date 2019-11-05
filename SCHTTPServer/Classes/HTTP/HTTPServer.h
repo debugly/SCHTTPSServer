@@ -42,9 +42,9 @@
  * The listeningPort method will always return the port number the running server is listening for connections on.
  * If the server is not running this method returns 0.
 **/
-- (UInt16)port;
-- (UInt16)listeningPort;
-- (void)setPort:(UInt16)value;
+- (uint16_t)port;
+- (uint16_t)listeningPort;
+- (void)setPort:(uint16_t)value;
 
 /**
  * Bonjour domain for publishing the service.

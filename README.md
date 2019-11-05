@@ -22,6 +22,7 @@ pod 'SCHTTPServer'
 - 0.1.3 Fix display a password dialog problem.
 - 0.1.4 Support JSONP response.
 - 0.1.5 Fix warnings,remove file response.
+- 0.1.6 Fix async setter bug,when setPort before start,maybe not effect.
 
 ## License
 
